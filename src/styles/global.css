@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
  
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -73,4 +74,10 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+body{
+  font-family: 'Inter', sans-serif;
+}
+.waitlist-width{
+  width: 400px;
 }
