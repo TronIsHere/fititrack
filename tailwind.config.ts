@@ -22,9 +22,12 @@ export default module.exports = {
           300: "#737B95",
           200: "#ADB5CE",
         },
+        palletYellow: {
+          200: "#E9D5AF",
+          700: "#B8821B",
+        },
         palletGreen: {
           200: "#92EBAB",
-
           800: "#0E6F29",
         },
         palletPurple: {

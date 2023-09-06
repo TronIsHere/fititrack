@@ -6,7 +6,6 @@ declare global {
 const username = encodeURIComponent("erwinaghajani");
 const password = encodeURIComponent("V17JVklEovSPMmZR");
 const MONGODB_URI = `mongodb+srv://${username}:${password}@waitlist.noda7vz.mongodb.net/`;
-console.log(MONGODB_URI);
 
 if (!MONGODB_URI) {
   throw new Error(

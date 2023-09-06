@@ -9,7 +9,8 @@ const WaitlistSchema = new mongoose.Schema<Waitlist>({
   email: {
     type: String,
     required: [true, "Please provide an email"],
-    maxlength: [3, "Email cannot be less than 3 characters"],
+    minlength: [3, "Email cannot be less than 3 characters"],
+    unique: true,
   },
 });
 
