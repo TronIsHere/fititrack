@@ -12,6 +12,7 @@ const WaitlistPage: NextPage = () => {
   const { toast } = useToast();
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const submitHandler = async () => {
     if (email.match(/\S+@\S+\.\S+/) === null) {
       toast({
@@ -20,14 +21,17 @@ const WaitlistPage: NextPage = () => {
       });
       return;
     }
+    setLoading(true);
     let sendEmail = await axios.post("/api/waitlist", { email });
     if (sendEmail.data.duplicated) {
+      setLoading(false);
       toast({
         variant: "warning",
         description: "This email is registered.",
       });
       return;
     } else if (!sendEmail.data.success) {
+      setLoading(false);
       toast({
         variant: "destructive",
         description: "Something went wrong... try again later.",
@@ -66,10 +70,11 @@ const WaitlistPage: NextPage = () => {
             required
           />
           <button
-            className="bg-palletPurple-500 text-white mt-12 p-2 rounded-lg"
+            className="bg-palletPurple-500 text-white mt-12 p-2 rounded-lg flex justify-center"
             onClick={submitHandler}
+            disabled={loading}
           >
-            Join the waitlist
+            {loading ? <div className="loader"></div> : "Join the waitlist"}
           </button>
         </div>
       </div>
