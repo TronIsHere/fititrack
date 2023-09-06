@@ -45,7 +45,7 @@ const WaitlistPage: NextPage = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-screen ">
       <div className="flex items-center justify-center flex-col ">
-        <div className="flex flex-row items-start">
+        <div className="flex flex-row items-start pt-10 md:pt-0">
           <Image src="/images/logo.svg" alt="" width={200} height={60} />
           <span className="bg-palletGreen-200 mt-1.5 rounded-xl block  px-6 ml-5 p-1 text-palletGreen-800">
             Coming soon!
