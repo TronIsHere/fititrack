@@ -25,19 +25,18 @@ export default async function handler(
       }
       break;
     case "POST":
-      res.json(req.body);
-      // try {
-      //   console.log(req.body.email);
-      //   const email = await waitlist.create({
-      //     email: req.body.email,
-      //   }); /* create a new model in the database */
-      //   res.status(201).json({ success: true, data: email });
-      // } catch (error: any) {
-      //   if (error.code == 11000) {
-      //     res.json({ success: false, duplicated: true });
-      //   }
-      //   res.json({ success: false });
-      // }
+      try {
+        console.log(req.body.email);
+        const email = await waitlist.create({
+          email: req.body.email,
+        }); /* create a new model in the database */
+        res.status(201).json({ success: true, data: email });
+      } catch (error: any) {
+        if (error.code == 11000) {
+          res.json({ success: false, duplicated: true });
+        }
+        res.json({ success: false });
+      }
       break;
     default:
       res.json({ success: false });
