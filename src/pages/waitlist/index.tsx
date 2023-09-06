@@ -52,8 +52,10 @@ const WaitlistPage: NextPage = () => {
             Get early access
           </h1>
           <h4 className="text-palletGray-200 font-normal mt-6">
-            Join the waitlist for early access and claim your 1 month premium
-            for free!
+            Join the waitlist for early access and claim your{" "}
+            <span className="text-palletPurple-500">
+              1 month premium for free!
+            </span>
           </h4>
           <span className="mt-6">Email</span>
           <input
