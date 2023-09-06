@@ -27,6 +27,9 @@ const JoinedPage: NextPage = () => {
           variant: "destructive",
           description: "Something went wrong... try again later.",
         });
+        setTimeout(() => {
+          router.push("/waitlist");
+        }, 2000);
       }
     };
     getWaitlistNumbers();
