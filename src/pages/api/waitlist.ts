@@ -26,12 +26,12 @@ export default async function handler(
       break;
     case "POST":
       try {
-        console.log(req.body.email);
         const email = await waitlist.create({
           email: req.body.email,
         }); /* create a new model in the database */
         res.status(201).json({ success: true, data: email });
       } catch (error: any) {
+        console.log(error);
         if (error.code == 11000) {
           res.json({ success: false, duplicated: true });
         }
