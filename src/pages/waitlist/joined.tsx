@@ -12,7 +12,6 @@ import { getCookie } from "cookies-next";
 const JoinedPage: NextPage = () => {
   const { toast } = useToast();
   const router = useRouter();
-  const [isVisible, setIsVisible] = useState(true);
   const [waitlistAmount, setWaitlistAmount] = useState<number>(0);
   useEffect(() => {
     if (getCookie("waitlist") === undefined) {
@@ -56,7 +55,7 @@ const JoinedPage: NextPage = () => {
           <h4 className="text-palletGray-300 font-normal mt-6">
             Keep an eye on your inbox for updates
           </h4>
-          {isVisible && <Confetti />}
+          <Confetti />
         </div>
       </div>
       <div className="bg-palletGray-100 flex items-center">
