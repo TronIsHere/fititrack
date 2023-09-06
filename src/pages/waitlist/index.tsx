@@ -46,7 +46,12 @@ const WaitlistPage: NextPage = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 h-screen ">
       <div className="flex items-center justify-center flex-col ">
         <div className="flex flex-row items-start pt-10 md:pt-0">
-          <Image src="/images/logo.svg" alt="" width={200} height={60} />
+          <Image
+            src="/images/logo.svg"
+            alt="fitittrack image logo "
+            width={200}
+            height={60}
+          />
           <span className="bg-palletGreen-200 mt-1.5 rounded-xl block  px-6 ml-5 p-1 text-palletGreen-800">
             Coming soon!
           </span>
@@ -55,12 +60,12 @@ const WaitlistPage: NextPage = () => {
           <h1 className="text-3xl font-semibold text-palletPurple-800">
             Get early access
           </h1>
-          <h4 className="text-palletGray-200 font-normal mt-6">
+          <h2 className="text-palletGray-200 font-normal mt-6">
             Join the waitlist for early access and claim your{" "}
             <span className="text-palletPurple-500">
               1 month premium for free!
             </span>
-          </h4>
+          </h2>
           <span className="mt-6">Email</span>
           <input
             type="email"
@@ -82,7 +87,7 @@ const WaitlistPage: NextPage = () => {
         <div className="relative overflow-hidden">
           <img
             src="/images/waitlist.png"
-            alt="background-image"
+            alt="background-image for right side of the panel"
             className="ml-40"
           />
         </div>
