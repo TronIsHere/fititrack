@@ -31,9 +31,9 @@ export default async function handler(
         }); /* create a new model in the database */
         res.status(201).json({ success: true, data: email });
       } catch (error: any) {
-        console.log(error);
         if (error.code == 11000) {
           res.json({ success: false, duplicated: true });
+          return;
         }
         res.json({ success: false });
       }
