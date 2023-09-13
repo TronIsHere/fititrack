@@ -8,8 +8,10 @@ import { cookies } from "next/headers";
 import { useRouter } from "next/router";
 import { redirect } from "next/navigation";
 import { getCookie } from "cookies-next";
+import waitlist from "@/models/waitlist";
+import dbConnect from "@/lib/dbConnect";
 
-const JoinedPage: NextPage = () => {
+const JoinedPage: NextPage = (props: any) => {
   const { toast } = useToast();
   const router = useRouter();
   const [waitlistAmount, setWaitlistAmount] = useState<number>(0);
@@ -17,22 +19,15 @@ const JoinedPage: NextPage = () => {
     if (getCookie("waitlist") === undefined) {
       router.push("/waitlist");
     }
-    const getWaitlistNumbers = async () => {
-      let amount = await axios.get("/api/waitlist");
-      console.log(amount, 1);
-      if (amount.data.success) {
-        setWaitlistAmount(amount.data.data);
-      } else {
-        toast({
-          variant: "destructive",
-          description: "Something went wrong... try again later.",
-        });
-        setTimeout(() => {
-          router.push("/waitlist");
-        }, 1000);
-      }
-    };
-    getWaitlistNumbers();
+    if (props.joinedAmount == null || undefined) {
+      toast({
+        variant: "destructive",
+        description: "Something went wrong... try again later.",
+      });
+      setTimeout(() => {
+        router.push("/waitlist");
+      }, 1000);
+    }
   }, []);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-screen ">
@@ -46,8 +41,8 @@ const JoinedPage: NextPage = () => {
         <div className="flex flex-col mt-12 ml-6 p-5 md:p-0  waitlist-width">
           <h1 className="text-3xl font-semibold text-palletPurple-800">
             Your are one of the{" "}
-            <span className="text-palletPurple-500">#{waitlistAmount}</span> who
-            joined.
+            <span className="text-palletPurple-500">#{props.joinedAmount}</span>{" "}
+            who joined.
           </h1>
           <h4 className="text-palletGray-300 font-normal mt-6">
             Thank your for joining the waitlist .
@@ -73,5 +68,15 @@ const JoinedPage: NextPage = () => {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  await dbConnect();
+  const emails = await waitlist.find({});
+  return {
+    props: {
+      joinedAmount: emails.length,
+    },
+  };
+}
 
 export default JoinedPage;
