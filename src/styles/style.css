@@ -2,3 +2,6 @@ input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     @apply text-palletGray-100/* Firefox */
   }
   
+.custom-background{
+  background-color: #f5f4f4;
+}

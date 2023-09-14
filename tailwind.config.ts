@@ -34,6 +34,7 @@ export default module.exports = {
           800: "#070475",
           500: "#3E3ADB",
         },
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

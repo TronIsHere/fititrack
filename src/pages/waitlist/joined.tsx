@@ -1,5 +1,5 @@
 import Confetti from "@/components/confetti";
-import { useToast } from "@/components/ui/use-toast";
+
 import axios from "axios";
 import { NextPage } from "next";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import { redirect } from "next/navigation";
 import { getCookie } from "cookies-next";
 import waitlist from "@/models/waitlist";
 import dbConnect from "@/lib/dbConnect";
+import { useToast } from "@/components/ui/toasts/use-toast";
 
 const JoinedPage: NextPage = (props: any) => {
   const { toast } = useToast();
