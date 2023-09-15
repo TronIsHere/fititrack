@@ -3,6 +3,7 @@ import "@/styles/global.css";
 import "@/styles/style.css";
 import { NextPage } from "next";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { ReactNode } from "react";
 
 type Page<P = {}> = NextPage<P> & {
@@ -17,6 +18,40 @@ export default function App({ Component, pageProps }: Props) {
   const getLayout = Component.getLayout || ((page: ReactNode) => page);
   return (
     <>
+      <Head>
+        <title>Fitittrack</title>
+        <meta
+          name="description"
+          content="Level Up Your Health with Fititrack: The Ultimate Fitness Gamification App!"
+        />
+        <meta
+          name="twitter:title"
+          content="Level Up Your Health with Fititrack: The Ultimate Fitness Gamification App!"
+        />
+        <meta
+          name="twitter:description"
+          content="Level Up Your Health with Fititrack: The Ultimate Fitness Gamification App!"
+        />
+        {/* <meta name="twitter:image" content="/images/waitlist.png" /> */}
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/images/favicon/apple-touch-icon.png"
+        ></link>
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/images/favicon/favicon-32x32.png"
+        ></link>
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/images/favicon/favicon-16x16.png"
+        ></link>
+        <link rel="manifest" href="/images/favicon/site.webmanifest"></link>
+      </Head>
       <Toaster />
       {getLayout(<Component {...pageProps} />)}
     </>
