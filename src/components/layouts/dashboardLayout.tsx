@@ -12,7 +12,7 @@ const DashboardLayout: NextPage<LayoutProps> = ({ children }) => {
       <aside className="flex-[2]">
         <SidebarComponent />
       </aside>
-      <div className="flex-[8] p-4 rounded min-h-[300px] custom-background">
+      <div className="flex-[8] p-4 pl-6 rounded min-h-[300px] custom-background">
         {children}
       </div>
     </div>

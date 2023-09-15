@@ -19,8 +19,8 @@ export default module.exports = {
       colors: {
         palletGray: {
           100: "#D5DBED",
-          300: "#737B95",
           200: "#ADB5CE",
+          300: "#737B95",
         },
         palletYellow: {
           200: "#E9D5AF",
@@ -32,8 +32,10 @@ export default module.exports = {
         },
         palletPurple: {
           200: "#B7B6EB",
-          800: "#070475",
           500: "#3E3ADB",
+          400: "#5955ED",
+          800: "#070475",
+          900: "#02003D",
         },
 
         border: "hsl(var(--border))",
