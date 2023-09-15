@@ -3,7 +3,7 @@ import { MyPage } from "@/components/types/nextjs";
 import { NextPage } from "next";
 import { ReactNode } from "react";
 
-const dashboard: MyPage = () => {
+const DashboardPage: MyPage = () => {
   return (
     <>
       <div className="">test</div>
@@ -11,7 +11,7 @@ const dashboard: MyPage = () => {
   );
 };
 
-dashboard.getLayout = (page: any) => {
+DashboardPage.getLayout = (page: any) => {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
-export default dashboard;
+export default DashboardPage;
