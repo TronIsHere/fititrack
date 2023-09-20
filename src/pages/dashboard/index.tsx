@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
 import { GiWeightScale } from "react-icons/gi";
-import { FaBedPulse } from "react-icons/fa6";
+import { FaBedPulse, FaMedal, FaCheck } from "react-icons/fa6";
 import { AiFillBuild } from "react-icons/ai";
 const DashboardPage: MyPage = () => {
   return (
@@ -98,6 +98,104 @@ const DashboardPage: MyPage = () => {
                     character
                   </p>
                   <span className="font-bold ml-12 mt-4">Level 1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-7 mt-6 gap-6">
+          <div className="col-span-5">
+            <div className="bg-white w-full rounded-xl p-5">
+              <div className="flex justify-between">
+                <span className=" pt-1 font-medium">Upper body</span>
+                <div className="w-6 h-6 border-2 rounded-lg cursor-pointer border-palletGray-100 mt-1"></div>
+              </div>
+              <div className="grid grid-cols-5 w-full mt-8">
+                <div className="col-span-1 flex flex-col items-center">
+                  <div className="flex items-end">
+                    <span className="font-semibold text-3xl">52</span>
+                    <span className="text-palletGray-200">%</span>
+                  </div>
+                  <span className="text-palletGray-200 font-normal text-sm mt-4">
+                    Consistency
+                  </span>
+                </div>
+                <div className="col-span-1 flex flex-col items-center">
+                  <div className="flex items-end">
+                    <span className="font-semibold text-3xl">0</span>
+                    <span className="text-palletGray-200">days</span>
+                  </div>
+                  <span className="text-palletGray-200 font-normal text-sm mt-4">
+                    Streak
+                  </span>
+                </div>
+                <div className="col-span-1 flex flex-col items-center">
+                  <div className="flex items-end">
+                    <span className="font-semibold text-3xl">0</span>
+                    <span className="text-palletGray-200"></span>
+                  </div>
+                  <span className="text-palletGray-200 font-normal text-sm mt-4">
+                    Check-ins
+                  </span>
+                </div>
+                <div className="col-span-2 flex flex-col items-center justify-end">
+                  <div className="flex">
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                  </div>
+                  <div className="flex">
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                  </div>
+                  <div className="flex">
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                    <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-span-2">
+            <div className="bg-white w-full rounded-xl p-5">
+              <div className="flex">
+                <FaMedal color="#5955ED" size={28} />
+                <span className="pl-4 pt-1 font-medium">Missions</span>
+              </div>
+              <div className="flex mt-5 pl-2 justify-between">
+                <span className="text-sm ">10 minutes cardio</span>
+                <div className="w-6 h-6 border-2 rounded-lg cursor-pointer border-palletGray-100"></div>
+              </div>
+              <div className="flex mt-5 pl-2 justify-between">
+                <span className="text-sm ">10 minutes cardio</span>
+                <div className="w-6 h-6 border-2 rounded-lg cursor-pointer border-palletGray-100"></div>
+              </div>
+              <div className="flex mt-5 pl-2 justify-between">
+                <span className="text-sm line-through text-palletGreen-600">
+                  10 minutes cardio
+                </span>
+                <div className="w-6 h-6 border-2 rounded-lg cursor-pointer border-palletGreen-600 bg-palletGreen-600 flex justify-center items-center">
+                  <FaCheck color="#fff" size={14} />
                 </div>
               </div>
             </div>
