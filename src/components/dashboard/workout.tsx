@@ -1,9 +1,27 @@
-const WorkoutComponent = () => {
+import { NextPage } from "next";
+import { MdDeleteOutline } from "react-icons/md";
+import { BiSolidEdit } from "react-icons/bi";
+interface workoutProps {
+  editEnabled?: boolean;
+}
+
+const WorkoutComponent: NextPage<workoutProps> = ({ editEnabled }) => {
   return (
     <div className="bg-white w-full rounded-xl p-5 mb-6">
       <div className="flex justify-between">
         <span className=" pt-1 font-medium">Upper body</span>
-        <div className="w-6 h-6 border-2 rounded-lg cursor-pointer border-palletGray-100 mt-1"></div>
+        {editEnabled ? (
+          <div className="">
+            <button className="text-palletRed-500">
+              <MdDeleteOutline size={24} />
+            </button>
+            <button className="text-palletGray-300 ml-5">
+              <BiSolidEdit size={24} />
+            </button>
+          </div>
+        ) : (
+          <div className="w-6 h-6 border-2 rounded-lg cursor-pointer border-palletGray-100 mt-1"></div>
+        )}
       </div>
       <div className="grid grid-cols-5 w-full mt-8">
         <div className="col-span-1 flex flex-col items-center">

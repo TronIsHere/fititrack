@@ -13,7 +13,7 @@ const WorkoutsPage: MyPage = () => {
               Add
             </button>
           </div>
-          <WorkoutComponent />
+          <WorkoutComponent editEnabled={true} />
           <WorkoutComponent />
           <WorkoutComponent />
         </div>
