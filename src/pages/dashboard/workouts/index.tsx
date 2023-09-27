@@ -14,8 +14,8 @@ const WorkoutsPage: MyPage = () => {
             </button>
           </div>
           <WorkoutComponent editEnabled={true} />
-          <WorkoutComponent />
-          <WorkoutComponent />
+          <WorkoutComponent editEnabled={true} />
+          <WorkoutComponent editEnabled={true} />
         </div>
         <div className="col-span-2"></div>
       </div>
