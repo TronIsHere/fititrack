@@ -2,6 +2,7 @@ import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const SettingsPage: MyPage = () => {
   return (
@@ -28,7 +29,27 @@ const SettingsPage: MyPage = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="general">
-                Make changes to your account here.
+                <div className="pl-2 pt-4 flex justify-between items-center pr-2">
+                  <div className="flex">
+                    <div>
+                      <Avatar className="w-16 h-16">
+                        <AvatarImage src="https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/f446d7a2a155c6120742978fb528fb82.jpe" />
+                        <AvatarFallback>EA</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div className="flex flex-col justify-center pl-4">
+                      <span className="font-semibold text-palletPurple-900">
+                        Erwin Aghajani
+                      </span>
+                      <span className="text-palletGray-200 text-sm mt-1">
+                        erwin.aghajani@gmail.com
+                      </span>
+                    </div>
+                  </div>
+                  <button className="text-sm bg-palletPurple-300 text-white h-10 rounded-md px-2">
+                    Change avatar
+                  </button>
+                </div>
               </TabsContent>
               <TabsContent value="billing">
                 Change your password here.
