@@ -1,9 +1,8 @@
 import DashboardLayout from "@/components/layouts/dashboardLayout";
-import { MyPage } from "@/components/types/nextjs";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import BillHistoryComponent from "@/components/settings/billHistory";
+import { MyPage } from "@/components/types/nextjs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const SettingsPage: MyPage = () => {
   return (
