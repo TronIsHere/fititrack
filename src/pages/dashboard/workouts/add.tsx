@@ -1,16 +1,12 @@
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
-import { BsFillCaretDownFill } from "react-icons/bs";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-import React from "react";
+import { BsFillCaretDownFill } from "react-icons/bs";
 
 const AddWorkout: MyPage = () => {
   return (

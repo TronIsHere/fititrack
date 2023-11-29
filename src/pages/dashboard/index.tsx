@@ -1,11 +1,10 @@
-import DashboardLayout from "@/components/layouts/dashboardLayout";
-import { MyPage } from "@/components/types/nextjs";
-import { GiWeightScale } from "react-icons/gi";
-import WorkoutComponent from "@/components/dashboard/workout";
+import CharacterComponent from "@/components/dashboard/character";
 import { MissionsComponent } from "@/components/dashboard/missions";
 import SleepComponent from "@/components/dashboard/sleep";
-import CharacterComponent from "@/components/dashboard/character";
 import WeightComponent from "@/components/dashboard/weight";
+import WorkoutComponent from "@/components/dashboard/workout";
+import DashboardLayout from "@/components/layouts/dashboardLayout";
+import { MyPage } from "@/components/types/nextjs";
 const DashboardPage: MyPage = () => {
   return (
     <>

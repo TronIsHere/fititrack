@@ -1,6 +1,6 @@
 import { NextPage } from "next";
-import { MdDeleteOutline } from "react-icons/md";
 import { BiSolidEdit } from "react-icons/bi";
+import { MdDeleteOutline } from "react-icons/md";
 interface workoutProps {
   editEnabled?: boolean;
 }
