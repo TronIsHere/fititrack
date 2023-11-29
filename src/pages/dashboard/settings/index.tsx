@@ -3,6 +3,7 @@ import { MyPage } from "@/components/types/nextjs";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import BillHistoryComponent from "@/components/settings/billHistory";
 
 const SettingsPage: MyPage = () => {
   return (
@@ -93,8 +94,43 @@ const SettingsPage: MyPage = () => {
                   </button>
                 </div>
               </TabsContent>
-              <TabsContent value="billing">
-                Change your password here.
+              <TabsContent value="billing" className="mb-5">
+                <div className="flex flex-col items-center justify-center ">
+                  <p className="font-semibold text-palletGray-200 text-sm mt-8">
+                    Current plan
+                  </p>
+                  <p className="text-3xl mt-5 font-bold">Free Trial</p>
+                  <button className="bg-palletPurple-300 text-white px-3 py-2 text-sm rounded-lg font-light mt-5 mb-8">
+                    Upgrade plan
+                  </button>
+                </div>
+                <hr />
+                <p className="font-semibold mt-8 pl-2">Billing History</p>
+
+                <BillHistoryComponent
+                  date="2019.8.10 11:06 UTC"
+                  type="Pro subscription (1 year)"
+                  transactionID="LASHFLI124SD8CNZ2"
+                  price="72.82"
+                />
+                <BillHistoryComponent
+                  date="2019.8.10 11:06 UTC"
+                  type="Pro subscription (1 year)"
+                  transactionID="LASHFLI124SD8CNZ2"
+                  price="72.82"
+                />
+                <BillHistoryComponent
+                  date="2019.8.10 11:06 UTC"
+                  type="Pro subscription (1 year)"
+                  transactionID="LASHFLI124SD8CNZ2"
+                  price="72.82"
+                />
+                <BillHistoryComponent
+                  date="2019.8.10 11:06 UTC"
+                  type="Pro subscription (1 year)"
+                  transactionID="LASHFLI124SD8CNZ2"
+                  price="72.82"
+                />
               </TabsContent>
             </Tabs>
           </div>
