@@ -17,12 +17,8 @@ export default function Home() {
         <div className="flex justify-between">
           <Image src="./images/logo.svg" alt="logo" width={200} height={100} />
           <div className="flex items-center">
-            <div className="bg-darkPrimary p-2 mr-5 rounded-full">
-              <BsMoonStars
-                size={20}
-                className=" cursor-pointer"
-                color="white"
-              />
+            <div className="bg-darkPrimary p-2 mr-5 rounded-full cursor-pointer">
+              <BsMoonStars size={20} className="" color="white" />
             </div>
             <button className="bg-palletPurple-500 px-7 py-2 rounded-md text-white">
               Login
@@ -73,6 +69,30 @@ export default function Home() {
           <div className="">
             <img src="./images/workoutBlock.svg" alt="" />
           </div>
+        </div>
+        <div className="grid grid-cols-2 gap-20 mt-20">
+          <div className="">
+            <img src="./images/jeffs.svg" alt="" />
+          </div>
+          <div className="flex flex-col justify-center">
+            <h3 className="text-3xl font-bold">You can grow Jeff!!</h3>
+            <p className="mt-10">
+              Jeff is your fitness companion.. as you grow jeff grows as well
+            </p>
+            <button className="mt-32 bg-palletGreen-200 py-2 rounded-md text-palletGreen-600">
+              Grow Jeff
+            </button>
+          </div>
+        </div>
+      </section>
+      <section className="mt-40">
+        <div className="bg-palletPurple-400 flex justify-center flex-col items-center py-8 rounded-md">
+          <h3 className="text-3xl font-bold text-white">
+            Want to track your fitness?
+          </h3>
+          <button className=" mt-10 bg-palletGreen-200 py-2 px-5 rounded-md text-palletGreen-600 ">
+            Lets go 🔥
+          </button>
         </div>
       </section>
     </div>
