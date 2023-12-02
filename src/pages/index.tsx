@@ -95,6 +95,68 @@ export default function Home() {
           </button>
         </div>
       </section>
+      <footer className="mt-40">
+        <div className="border-y-2 border-palletPurple-500 grid grid-cols-4 px-10 py-8 justify-items-center">
+          <div className="flex flex-col">
+            <span className="text-palletPurple-300 font-bold">Products</span>
+            <a href="#" className="mt-5">
+              IOS app
+            </a>
+            <a href="#" className="mt-2">
+              Android app
+            </a>
+            <a href="#" className="mt-2">
+              Web app
+            </a>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-palletPurple-300 font-bold">Social</span>
+            <a href="#" className="mt-5">
+              IOS app
+            </a>
+            <a href="#" className="mt-2">
+              Android app
+            </a>
+            <a href="#" className="mt-2">
+              Web app
+            </a>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-palletPurple-300 font-bold">Resources</span>
+            <a href="#" className="mt-5">
+              IOS app
+            </a>
+            <a href="#" className="mt-2">
+              Android app
+            </a>
+            <a href="#" className="mt-2">
+              Web app
+            </a>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-palletPurple-300 font-bold">Legal</span>
+            <a href="#" className="mt-5">
+              IOS app
+            </a>
+            <a href="#" className="mt-2">
+              Android app
+            </a>
+            <a href="#" className="mt-2">
+              Web app
+            </a>
+          </div>
+        </div>
+
+        <div className="flex justify-center">
+          <span className="py-5">
+            Made by{" "}
+            <a href="https://whitediv.com" className="text-palletPurple-500">
+              {" "}
+              WhiteDiv
+            </a>
+          </span>
+        </div>
+      </footer>
     </div>
   );
 }
