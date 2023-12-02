@@ -14,8 +14,21 @@ export default function Home() {
   return (
     <div className="max-w-screen-xl mx-auto mt-4">
       <header>
-        <div className="flex justify-between">
-          <Image src="./images/logo.svg" alt="logo" width={200} height={100} />
+        <div className="flex justify-between px-3 md:px-0">
+          <Image
+            src="./images/logo.svg"
+            alt="logo"
+            width={200}
+            height={100}
+            className="hidden md:block"
+          />
+          <Image
+            src="./images/logo.svg"
+            alt="logo"
+            width={150}
+            height={100}
+            className="block md:hidden"
+          />
           <div className="flex items-center">
             <div className="bg-darkPrimary p-2 mr-5 rounded-full cursor-pointer">
               <BsMoonStars size={20} className="" color="white" />
@@ -25,7 +38,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-20 mt-20">
+        <div className="grid grid-cols-1 px-4 md:px-0 md:grid-cols-2 gap-20 mt-20">
           <div className="flex items-center flex-col justify-center">
             <h1 className="text-4xl font-bold">
               Track your fitness journey and grow you character!
@@ -44,7 +57,7 @@ export default function Home() {
         </div>
       </header>
       <section>
-        <div className="grid grid-cols-2 gap-20 mt-40">
+        <div className="grid grid-cols-1 md:grid-cols-2 px-5 md:px-0 gap-20 mt-40">
           <div className="bg-palletPurple-500 p-5 rounded-lg">
             <img src="./images/chart.svg" alt="" />
           </div>
@@ -56,7 +69,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-20 mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 px-5 md:px-0 gap-20 mt-20">
           <div className="flex flex-col justify-center">
             <h3 className="text-3xl font-bold">
               Easily keep track of your weight and workouts
@@ -70,7 +83,7 @@ export default function Home() {
             <img src="./images/workoutBlock.svg" alt="" />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-20 mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 px-5 md:px-0 gap-20 mt-20">
           <div className="">
             <img src="./images/jeffs.svg" alt="" />
           </div>
@@ -85,8 +98,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="mt-40">
-        <div className="bg-palletPurple-400 flex justify-center flex-col items-center py-8 rounded-md">
+      <section className="mt-40 px-5">
+        <div className="bg-palletPurple-400 flex justify-center flex-col items-center px-5 md:px-0 py-8 rounded-md">
           <h3 className="text-3xl font-bold text-white">
             Want to track your fitness?
           </h3>
@@ -96,7 +109,7 @@ export default function Home() {
         </div>
       </section>
       <footer className="mt-40">
-        <div className="border-y-2 border-palletPurple-500 grid grid-cols-4 px-10 py-8 justify-items-center">
+        <div className="border-y-2 border-palletPurple-500 grid grid-cols-2 md:grid-cols-4 px-10 py-8 gap-10 md:gap-0 justify-items-center">
           <div className="flex flex-col">
             <span className="text-palletPurple-300 font-bold">Products</span>
             <a href="#" className="mt-5">
