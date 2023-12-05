@@ -1,33 +1,34 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { NextPage } from "next";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
+import Link from "next/link";
 const LoginPage: NextPage = () => {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 h-screen ">
         <div className="flex items-center justify-center flex-col ">
           <div className="flex flex-row items-center pt-10 md:pt-0">
-            <Image
-              src="./images/logo.svg"
-              alt="fitittrack logo "
-              width={200}
-              height={60}
-            />
+            <Link href={"/"}>
+              <Image
+                src="./images/logo.svg"
+                alt="fitittrack logo "
+                width={200}
+                height={60}
+              />
+            </Link>
             {/* <p className="pl-5">gaming your exercise!</p> */}
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col px-5 md:px-0 pb-10 md:pb-0">
             <form>
-              <p className="mt-20 text-sm">Email</p>
+              <p className="mt-14 md:mt-20 text-sm">Email</p>
               <input
-                type={"text"}
-                className="border-2 mt-2 rounded-lg p-1.5 pl-2 text-sm border-palletGray-100 w-[300px]"
+                type={"email"}
+                className="border-2 mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
               />
               <p className="mt-8 text-sm">Password</p>
               <input
-                type={"text"}
-                className="border-2 mt-2 rounded-lg p-1.5 pl-2 text-sm border-palletGray-100 w-[300px]"
+                type={"password"}
+                className="border-2 mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
               />
               <a
                 href="#"
@@ -35,16 +36,16 @@ const LoginPage: NextPage = () => {
               >
                 forget your password?
               </a>
-              <button className="bg-palletPurple-500 text-white mt-8 p-3 rounded-lg flex justify-center text-sm w-full">
+              <Button className="bg-palletPurple-500 text-white mt-8 p-3 rounded-lg flex justify-center text-sm w-full">
                 Login
-              </button>
+              </Button>
 
               <p className="text-sm block mt-4">
                 Don't you have an account with us?{" "}
-                <a href="#" className="text-palletPurple-400">
+                <Link href="/register" className="text-palletPurple-400">
                   {" "}
                   create an account
-                </a>
+                </Link>
               </p>
             </form>
           </div>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { BsMoonStars } from "react-icons/bs";
 
@@ -33,9 +34,12 @@ export default function Home() {
             <div className="bg-darkPrimary p-2 mr-5 rounded-full cursor-pointer">
               <BsMoonStars size={20} className="" color="white" />
             </div>
-            <button className="bg-palletPurple-500 px-7 py-2 rounded-md text-white">
+            <Link
+              href={"/login"}
+              className="bg-palletPurple-500 px-7 py-2 rounded-md text-white"
+            >
               Login
-            </button>
+            </Link>
           </div>
         </div>
         <div className="grid grid-cols-1 px-4 md:px-0 md:grid-cols-2 gap-20 mt-20">
