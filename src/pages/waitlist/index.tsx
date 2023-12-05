@@ -1,12 +1,10 @@
+import { useToast } from "@/components/ui/toasts/use-toast";
+import axios from "axios";
+import { setCookie } from "cookies-next";
 import { NextPage } from "next";
 import Image from "next/image";
-import { useState } from "react";
-import axios from "axios";
-import { useToast } from "@/components/ui/toasts/use-toast";
-import { Toaster } from "@/components/ui/toasts/toaster";
 import { useRouter } from "next/router";
-import { cookies } from "next/headers";
-import { setCookie } from "cookies-next";
+import { useState } from "react";
 
 const WaitlistPage: NextPage = () => {
   const { toast } = useToast();

@@ -1,6 +1,4 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { BsMoonStars } from "react-icons/bs";
 
@@ -15,13 +13,15 @@ export default function Home() {
     <div className="max-w-screen-xl mx-auto mt-4">
       <header>
         <div className="flex justify-between px-3 md:px-0">
-          <Image
-            src="./images/logo.svg"
-            alt="logo"
-            width={200}
-            height={100}
-            className="hidden md:block"
-          />
+          <a href="#">
+            <Image
+              src="./images/logo.svg"
+              alt="logo"
+              width={200}
+              height={100}
+              className="hidden md:block"
+            />
+          </a>
           <Image
             src="./images/logo.svg"
             alt="logo"
