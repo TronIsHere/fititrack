@@ -14,20 +14,20 @@ const BillHistoryComponent: NextPage<billProps> = ({
   price,
 }) => {
   return (
-    <div className="flex justify-around text-sm mt-5">
-      <div className="">
+    <div className="flex flex-col md:flex-row justify-around text-sm mt-5">
+      <div className="mt-5 ">
         <p className="text-palletGray-200 mb-2">Date</p>
         <p>{date}</p>
       </div>
-      <div className="">
+      <div className="mt-5 ">
         <p className="text-palletGray-200 mb-2">Type</p>
         <p>{type}</p>
       </div>
-      <div className="">
+      <div className="mt-5 ">
         <p className="text-palletGray-200 mb-2">Transaction ID</p>
         <p>{transactionID}</p>
       </div>
-      <div className="">
+      <div className="mt-5 ">
         <p className="text-palletGray-200 mb-2">Price</p>
         <p>${price} CAD</p>
       </div>

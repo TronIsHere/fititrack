@@ -23,8 +23,8 @@ const WorkoutComponent: NextPage<workoutProps> = ({ editEnabled }) => {
           <div className="w-6 h-6 border-2 rounded-lg cursor-pointer border-palletGray-100 mt-1"></div>
         )}
       </div>
-      <div className="grid grid-cols-5 w-full mt-8">
-        <div className="col-span-1 flex flex-col items-center">
+      <div className="grid grid-cols-1 md:grid-cols-5 w-full mt-8">
+        <div className="col-span-1 flex flex-col items-start md:items-center">
           <div className="flex items-end">
             <span className="font-semibold text-3xl">52</span>
             <span className="text-palletGray-200">%</span>
@@ -33,7 +33,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({ editEnabled }) => {
             Consistency
           </span>
         </div>
-        <div className="col-span-1 flex flex-col items-center">
+        <div className="col-span-1 flex flex-col items-start md:items-center">
           <div className="flex items-end">
             <span className="font-semibold text-3xl">0</span>
             <span className="text-palletGray-200">days</span>
@@ -42,7 +42,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({ editEnabled }) => {
             Streak
           </span>
         </div>
-        <div className="col-span-1 flex flex-col items-center">
+        <div className="col-span-1 flex flex-col items-start md:items-center my-5 md:my-0">
           <div className="flex items-end">
             <span className="font-semibold text-3xl">0</span>
             <span className="text-palletGray-200"></span>

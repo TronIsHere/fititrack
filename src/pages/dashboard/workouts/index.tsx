@@ -5,7 +5,7 @@ import { MyPage } from "@/components/types/nextjs";
 const WorkoutsPage: MyPage = () => {
   return (
     <>
-      <div className="grid grid-cols-7 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
         <div className="col-span-5">
           <div className="flex justify-between items-center mb-10">
             <span className="mt-4 block text-2xl font-bold">Workouts</span>

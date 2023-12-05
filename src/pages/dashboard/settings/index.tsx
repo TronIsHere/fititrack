@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const SettingsPage: MyPage = () => {
   return (
     <>
-      <div className="grid grid-cols-7 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
         <div className="col-span-5">
           <div className="flex justify-between items-center mb-10">
             <span className="mt-4 block text-2xl font-bold">Settings</span>
@@ -29,7 +29,7 @@ const SettingsPage: MyPage = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="general">
-                <div className="pl-2 pt-4 flex justify-between items-center pr-2">
+                <div className="pl-2 pt-4 flex flex-col md:flex-row justify-between items-center pr-2">
                   <div className="flex">
                     <div>
                       <Avatar className="w-16 h-16">
@@ -46,11 +46,11 @@ const SettingsPage: MyPage = () => {
                       </span>
                     </div>
                   </div>
-                  <button className="text-sm bg-palletPurple-300 text-white h-10 rounded-md px-2">
+                  <button className="text-sm mt-5 md:mt-0 w-full md:w-auto bg-palletPurple-300 text-white h-10 rounded-md px-2">
                     Change avatar
                   </button>
                 </div>
-                <div className="flex flex-col w-1/2">
+                <div className="flex flex-col w-full md:w-1/2">
                   <div className="flex flex-col pl-2 pt-10 w-full">
                     <span className="pl-0.5 ">Name</span>
                     <input
@@ -106,30 +106,32 @@ const SettingsPage: MyPage = () => {
                 <hr />
                 <p className="font-semibold mt-8 pl-2">Billing History</p>
 
-                <BillHistoryComponent
-                  date="2019.8.10 11:06 UTC"
-                  type="Pro subscription (1 year)"
-                  transactionID="LASHFLI124SD8CNZ2"
-                  price="72.82"
-                />
-                <BillHistoryComponent
-                  date="2019.8.10 11:06 UTC"
-                  type="Pro subscription (1 year)"
-                  transactionID="LASHFLI124SD8CNZ2"
-                  price="72.82"
-                />
-                <BillHistoryComponent
-                  date="2019.8.10 11:06 UTC"
-                  type="Pro subscription (1 year)"
-                  transactionID="LASHFLI124SD8CNZ2"
-                  price="72.82"
-                />
-                <BillHistoryComponent
-                  date="2019.8.10 11:06 UTC"
-                  type="Pro subscription (1 year)"
-                  transactionID="LASHFLI124SD8CNZ2"
-                  price="72.82"
-                />
+                <div className="divide-palletPurple-200 divide-dashed divide-y">
+                  <BillHistoryComponent
+                    date="2019.8.10 11:06 UTC"
+                    type="Pro subscription (1 year)"
+                    transactionID="LASHFLI124SD8CNZ2"
+                    price="72.82"
+                  />
+                  <BillHistoryComponent
+                    date="2019.8.10 11:06 UTC"
+                    type="Pro subscription (1 year)"
+                    transactionID="LASHFLI124SD8CNZ2"
+                    price="72.82"
+                  />
+                  <BillHistoryComponent
+                    date="2019.8.10 11:06 UTC"
+                    type="Pro subscription (1 year)"
+                    transactionID="LASHFLI124SD8CNZ2"
+                    price="72.82"
+                  />
+                  <BillHistoryComponent
+                    date="2019.8.10 11:06 UTC"
+                    type="Pro subscription (1 year)"
+                    transactionID="LASHFLI124SD8CNZ2"
+                    price="72.82"
+                  />
+                </div>
               </TabsContent>
             </Tabs>
           </div>
