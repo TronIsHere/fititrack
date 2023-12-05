@@ -6,7 +6,7 @@ const SleepComponent = () => {
         <FaBedPulse color="#5955ED" size={28} />
         <span className="pl-5 pt-1">Sleep</span>
       </div>
-      <div className="flex justify-center mx-10  pt-4">
+      <div className="flex justify-center  mx-0 md:mx-10  pt-4">
         <div className="flex flex-col items-center w-10 font-light text-sm">
           <div className="h-20 w-3 rounded-xl  bg-palletGray-100"></div>
           <span className="pt-2">Mon</span>

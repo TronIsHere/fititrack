@@ -19,16 +19,16 @@ const DashboardPage: MyPage = () => {
           <div className="flex mt-10 ml-0 md:ml-6">
             <SleepComponent />
           </div>
-          <div className="flex mt-10 w-full ml-6">
+          <div className="flex mt-10 w-full ml-0 md:ml-6 ">
             <CharacterComponent />
           </div>
         </div>
-        <div className="grid grid-cols-7 mt-6 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-7 mt-6 gap-6">
           <div className="col-span-5">
             <WorkoutComponent />
             <WorkoutComponent />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-5 md:col-span-2">
             <MissionsComponent />
           </div>
         </div>

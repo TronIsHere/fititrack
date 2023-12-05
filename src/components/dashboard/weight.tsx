@@ -2,7 +2,7 @@ import React from "react";
 import { GiWeightScale } from "react-icons/gi";
 const WeightComponent = () => {
   return (
-    <div className="bg-white rounded-xl w-56 p-5">
+    <div className="bg-white rounded-xl p-5 w-full md:w-56">
       <div className="flex">
         <GiWeightScale color="#5955ED" size={28} />
         <span className="pl-5 pt-1">Weight</span>

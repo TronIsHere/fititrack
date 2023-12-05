@@ -6,6 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 import { BsFillCaretDownFill } from "react-icons/bs";
 
 const AddWorkout: MyPage = () => {
@@ -14,9 +15,12 @@ const AddWorkout: MyPage = () => {
       <div className="col-span-5">
         <div className="flex justify-between items-center mb-10">
           <span className="mt-4 block text-2xl font-bold">New workout</span>
-          <button className="bg-palletPurple-500 h-10 text-white px-8 rounded-md mt-3">
+          <Link
+            href={"/dashboard/workouts"}
+            className="bg-palletPurple-500 py-2 text-white px-8 rounded-md mt-3"
+          >
             Cancel
-          </button>
+          </Link>
         </div>
         <div className="bg-white rounded-lg p-5">
           <div className="flex">

@@ -7,7 +7,7 @@ const CharacterComponent = () => {
         <AiFillBuild color="#5955ED" size={28} />
         <span className="pl-5 pt-1">Character</span>
       </div>
-      <div className="flex  flex-col pt-4">
+      <div className="flex flex-col pt-4">
         <div className="flex">
           <div className="flex w-full flex-col ">
             <div className="flex justify-end ">
@@ -24,11 +24,13 @@ const CharacterComponent = () => {
             className={"ml-10 mr-5 -mt-4"}
           />
         </div>
-        <div className="flex -mt-9">
-          <p className="text-sm w-2/4 mt-4 text-palletGray-300">
+        <div className="flex flex-col md:flex-row -mt-9">
+          <p className="text-sm w-2/4 mt-4 text-palletGray-300 order-4 md:order-1">
             do missions or workouts to earn xp and level up your character
           </p>
-          <span className="font-bold ml-12 mt-4">Level 1</span>
+          <span className="font-bold  ml-0 md:ml-12 mt-4 order-3 md:order-2">
+            Level 1
+          </span>
         </div>
       </div>
     </div>
