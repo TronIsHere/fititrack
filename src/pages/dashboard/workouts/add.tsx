@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { BsFillCaretDownFill } from "react-icons/bs";
-
+// TODO: responsive design
 const AddWorkout: MyPage = () => {
   return (
-    <div className="grid grid-cols-7 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
       <div className="col-span-5">
         <div className="flex justify-between items-center mb-10">
           <span className="mt-4 block text-2xl font-bold">New workout</span>
@@ -67,34 +67,34 @@ const AddWorkout: MyPage = () => {
               </DropdownMenu>
             </div>
           </div>
-          <div className="flex mt-5">
+          <div className="flex flex-col md:flex-row mt-5">
             <div className="flex flex-col  ">
               <span>Workout frequency</span>
-              <div className="flex border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
+              <div className="flex flex-col md:flex-row border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
                 <span className="px-2 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
                   Mon
                 </span>
-                <span className="px-2 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0  py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
                   Tue
                 </span>
-                <span className="px-2 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
                   Wen
                 </span>
-                <span className="px-2 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
                   Thu
                 </span>
-                <span className="px-2 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
                   Fri
                 </span>
-                <span className="px-2 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
                   Sat
                 </span>
-                <span className="px-2 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
                   Sun
                 </span>
               </div>
             </div>
-            <div className="ml-5">
+            <div className="ml-0 md:ml-5">
               <br />
               <div className="flex border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
                 <span className="px-2 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
@@ -122,26 +122,26 @@ const AddWorkout: MyPage = () => {
           <div className="flex mt-5">
             <div className="flex flex-col  ">
               <span>What muscles you focus</span>
-              <div className="flex border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
-                <span className="px-2 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
+              <div className="flex flex-col md:flex-row border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
+                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
                   Legs
                 </span>
-                <span className="px-2 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
                   Arms
                 </span>
-                <span className="px-2 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
                   Chest
                 </span>
-                <span className="px-2 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
                   Core
                 </span>
-                <span className="px-2 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
                   Neck
                 </span>
-                <span className="px-2 py-1 text-palletGray-100 rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0 py-1 text-palletGray-100 rounded-md mr-1 cursor-pointer">
                   Back
                 </span>
-                <span className="px-2 py-1 bg-palletPurple-300  text-white rounded-md mr-1 cursor-pointer">
+                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300  text-white rounded-md mr-1 cursor-pointer">
                   Gluteus
                 </span>
               </div>
