@@ -12,9 +12,9 @@ const SidebarComponent: NextPage = () => {
   return (
     <>
       <div className="hidden md:flex flex-col  ">
-        <div className="flex justify-center">
+        <Link href={"/dashboard"}>
           <img src="/images/logo.svg" alt="" width={180} className="mt-8" />
-        </div>
+        </Link>
         <ul className="mt-14 m-8">
           <Link
             href={"/dashboard"}
@@ -48,7 +48,9 @@ const SidebarComponent: NextPage = () => {
       </div>
       <div className="flex md:hidden flex-col  ">
         <div className="flex justify-around items-center  pb-4">
-          <img src="/images/logo.svg" alt="" width={180} className="mt-8" />
+          <Link href={"/dashboard"}>
+            <img src="/images/logo.svg" alt="" width={180} className="mt-8" />
+          </Link>
           <HiMenuAlt3
             size={32}
             className="mt-8"
