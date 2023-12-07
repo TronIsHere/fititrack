@@ -96,7 +96,7 @@ export default function Home() {
             <p className="mt-10">
               Jeff is your fitness companion.. as you grow jeff grows as well
             </p>
-            <button className="mt-32 bg-palletGreen-200 py-2 rounded-md text-palletGreen-600">
+            <button className=" mt-5 md:mt-32 bg-palletGreen-200 py-2 rounded-md text-palletGreen-600">
               Grow Jeff
             </button>
           </div>
@@ -104,7 +104,7 @@ export default function Home() {
       </section>
       <section className="mt-40 px-5">
         <div className="bg-palletPurple-400 flex justify-center flex-col items-center px-5 md:px-0 py-8 rounded-md">
-          <h3 className="text-3xl font-bold text-white">
+          <h3 className="text-xl md:text-3xl font-bold text-white">
             Want to track your fitness?
           </h3>
           <button className=" mt-10 bg-palletGreen-200 py-2 px-5 rounded-md text-palletGreen-600 ">
