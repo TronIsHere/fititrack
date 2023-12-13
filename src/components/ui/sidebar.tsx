@@ -11,9 +11,9 @@ const SidebarComponent: NextPage = () => {
   const [mobileMenu, setMobileMenu] = useState<boolean>(false);
   return (
     <>
-      <div className="hidden md:flex flex-col  ">
-        <Link href={"/dashboard"}>
-          <img src="/images/logo.svg" alt="" width={180} className="mt-8" />
+      <div className="hidden md:flex flex-col   ">
+        <Link href={"/dashboard"} className="self-center">
+          <img src="/images/logo.svg" alt="" width={180} className=" mt-8 " />
         </Link>
         <ul className="mt-14 m-8">
           <Link
