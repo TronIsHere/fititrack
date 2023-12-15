@@ -17,13 +17,14 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useEffect, useState } from "react";
 const DashboardPage: MyPage = () => {
+  const [newDayState, setNewDayState] = useState<boolean>(true);
+
   return (
     <>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button>Edit</Button>
-        </DialogTrigger>
+      <Dialog open={false}>
+        <DialogTrigger asChild></DialogTrigger>
         <DialogContent className="sm:max-w-[425px] max-w-[350px]">
           <DialogHeader>
             <DialogTitle>New Day!</DialogTitle>

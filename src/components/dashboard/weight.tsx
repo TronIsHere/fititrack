@@ -28,7 +28,7 @@ const WeightComponent = () => {
             <FaPlusCircle
               color="#5955ED"
               size={28}
-              className="-mt-2  -mr-2 opacity-20 hidden group-hover:block"
+              className="-mt-2 -mr-2 opacity-20 hidden group-hover:block"
             />
           </div>
           <div className="flex justify-center pt-8">

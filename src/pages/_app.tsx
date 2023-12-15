@@ -1,10 +1,12 @@
 import { Toaster } from "@/components/ui/toasts/toaster";
+import { store } from "@/store/store";
 import "@/styles/global.css";
 import "@/styles/style.css";
 import { NextPage } from "next";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { ReactNode } from "react";
+import { Provider } from "react-redux";
 
 type Page<P = {}> = NextPage<P> & {
   getLayout?: (page: ReactNode) => ReactNode;
@@ -54,7 +56,11 @@ export default function App({ Component, pageProps }: Props) {
         <link rel="manifest" href="/favicon/site.webmanifest"></link>
       </Head>
       <Toaster />
-      {getLayout(<Component {...pageProps} />)}
+      {getLayout(
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
+      )}
     </>
   );
 }
