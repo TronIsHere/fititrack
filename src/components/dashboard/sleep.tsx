@@ -1,7 +1,7 @@
 import { FaBedPulse } from "react-icons/fa6";
 const SleepComponent = () => {
   return (
-    <div className="bg-white rounded-xl p-5 w-full">
+    <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary">
       <div className="flex">
         <FaBedPulse color="#5955ED" size={28} />
         <span className="pl-5 pt-1">Sleep</span>

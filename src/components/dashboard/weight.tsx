@@ -18,7 +18,7 @@ const WeightComponent = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="group bg-white rounded-xl p-5 w-full md:w-56 cursor-pointer">
+        <div className="group bg-white rounded-xl p-5 w-full md:w-56 cursor-pointer dark:bg-darkPrimary">
           <div className="flex justify-between  ">
             <div className="flex">
               {" "}
@@ -43,12 +43,12 @@ const WeightComponent = () => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-w-[350px]">
-        <DialogHeader>
+      <DialogContent className="sm:max-w-[425px] max-w-[350px] ">
+        <DialogHeader className="">
           <DialogTitle>Add new weight</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-4 py-4 ">
           <div className="grid grid-cols-6 items-center gap-4">
             <Label htmlFor="weight" className="text-right col-span-2">
               New Weight

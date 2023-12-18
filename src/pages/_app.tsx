@@ -56,11 +56,9 @@ export default function App({ Component, pageProps }: Props) {
         <link rel="manifest" href="/favicon/site.webmanifest"></link>
       </Head>
       <Toaster />
-      {getLayout(
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
-      )}
+      <Provider store={store}>
+        {getLayout(<Component {...pageProps} />)}
+      </Provider>
     </>
   );
 }

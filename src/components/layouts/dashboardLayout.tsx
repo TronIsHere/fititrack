@@ -1,5 +1,9 @@
+import { cn } from "@/lib/utils";
+import { toggleDarkMode } from "@/store/slices/userSlice";
+import { RootState } from "@/store/store";
 import { NextPage } from "next";
 import { ReactNode } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import SidebarComponent from "../ui/sidebar";
 
 interface LayoutProps {
@@ -7,12 +11,24 @@ interface LayoutProps {
 }
 
 const DashboardLayout: NextPage<LayoutProps> = ({ children }) => {
+  const darkModeState = useSelector((state: RootState) => state.user.darkMode);
+  console.log(darkModeState);
+  const dispatch = useDispatch();
+  // const darkModeHandler = () => {
+  //   dispatch(toggleDarkMode());
+  //   console.log(darkModeState, 1);
+  // };
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
-      <aside className="flex-[2]">
+    <div
+      className={cn(
+        "flex flex-col md:flex-row min-h-screen",
+        darkModeState ? "dark" : ""
+      )}
+    >
+      <aside className="flex-[2] dark:bg-darkPrimary">
         <SidebarComponent />
       </aside>
-      <div className="flex-[8] p-4 px-6 rounded min-h-[300px] custom-background">
+      <div className="flex-[8] p-4 px-6  min-h-[300px] custom-background dark:bg-darkSecondary dark:text-white">
         {children}
       </div>
     </div>

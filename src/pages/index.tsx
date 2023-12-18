@@ -1,11 +1,10 @@
+import { toggleDarkMode } from "@/store/slices/userSlice";
+import { RootState } from "@/store/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { BsMoonStars } from "react-icons/bs";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-import { useDispatch } from "react-redux";
-import { toggleDarkMode } from "@/store/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 // const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -17,7 +16,6 @@ export default function Home() {
   const dispatch = useDispatch();
   const darkModeHandler = () => {
     dispatch(toggleDarkMode());
-    console.log(darkModeState, 1);
   };
 
   return (
@@ -52,7 +50,7 @@ export default function Home() {
                   />
                 </div>
                 <Link
-                  href={"/login"}
+                  href={"/dashboard"}
                   className="bg-palletPurple-500 px-7 py-2 rounded-md text-white"
                 >
                   Login

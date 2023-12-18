@@ -11,7 +11,7 @@ import { BsFillCaretDownFill } from "react-icons/bs";
 // TODO: responsive design
 const AddWorkout: MyPage = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-7 gap-6 ">
       <div className="col-span-5">
         <div className="flex justify-between items-center mb-10">
           <span className="mt-4 block text-2xl font-bold">New workout</span>
@@ -22,13 +22,13 @@ const AddWorkout: MyPage = () => {
             Cancel
           </Link>
         </div>
-        <div className="bg-white rounded-lg p-5">
+        <div className="bg-white rounded-lg p-5 dark:bg-darkPrimary">
           <div className="flex">
             <div className="flex flex-col w-full mr-2">
               <span>Name of this workout</span>
               <input
                 type="text"
-                className="border-2 mt-2 rounded-lg p-1.5 pl-2 text-sm border-palletGray-100"
+                className="border-2 mt-2 rounded-lg p-1.5 pl-2 text-sm border-palletGray-100 dark:bg-darkPrimary"
                 placeholder="your workout’s name.."
               />
             </div>
@@ -152,7 +152,10 @@ const AddWorkout: MyPage = () => {
               <span>How long normally is your workout</span>
               <div className="flex">
                 <div className="flex border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
-                  <input type="text" className="p-1 w-10 text-center" />
+                  <input
+                    type="text"
+                    className="p-1 w-10 text-center dark:bg-darkPrimary"
+                  />
                 </div>
                 <div className="flex border-2 rounded-lg border-palletGray-100 p-1 px-2 mt-2 text-sm ml-3">
                   <DropdownMenu>

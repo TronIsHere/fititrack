@@ -7,17 +7,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const SettingsPage: MyPage = () => {
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-7 gap-6 ">
         <div className="col-span-5">
           <div className="flex justify-between items-center mb-10">
             <span className="mt-4 block text-2xl font-bold">Settings</span>
           </div>
-          <div className="bg-white w-full p-2 rounded-xl ">
-            <Tabs defaultValue={"general"} className="w-full">
-              <TabsList className="w-full flex justify-start bg-white border-palletGray-100 border-b-2 rounded-none">
+          <div className="bg-white w-full p-2 rounded-xl dark:bg-darkPrimary">
+            <Tabs defaultValue={"general"} className="w-full ">
+              <TabsList className="w-full flex justify-start bg-white border-palletGray-100 border-b-2 rounded-none dark:bg-darkPrimary">
                 <TabsTrigger
                   value="general"
-                  className="rounded-none tab-trigger"
+                  className="rounded-none tab-trigger dark:tab-trigger2"
                 >
                   General
                 </TabsTrigger>
@@ -38,7 +38,7 @@ const SettingsPage: MyPage = () => {
                       </Avatar>
                     </div>
                     <div className="flex flex-col justify-center pl-4">
-                      <span className="font-semibold text-palletPurple-900">
+                      <span className="font-semibold text-palletPurple-900 dark:text-white">
                         Erwin Aghajani
                       </span>
                       <span className="text-palletGray-200 text-sm mt-1">
@@ -55,16 +55,16 @@ const SettingsPage: MyPage = () => {
                     <span className="pl-0.5 ">Name</span>
                     <input
                       type="text"
-                      className="border-2 mt-2 rounded-lg p-1.5 pl-2 text-sm border-palletGray-100"
+                      className="border-2 mt-2 rounded-lg p-1.5 pl-2 text-sm border-palletGray-100 dark:bg-darkPrimary"
                       placeholder="your workout’s name.."
                     />
                   </div>
                   <div className="flex flex-col pl-2 pt-8 ">
                     <span className="pl-0.5 ">Weight</span>
-                    <div className="border-2 mt-2 w-24 flex rounded-lg p-1 text-sm border-palletGray-100">
+                    <div className="border-2 mt-2 w-24 flex rounded-lg p-1 text-sm border-palletGray-100 dark:bg-darkPrimary">
                       <input
                         type="text"
-                        className="p-0.5 pl-2 w-full text-sm focus:outline-none"
+                        className="p-0.5 pl-2 w-full text-sm focus:outline-none dark:bg-darkPrimary"
                         placeholder=""
                       />
                       <span className="text-palletGray-100 self-center pr-2">

@@ -2,7 +2,7 @@ import React from "react";
 import { FaMedal, FaCheck } from "react-icons/fa6";
 export const MissionsComponent = () => {
   return (
-    <div className="bg-white w-full rounded-xl p-5">
+    <div className="bg-white w-full rounded-xl p-5 dark:bg-darkPrimary">
       <div className="flex">
         <FaMedal color="#5955ED" size={28} />
         <span className="pl-4 pt-1 font-medium">Missions</span>

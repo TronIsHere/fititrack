@@ -7,7 +7,7 @@ interface workoutProps {
 
 const WorkoutComponent: NextPage<workoutProps> = ({ editEnabled }) => {
   return (
-    <div className="bg-white w-full rounded-xl p-5 mb-6">
+    <div className="bg-white w-full rounded-xl p-5 mb-6 dark:bg-darkPrimary">
       <div className="flex justify-between">
         <span className=" pt-1 font-medium">Upper body</span>
         {editEnabled ? (

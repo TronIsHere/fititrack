@@ -13,7 +13,12 @@ const SidebarComponent: NextPage = () => {
     <>
       <div className="hidden md:flex flex-col   ">
         <Link href={"/dashboard"} className="self-center">
-          <img src="/images/logo.svg" alt="" width={180} className=" mt-8 " />
+          <img
+            src="/images/logo.svg"
+            alt=""
+            width={180}
+            className=" mt-8  bg-white p-3 rounded-xl"
+          />
         </Link>
         <ul className="mt-14 m-8">
           <Link

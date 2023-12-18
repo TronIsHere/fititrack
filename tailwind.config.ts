@@ -18,6 +18,7 @@ export default module.exports = {
     extend: {
       colors: {
         darkPrimary: "#242933",
+        darkSecondary: "#333a48",
         palletGray: {
           100: "#D5DBED",
           200: "#ADB5CE",

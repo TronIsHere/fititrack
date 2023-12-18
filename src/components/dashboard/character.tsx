@@ -2,7 +2,7 @@ import React from "react";
 import { AiFillBuild } from "react-icons/ai";
 const CharacterComponent = () => {
   return (
-    <div className="bg-white w-full rounded-xl p-5">
+    <div className="bg-white w-full rounded-xl p-5 dark:bg-darkPrimary">
       <div className="flex ">
         <AiFillBuild color="#5955ED" size={28} />
         <span className="pl-5 pt-1">Character</span>
