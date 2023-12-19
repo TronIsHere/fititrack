@@ -12,8 +12,6 @@ interface LayoutProps {
 
 const DashboardLayout: NextPage<LayoutProps> = ({ children }) => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
-  console.log(darkModeState);
-  const dispatch = useDispatch();
   // const darkModeHandler = () => {
   //   dispatch(toggleDarkMode());
   //   console.log(darkModeState, 1);
@@ -26,7 +24,7 @@ const DashboardLayout: NextPage<LayoutProps> = ({ children }) => {
       )}
     >
       <aside className="flex-[2] dark:bg-darkPrimary">
-        <SidebarComponent />
+        <SidebarComponent darkMode={darkModeState} />
       </aside>
       <div className="flex-[8] p-4 px-6  min-h-[300px] custom-background dark:bg-darkSecondary dark:text-white">
         {children}

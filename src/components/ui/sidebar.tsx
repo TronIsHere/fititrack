@@ -1,13 +1,14 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { BiSolidDashboard } from "react-icons/bi";
-import { FiActivity } from "react-icons/fi";
-import { FiLogOut } from "react-icons/fi";
-import { IoSettings } from "react-icons/io5";
-import { IoExit } from "react-icons/io5";
-import { HiMenuAlt3 } from "react-icons/hi";
 import { useState } from "react";
-const SidebarComponent: NextPage = () => {
+import { BiSolidDashboard } from "react-icons/bi";
+import { FiActivity, FiLogOut } from "react-icons/fi";
+import { HiMenuAlt3 } from "react-icons/hi";
+import { IoSettings } from "react-icons/io5";
+interface sidebarProps {
+  darkMode: Boolean;
+}
+const SidebarComponent: NextPage<sidebarProps> = ({ darkMode }) => {
   const [mobileMenu, setMobileMenu] = useState<boolean>(false);
   return (
     <>
@@ -54,11 +55,17 @@ const SidebarComponent: NextPage = () => {
       <div className="flex md:hidden flex-col  ">
         <div className="flex justify-around items-center  pb-4">
           <Link href={"/dashboard"}>
-            <img src="/images/logo.svg" alt="" width={180} className="mt-8" />
+            <img
+              src="/images/logo.svg"
+              alt=""
+              width={180}
+              className="mt-8 bg-white  rounded-lg p-3"
+            />
           </Link>
           <HiMenuAlt3
             size={32}
             className="mt-8"
+            color={darkMode ? "#fff" : ""}
             onClick={() => setMobileMenu(!mobileMenu)}
           />
         </div>
