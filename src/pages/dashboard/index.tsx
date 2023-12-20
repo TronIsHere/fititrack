@@ -17,10 +17,18 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
+import { newWeight } from "@/store/slices/userSlice";
+import { RootState } from "@/store/store";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 const DashboardPage: MyPage = () => {
   const [newDayState, setNewDayState] = useState<boolean>(true);
-
+  const weightState = useAppSelector((state) => state.user.weight);
+  const dispatch = useAppDispatch();
+  const weightHandler = (weight: number) => {
+    dispatch(newWeight(weight));
+  };
   return (
     <>
       <Dialog open={false}>
@@ -29,7 +37,7 @@ const DashboardPage: MyPage = () => {
           <DialogHeader>
             <DialogTitle>New Day!</DialogTitle>
             <DialogDescription>
-              how did you slept last night? did you weight yourself today?
+              how did you sleep last night? did you weight yourself today?
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
@@ -68,7 +76,10 @@ const DashboardPage: MyPage = () => {
         </span>
         <div className="flex flex-col md:flex-row">
           <div className="flex mt-10">
-            <WeightComponent></WeightComponent>
+            <WeightComponent
+              weight={weightState}
+              weightHandler={weightHandler}
+            ></WeightComponent>
           </div>
           <div className="flex mt-10 ml-0 md:ml-6">
             <SleepComponent />

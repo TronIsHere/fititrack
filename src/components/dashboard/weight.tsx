@@ -1,7 +1,3 @@
-import React from "react";
-import { GiWeightScale } from "react-icons/gi";
-import { FaPlusCircle } from "react-icons/fa";
-import { MyPage } from "@/components/types/nextjs";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,11 +10,22 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-const WeightComponent = () => {
+import { FC, useState } from "react";
+import { FaPlusCircle } from "react-icons/fa";
+import { GiWeightScale } from "react-icons/gi";
+import { useToast } from "../ui/toasts/use-toast";
+interface weightProps {
+  weight: number;
+  weightHandler: (value: number) => void;
+}
+const WeightComponent: FC<weightProps> = ({ weight, weightHandler }) => {
+  const [weightState, setNewWeight] = useState<number>(weight);
+  const [open, setOpen] = useState(false);
+  const { toast } = useToast();
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div className="group bg-white rounded-xl p-5 w-full md:w-56 cursor-pointer dark:bg-darkPrimary">
+        <div className="group bg-white rounded-xl p-5 w-full md:w-56 cursor-pointer dark:bg-darkPrimary ">
           <div className="flex justify-between  ">
             <div className="flex">
               {" "}
@@ -33,7 +40,8 @@ const WeightComponent = () => {
           </div>
           <div className="flex justify-center pt-8">
             <span className="text-3xl">
-              80<span className="text-palletGray-200">kg</span>
+              {weight}
+              <span className="text-palletGray-200">kg</span>
             </span>
           </div>
           <div className="flex justify-center pt-1">
@@ -54,16 +62,44 @@ const WeightComponent = () => {
               New Weight
             </Label>
             <div className="col-span-4 flex items-center">
-              <Input id="weight" defaultValue="80" />
+              <Input
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    weightHandler(weightState!);
+                    setOpen(false);
+                  } else {
+                    console.log(e.key);
+                  }
+                }}
+                id="weight"
+                defaultValue={weight}
+                onChange={(e) => setNewWeight(parseInt(e.target.value))}
+              />
               <span className="pl-2 font-bold">KG</span>
             </div>
           </div>
         </div>
         <DialogFooter className="gap-2 flex flex-row justify-end">
-          <Button type="submit" className="bg-palletPurple-500">
+          <Button
+            type="submit"
+            className="bg-palletPurple-500"
+            onClick={() => {
+              toast({
+                variant: "success",
+
+                description: "New weight added",
+              });
+              weightHandler(weightState!);
+              setOpen(false);
+            }}
+          >
             Add
           </Button>
-          <Button type="submit" variant={"destructive"}>
+          <Button
+            type="submit"
+            variant={"destructive"}
+            onClick={() => setOpen(false)}
+          >
             Cancel
           </Button>
         </DialogFooter>

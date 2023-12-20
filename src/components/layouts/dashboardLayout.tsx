@@ -1,9 +1,8 @@
 import { cn } from "@/lib/utils";
-import { toggleDarkMode } from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
 import { NextPage } from "next";
 import { ReactNode } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import SidebarComponent from "../ui/sidebar";
 
 interface LayoutProps {
