@@ -19,9 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { newWeight } from "@/store/slices/userSlice";
-import { RootState } from "@/store/store";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
 const DashboardPage: MyPage = () => {
   const [newDayState, setNewDayState] = useState<boolean>(true);
   const weightState = useAppSelector((state) => state.user.weight);
