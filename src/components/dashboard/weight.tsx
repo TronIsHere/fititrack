@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -22,6 +21,7 @@ const WeightComponent: FC<weightProps> = ({ weight, weightHandler }) => {
   const [weightState, setNewWeight] = useState<number>(weight);
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -54,28 +54,39 @@ const WeightComponent: FC<weightProps> = ({ weight, weightHandler }) => {
       <DialogContent className="sm:max-w-[425px] max-w-[350px] ">
         <DialogHeader className="">
           <DialogTitle>Add new weight</DialogTitle>
-          <DialogDescription></DialogDescription>
         </DialogHeader>
+
         <div className="grid gap-4 py-4 ">
           <div className="grid grid-cols-6 items-center gap-4">
             <Label htmlFor="weight" className="text-right col-span-2">
               New Weight
             </Label>
-            <div className="col-span-4 flex items-center">
-              <Input
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    weightHandler(weightState!);
-                    setOpen(false);
-                  } else {
-                    console.log(e.key);
-                  }
-                }}
-                id="weight"
-                defaultValue={weight}
-                onChange={(e) => setNewWeight(parseInt(e.target.value))}
-              />
-              <span className="pl-2 font-bold">KG</span>
+
+            <div className="col-span-4 flex flex-col items-center">
+              <div className="flex items-center">
+                <Input
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      if (isNaN(weightState)) {
+                        toast({
+                          variant: "destructive",
+                          description: "Amount is incorrect",
+                        });
+                        return;
+                      }
+                      weightHandler(weightState!);
+                      setOpen(false);
+                    } else {
+                      console.log(e.key);
+                    }
+                  }}
+                  id="weight"
+                  defaultValue={weight}
+                  onChange={(e) => setNewWeight(parseInt(e.target.value))}
+                />
+
+                <span className="pl-2 font-bold">KG</span>
+              </div>
             </div>
           </div>
         </div>
@@ -84,11 +95,18 @@ const WeightComponent: FC<weightProps> = ({ weight, weightHandler }) => {
             type="submit"
             className="bg-palletPurple-500"
             onClick={() => {
+              if (isNaN(weightState)) {
+                toast({
+                  variant: "destructive",
+                  description: "Amount is incorrect",
+                });
+                return;
+              }
               toast({
                 variant: "success",
-
                 description: "New weight added",
               });
+
               weightHandler(weightState!);
               setOpen(false);
             }}

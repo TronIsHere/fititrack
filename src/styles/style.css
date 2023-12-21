@@ -8,3 +8,6 @@ input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
 .tab-trigger{
   @apply data-[state=active]:shadow-none data-[state=active]:bg-transparent data-[state=active]:border-palletPurple-500 data-[state=active]:text-palletPurple-500 data-[state=active]:border-b-2 data-[state=active]:pb-3 data-[state=active]:pt-2;
 }
+.tab-trigger{
+  @apply data-[state=active]:shadow-none data-[state=active]:bg-transparent data-[state=active]:border-palletPurple-300 data-[state=active]:text-palletPurple-300 data-[state=active]:border-b-2 data-[state=active]:pb-3 data-[state=active]:pt-2;
+}

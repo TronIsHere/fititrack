@@ -23,7 +23,7 @@ const SettingsPage: MyPage = () => {
                 </TabsTrigger>
                 <TabsTrigger
                   value="billing"
-                  className="rounded-none tab-trigger"
+                  className="rounded-none tab-trigger dark:tab-trigger2"
                 >
                   Billing
                 </TabsTrigger>
