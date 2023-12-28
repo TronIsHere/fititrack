@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiFillBuild } from "react-icons/ai";
+import { Progress } from "../ui/progress";
 const CharacterComponent = () => {
+  const [expState, setExpState] = useState<number>(240);
+  const [maxExpState, setMaxExpState] = useState<number>(480);
+  const [levelState, setLevelState] = useState<number>(2);
   return (
     <div className="bg-white w-full rounded-xl p-5 dark:bg-darkPrimary">
       <div className="flex ">
@@ -11,9 +15,19 @@ const CharacterComponent = () => {
         <div className="flex">
           <div className="flex w-full flex-col ">
             <div className="flex justify-end ">
-              <span className="text-palletYellow-400 font-bold">10/480 xp</span>
+              <span className="text-palletYellow-400 font-bold">
+                {expState}/{maxExpState} xp
+              </span>
             </div>
-            <div className="h-4  bg-palletYellow-400 rounded-lg mt-2"></div>
+            {/* <div className="h-4 bg-palletGray-100 rounded-lg mt-2">
+              
+              <div className="h-4 bg-palletYellow-400 rounded-lg w-32"></div>
+            </div> */}
+            <Progress
+              value={(expState / maxExpState) * 100}
+              className={"mt-2 bg-palletGray-100"}
+              indicatorColor={"#F4C05B"}
+            />
           </div>
 
           <img
@@ -29,7 +43,7 @@ const CharacterComponent = () => {
             do missions or workouts to earn xp and level up your character
           </p>
           <span className="font-bold  ml-0 md:ml-12 mt-4 order-3 md:order-2">
-            Level 1
+            Level {levelState}
           </span>
         </div>
       </div>
