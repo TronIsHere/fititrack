@@ -6,10 +6,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+
 import { useState } from "react";
 import { FaBedPulse } from "react-icons/fa6";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { Progress } from "../ui/progress";
+import SleepBar from "../ui/sleepBar";
 const SleepComponent = () => {
   const [open, setOpen] = useState(false);
   return (
@@ -22,32 +25,25 @@ const SleepComponent = () => {
           </div>
           <div className="flex justify-center  mx-0 md:mx-10  pt-4">
             <div className="flex flex-col items-center w-10 font-light text-sm">
-              <div className="h-20 w-3 rounded-xl  bg-palletGray-100"></div>
-              <span className="pt-2">Mon</span>
+              <SleepBar value={20} indicatorColor={"#7B78EB"} day={"Mon"} />
             </div>
             <div className="flex flex-col items-center w-10 font-light text-sm">
-              <div className="h-20 w-3 rounded-xl bg-palletGray-100"></div>
-              <span className="pt-2">Tue</span>
+              <SleepBar value={0} indicatorColor={"#7B78EB"} day={"Tue"} />
             </div>
             <div className="flex flex-col items-center w-10 font-light text-sm">
-              <div className="h-20 w-3 rounded-xl bg-palletGray-100"></div>
-              <span className="pt-2">Wen</span>
+              <SleepBar value={0} indicatorColor={"#7B78EB"} day={"Wed"} />
             </div>
             <div className="flex flex-col items-center w-10 font-light text-sm">
-              <div className="h-20 w-3 rounded-xl bg-palletPurple-300"></div>
-              <span className="pt-2">Thu</span>
+              <SleepBar value={0} indicatorColor={"#7B78EB"} day={"Thu"} />
             </div>
             <div className="flex flex-col items-center w-10 font-light text-sm">
-              <div className="h-20 w-3 rounded-xl bg-palletGray-100"></div>
-              <span className="pt-2">Fri</span>
+              <SleepBar value={30} indicatorColor={"#7B78EB"} day={"Fri"} />
             </div>
             <div className="flex flex-col items-center w-10 font-light text-sm">
-              <div className="h-20 w-3 rounded-xl bg-palletGray-100"></div>
-              <span className="pt-2">Sat</span>
+              <SleepBar value={12} indicatorColor={"#7B78EB"} day={"Sat"} />
             </div>
             <div className="flex flex-col items-center w-10 font-light text-sm">
-              <div className="h-20 w-3 rounded-xl bg-palletGray-100"></div>
-              <span className="pt-2">Sun</span>
+              <SleepBar value={70} indicatorColor={"#7B78EB"} day={"Sun"} />
             </div>
           </div>
         </div>

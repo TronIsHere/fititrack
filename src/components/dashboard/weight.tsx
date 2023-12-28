@@ -75,6 +75,10 @@ const WeightComponent: FC<weightProps> = ({ weight, weightHandler }) => {
                         return;
                       }
                       weightHandler(weightState!);
+                      toast({
+                        variant: "success",
+                        description: "New weight added",
+                      });
                       setOpen(false);
                     } else {
                       console.log(e.key);
