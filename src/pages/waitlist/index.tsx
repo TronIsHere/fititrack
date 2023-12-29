@@ -66,6 +66,9 @@ const WaitlistPage: NextPage = () => {
               1 month premium for free!
             </span>
           </h2>
+          <span className="text-palletPurple-500 font-bold mt-2">
+            Waitlist closed! thanks for joining in
+          </span>
           <span className="mt-6">Email</span>
           <input
             type="email"
@@ -73,11 +76,12 @@ const WaitlistPage: NextPage = () => {
             placeholder="example@email.com"
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled
           />
           <button
             className="bg-palletPurple-500 text-white mt-12 p-2 rounded-lg flex justify-center"
             onClick={submitHandler}
-            disabled={loading}
+            disabled={true}
           >
             {loading ? <div className="loader"></div> : "Join the waitlist"}
           </button>
