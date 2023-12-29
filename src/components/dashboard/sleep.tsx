@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { useState } from "react";
+import { FaPlusCircle } from "react-icons/fa";
 import { FaBedPulse } from "react-icons/fa6";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -18,10 +19,17 @@ const SleepComponent = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary">
-          <div className="flex">
-            <FaBedPulse color="#5955ED" size={28} />
-            <span className="pl-5 pt-1">Sleep</span>
+        <div className="group bg-white rounded-xl p-5 w-full dark:bg-darkPrimary">
+          <div className="flex justify-between">
+            <div className="flex">
+              <FaBedPulse color="#5955ED" size={28} />
+              <span className="pl-5 pt-1">Sleep</span>
+            </div>
+            <FaPlusCircle
+              color="#5955ED"
+              size={28}
+              className="-mt-2 -mr-2 opacity-20 hidden group-hover:block"
+            />
           </div>
           <div className="flex justify-center  mx-0 md:mx-10  pt-4">
             <div className="flex flex-col items-center w-10 font-light text-sm">
