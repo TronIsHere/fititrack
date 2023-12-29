@@ -4,6 +4,7 @@ import SleepComponent from "@/components/dashboard/sleep";
 import WeightComponent from "@/components/dashboard/weight";
 import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
+import Calendar from "react-github-contribution-calendar";
 import { MyPage } from "@/components/types/nextjs";
 import { Button } from "@/components/ui/button";
 import {
@@ -88,8 +89,24 @@ const DashboardPage: MyPage = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-7 mt-6 gap-6">
           <div className="col-span-5">
-            <WorkoutComponent />
-            <WorkoutComponent />
+            <WorkoutComponent
+              title={
+                "upper body".charAt(0).toUpperCase() + "upper body".slice(1)
+              }
+              consistency={20}
+              checkIns={20}
+              streak={10}
+              toggleWorkout={() => console.log("clicked")}
+            />
+            <WorkoutComponent
+              title={
+                "upper body".charAt(0).toUpperCase() + "upper body".slice(1)
+              }
+              consistency={20}
+              checkIns={20}
+              streak={10}
+              toggleWorkout={() => console.log("clicked")}
+            />
           </div>
           <div className="col-span-5 md:col-span-2">
             <MissionsComponent />
