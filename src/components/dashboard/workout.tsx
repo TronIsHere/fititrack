@@ -69,8 +69,8 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         </div>
         <div className="col-span-2 flex flex-col w-64 items-center justify-end">
           <div className="flex justify-end flex-wrap">
-            {[...Array(getMonthDays)].map((item) => (
-              <div className="w-4 h-4 bg-palletGray-100 m-1"></div>
+            {[...Array(getMonthDays)].map((item, index) => (
+              <div className="w-4 h-4 bg-palletGray-100 m-1" key={index}></div>
             ))}
           </div>
         </div>
