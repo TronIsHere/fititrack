@@ -4,7 +4,6 @@ import SleepComponent from "@/components/dashboard/sleep";
 import WeightComponent from "@/components/dashboard/weight";
 import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
-import Calendar from "react-github-contribution-calendar";
 import { MyPage } from "@/components/types/nextjs";
 import { Button } from "@/components/ui/button";
 import {

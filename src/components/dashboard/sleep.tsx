@@ -12,7 +12,6 @@ import { FaPlusCircle } from "react-icons/fa";
 import { FaBedPulse } from "react-icons/fa6";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Progress } from "../ui/progress";
 import SleepBar from "../ui/sleepBar";
 const SleepComponent = () => {
   const [open, setOpen] = useState(false);
