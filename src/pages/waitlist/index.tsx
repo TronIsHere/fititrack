@@ -1,12 +1,10 @@
+import { useToast } from "@/components/ui/toasts/use-toast";
+import axios from "axios";
+import { setCookie } from "cookies-next";
 import { NextPage } from "next";
 import Image from "next/image";
-import { useState } from "react";
-import axios from "axios";
-import { useToast } from "@/components/ui/toasts/use-toast";
-import { Toaster } from "@/components/ui/toasts/toaster";
 import { useRouter } from "next/router";
-import { cookies } from "next/headers";
-import { setCookie } from "cookies-next";
+import { useState } from "react";
 
 const WaitlistPage: NextPage = () => {
   const { toast } = useToast();
@@ -39,7 +37,7 @@ const WaitlistPage: NextPage = () => {
       return;
     }
     setCookie("waitlist", true);
-    router.push("waitlist/joined");
+    // router.push("waitlist/joined");
   };
 
   return (
@@ -66,6 +64,9 @@ const WaitlistPage: NextPage = () => {
               1 month premium for free!
             </span>
           </h2>
+          <span className="text-palletPurple-500 font-bold mt-2">
+            Waitlist closed! thanks for joining in
+          </span>
           <span className="mt-6">Email</span>
           <input
             type="email"
@@ -73,11 +74,12 @@ const WaitlistPage: NextPage = () => {
             placeholder="example@email.com"
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled
           />
           <button
             className="bg-palletPurple-500 text-white mt-12 p-2 rounded-lg flex justify-center"
             onClick={submitHandler}
-            disabled={loading}
+            disabled={true}
           >
             {loading ? <div className="loader"></div> : "Join the waitlist"}
           </button>
