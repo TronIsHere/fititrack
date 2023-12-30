@@ -41,13 +41,11 @@ export default function Home() {
                 className="block md:hidden bg-white p-3 rounded-lg"
               />
               <div className="flex items-center">
-                <div className="bg-darkPrimary p-2 mr-5 rounded-full cursor-pointer">
-                  <BsMoonStars
-                    size={20}
-                    className=""
-                    color="white"
-                    onClick={darkModeHandler}
-                  />
+                <div
+                  className="bg-darkPrimary p-2 mr-5 rounded-full cursor-pointer"
+                  onClick={darkModeHandler}
+                >
+                  <BsMoonStars size={20} className="" color="white" />
                 </div>
                 <Link
                   href={"/dashboard"}
