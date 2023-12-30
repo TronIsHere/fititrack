@@ -1,4 +1,4 @@
-import { missions } from "@/data/missions";
+import { missions } from "@/data/dummy_data";
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 import { FaMedal, FaCheck } from "react-icons/fa6";

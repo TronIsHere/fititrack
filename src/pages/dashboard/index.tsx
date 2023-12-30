@@ -17,7 +17,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { workoutsData } from "@/data/dummy_data";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
+import { capitalizeFirstLetter } from "@/lib/utils";
 import { newWeight } from "@/store/slices/userSlice";
 import { useState } from "react";
 const DashboardPage: MyPage = () => {
@@ -27,6 +29,7 @@ const DashboardPage: MyPage = () => {
   const weightHandler = (weight: number) => {
     dispatch(newWeight(weight));
   };
+  console.log(new Date("2023/12/28"), 1);
   return (
     <>
       <Dialog open={false}>
@@ -88,24 +91,19 @@ const DashboardPage: MyPage = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-7 mt-6 gap-6">
           <div className="col-span-5">
-            <WorkoutComponent
-              title={
-                "upper body".charAt(0).toUpperCase() + "upper body".slice(1)
-              }
-              consistency={20}
-              checkIns={20}
-              streak={10}
-              toggleWorkout={() => console.log("clicked")}
-            />
-            <WorkoutComponent
-              title={
-                "upper body".charAt(0).toUpperCase() + "upper body".slice(1)
-              }
-              consistency={20}
-              checkIns={20}
-              streak={10}
-              toggleWorkout={() => console.log("clicked")}
-            />
+            {workoutsData.map((workout) => {
+              return (
+                <WorkoutComponent
+                  title={capitalizeFirstLetter(workout.title)}
+                  days={workout.days}
+                  consistency={20}
+                  checkIns={workout.checkIns}
+                  streak={workout.streak}
+                  done={workout.done}
+                  updateWorkout={() => console.log("clicked")}
+                />
+              );
+            })}
           </div>
           <div className="col-span-5 md:col-span-2">
             <MissionsComponent />
