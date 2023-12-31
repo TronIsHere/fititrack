@@ -21,6 +21,7 @@ import { workoutsData } from "@/data/dummy_data";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { newWeight } from "@/store/slices/userSlice";
+import { TWorkout } from "@/types/workout";
 import { useState } from "react";
 const DashboardPage: MyPage = () => {
   const [newDayState, setNewDayState] = useState<boolean>(true);
@@ -91,15 +92,11 @@ const DashboardPage: MyPage = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-7 mt-6 gap-6">
           <div className="col-span-5">
-            {workoutsData.map((workout) => {
+            {workoutsData.map((workout: TWorkout) => {
+              console.log(workout, 2);
               return (
                 <WorkoutComponent
-                  title={capitalizeFirstLetter(workout.title)}
-                  days={workout.days}
-                  consistency={20}
-                  checkIns={workout.checkIns}
-                  streak={workout.streak}
-                  done={workout.done}
+                  workout={workout}
                   updateWorkout={() => console.log("clicked")}
                 />
               );
