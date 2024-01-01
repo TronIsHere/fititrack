@@ -9,19 +9,24 @@ import {
 import MuscleSelect from "@/components/ui/workout/muscle-select";
 import WorkoutFrequency from "@/components/ui/workout/workout-frequency";
 import WorkoutType from "@/components/ui/workout/workout-type";
-import { daysOfWeek } from "@/lib/dateUtils";
 import Link from "next/link";
 import { useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
+
 // TODO: responsive design
+
 const AddWorkout: MyPage = () => {
   const [workoutDuration, setWorkoutDuration] = useState("");
+  const [selectedColor, setSelectedColor] = useState("bg-red-400");
   const [durationUnit, setDurationUnit] = useState<"Minutes" | "Hours">(
     "Minutes"
   );
 
   const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWorkoutDuration(event.target.value);
+  };
+  const handleColorSelect = (colorClass: string) => {
+    setSelectedColor(colorClass);
   };
 
   const handleDurationUnitChange = (unit: "Minutes" | "Hours") => {
@@ -54,30 +59,45 @@ const AddWorkout: MyPage = () => {
               <span>Color</span>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center">
-                  <div className="border-2 border-palletGray-100 bg-red-400 w-9 h-9 rounded-md mt-2 cursor-pointer"></div>
+                  <div
+                    className={`border-2 border-palletGray-100 ${selectedColor} w-9 h-9 rounded-md mt-2 cursor-pointer`}
+                  ></div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>
-                    <div className="w-4 h-4 rounded-sm mr-1 bg-red-500"></div>
+                  <DropdownMenuItem
+                    onClick={() => handleColorSelect("bg-red-500")}
+                  >
+                    <div className="w-4 h-4 rounded-sm mr-1 bg-red-500"></div>{" "}
                     Red
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <div className="w-4 h-4 rounded-sm mr-1 bg-blue-500"></div>
+                  <DropdownMenuItem
+                    onClick={() => handleColorSelect("bg-blue-500")}
+                  >
+                    <div className="w-4 h-4 rounded-sm mr-1 bg-blue-500"></div>{" "}
                     Blue
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+
+                  <DropdownMenuItem
+                    onClick={() => handleColorSelect("bg-green-500")}
+                  >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-green-500"></div>
                     Green
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => handleColorSelect("bg-yellow-500")}
+                  >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-yellow-950"></div>
                     Brown
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => handleColorSelect("bg-purple-500")}
+                  >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-purple-500"></div>
                     Purple
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => handleColorSelect("bg-gray-500")}
+                  >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-gray-500"></div>
                     Gray
                   </DropdownMenuItem>
