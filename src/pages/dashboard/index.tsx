@@ -25,11 +25,11 @@ import { useState } from "react";
 const DashboardPage: MyPage = () => {
   const [newDayState, setNewDayState] = useState<boolean>(true);
   const weightState = useAppSelector((state) => state.user.weight);
+  const darkModeState = useAppSelector((state) => state.user.darkMode);
   const dispatch = useAppDispatch();
   const weightHandler = (weight: number) => {
     dispatch(newWeight(weight));
   };
-  console.log(new Date("2023/12/28"), 1);
   return (
     <>
       <Dialog open={false}>
@@ -78,12 +78,13 @@ const DashboardPage: MyPage = () => {
         <div className="flex flex-col md:flex-row">
           <div className="flex mt-10">
             <WeightComponent
+              darkModeDialog={darkModeState}
               weight={weightState}
               weightHandler={weightHandler}
             ></WeightComponent>
           </div>
           <div className="flex mt-10 ml-0 md:ml-6">
-            <SleepComponent />
+            <SleepComponent darkModeDialog={darkModeState} />
           </div>
           <div className="flex mt-10 w-full ml-0 md:ml-6 ">
             <CharacterComponent />

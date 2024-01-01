@@ -4,31 +4,33 @@ import { Theme } from "@/components/types/dashboardTypes";
 import { MyPage } from "@/components/types/nextjs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { themes } from "@/lib/themeUtils";
 import { changeDarkMode, toggleDarkMode } from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const SettingsPage: MyPage = () => {
-  const [theme, setTheme] = useState<Theme>("Dark"); // Default to 'Dark'
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
   const dispatch = useDispatch();
-  const themes: Theme[] = ["Light", "Auto", "Dark"];
+  const [theme, setTheme] = useState<Theme>(darkModeState ? "Dark" : "Light");
+  useEffect(() => {
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    let isDarkMode = false;
+
+    if (theme === "Dark") {
+      isDarkMode = true;
+    } else if (theme === "Auto") {
+      isDarkMode = darkThemeMq.matches;
+    }
+
+    if (isDarkMode !== darkModeState) {
+      dispatch(changeDarkMode(isDarkMode));
+    }
+  }, [theme, darkModeState, dispatch]);
 
   const nextTheme = (selectedTheme: Theme): void => {
     setTheme(selectedTheme);
-    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-    if (selectedTheme === "Dark") {
-      dispatch(changeDarkMode(true));
-    } else if (selectedTheme === "Auto") {
-      if (darkThemeMq.matches) {
-        dispatch(changeDarkMode(true));
-      } else {
-        dispatch(changeDarkMode(false));
-      }
-    } else {
-      dispatch(changeDarkMode(false));
-    }
   };
   return (
     <>

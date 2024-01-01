@@ -9,15 +9,22 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { RootState } from "@/store/store";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { GiWeightScale } from "react-icons/gi";
+import { useSelector } from "react-redux";
 import { useToast } from "../ui/toasts/use-toast";
 interface weightProps {
   weight: number;
+  darkModeDialog: boolean;
   weightHandler: (value: number) => void;
 }
-const WeightComponent: FC<weightProps> = ({ weight, weightHandler }) => {
+const WeightComponent: FC<weightProps> = ({
+  weight,
+  weightHandler,
+  darkModeDialog,
+}) => {
   const [weightState, setNewWeight] = useState<number>(weight);
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
@@ -51,7 +58,10 @@ const WeightComponent: FC<weightProps> = ({ weight, weightHandler }) => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-w-[350px] ">
+      <DialogContent
+        className="sm:max-w-[425px] max-w-[350px] "
+        darkMode={darkModeDialog}
+      >
         <DialogHeader className="">
           <DialogTitle>Add new weight</DialogTitle>
         </DialogHeader>
@@ -65,6 +75,7 @@ const WeightComponent: FC<weightProps> = ({ weight, weightHandler }) => {
             <div className="col-span-4 flex flex-col items-center">
               <div className="flex items-center">
                 <Input
+                  className={darkModeDialog ? "bg-darkPrimary" : "bg-white"}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       if (isNaN(weightState)) {

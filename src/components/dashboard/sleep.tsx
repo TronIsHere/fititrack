@@ -7,13 +7,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { useState } from "react";
+import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaBedPulse } from "react-icons/fa6";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import SleepBar from "../ui/sleepBar";
-const SleepComponent = () => {
+interface sleepProps {
+  darkModeDialog: boolean;
+}
+const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
   const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -55,22 +58,40 @@ const SleepComponent = () => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[525px] max-w-[350px] ">
+      <DialogContent
+        className="sm:max-w-[525px] max-w-[350px] "
+        darkMode={darkModeDialog}
+      >
         <DialogHeader>
           <DialogTitle>Add new sleep</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col">
           <span className="pb-2">Date</span>
-          <Input type={"text"} value={"today"} readOnly></Input>
+          <Input
+            type={"text"}
+            value={"today"}
+            className={darkModeDialog ? "bg-darkPrimary" : "bg-white"}
+            readOnly
+          ></Input>
         </div>
         <div className="grid grid-cols-2 gap-10">
           <div className="flex flex-col">
             <span className="pb-2">from</span>
-            <Input type={"text"} value={"10:00 AM"} readOnly></Input>
+            <Input
+              type={"text"}
+              value={"10:00 AM"}
+              className={darkModeDialog ? "bg-darkPrimary" : "bg-white"}
+              readOnly
+            ></Input>
           </div>
           <div className="flex flex-col">
             <span className="pb-2">to</span>
-            <Input type={"text"} value={"8:00 AM"} readOnly></Input>
+            <Input
+              type={"text"}
+              value={"8:00 AM"}
+              className={darkModeDialog ? "bg-darkPrimary" : "bg-white"}
+              readOnly
+            ></Input>
           </div>
         </div>
         <DialogFooter>
