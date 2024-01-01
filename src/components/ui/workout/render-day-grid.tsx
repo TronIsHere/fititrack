@@ -3,7 +3,20 @@ import { TWorkout } from "@/types/dashboardTypes";
 
 export const renderDayGrid = (state: TWorkout) => {
   return [...Array(getMonthDays)].map((_, index) => {
-    const day = state.days?.find((d) => d.date.getDate() === index + 1);
+    const currentDate = new Date();
+    const targetDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      index + 1
+    );
+
+    const day = state.days?.find(
+      (d) =>
+        d.date.getDate() === targetDate.getDate() &&
+        d.date.getMonth() === targetDate.getMonth() &&
+        d.date.getFullYear() === targetDate.getFullYear()
+    );
+
     const isDone = day?.done ?? false;
     return (
       <div

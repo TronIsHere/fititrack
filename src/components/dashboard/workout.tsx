@@ -26,6 +26,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   const consistency = calculateConsistency(workoutState.days || []);
 
   useEffect(() => {
+    // checking if today doesn't exist add it so user can see the correct stats
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -44,6 +45,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
 
   const handleWorkout = () => {
     setWorkoutState((prevState) => {
+      //doing streak and grid and checkIns in same function
       const today = new Date();
       const currentDays = prevState.days || [];
       const existingDayIndex = currentDays.findIndex((d) =>
@@ -69,6 +71,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         ...prevState,
         days: updatedDays,
         checkIns: updatedCheckIns,
+        done: !workoutState.done,
         streak: calculateStreak(updatedDays),
       };
     });
