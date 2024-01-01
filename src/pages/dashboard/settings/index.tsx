@@ -141,25 +141,25 @@ const SettingsPage: MyPage = () => {
                   <BillHistoryComponent
                     date="2019.8.10 11:06 UTC"
                     type="Pro subscription (1 year)"
-                    transactionID="LASHFLI124SD8CNZ2"
+                    transactionID="LASH_FLI124SD8CNZ2"
                     price="72.82"
                   />
                   <BillHistoryComponent
                     date="2019.8.10 11:06 UTC"
                     type="Pro subscription (1 year)"
-                    transactionID="LASHFLI124SD8CNZ2"
+                    transactionID="LASH_FLI124SD8CNZ2"
                     price="72.82"
                   />
                   <BillHistoryComponent
                     date="2019.8.10 11:06 UTC"
                     type="Pro subscription (1 year)"
-                    transactionID="LASHFLI124SD8CNZ2"
+                    transactionID="LASH_FLI124SD8CNZ2"
                     price="72.82"
                   />
                   <BillHistoryComponent
                     date="2019.8.10 11:06 UTC"
                     type="Pro subscription (1 year)"
-                    transactionID="LASHFLI124SD8CNZ2"
+                    transactionID="LASH_FLI124SD8CNZ2"
                     price="72.82"
                   />
                 </div>

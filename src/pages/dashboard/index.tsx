@@ -4,6 +4,7 @@ import SleepComponent from "@/components/dashboard/sleep";
 import WeightComponent from "@/components/dashboard/weight";
 import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
+import { TWorkout } from "@/components/types/dashboardTypes";
 import { MyPage } from "@/components/types/nextjs";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +21,6 @@ import { Label } from "@/components/ui/label";
 import { workoutsData } from "@/data/dummy_data";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { newWeight } from "@/store/slices/userSlice";
-import { TWorkout } from "@/components/types/dashboardTypes";
 import { useState } from "react";
 const DashboardPage: MyPage = () => {
   const [newDayState, setNewDayState] = useState<boolean>(true);
@@ -34,7 +34,10 @@ const DashboardPage: MyPage = () => {
     <>
       <Dialog open={false}>
         <DialogTrigger asChild></DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] max-w-[350px]">
+        <DialogContent
+          className="sm:max-w-[425px] max-w-[350px]"
+          darkMode={darkModeState}
+        >
           <DialogHeader>
             <DialogTitle>New Day!</DialogTitle>
             <DialogDescription>
