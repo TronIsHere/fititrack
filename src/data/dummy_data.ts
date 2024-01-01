@@ -1,4 +1,4 @@
-import { TWorkout } from "@/types/workout";
+import { TWorkout } from "@/types/dashboardTypes";
 
 export const missions = [
   { id: 1, title: "Cardio 10 miles", done: false },
@@ -8,7 +8,7 @@ export const workoutsData: TWorkout[] = [
   {
     id: 1,
     title: "upper body",
-    checkIns: 3,
+    checkIns: 2,
     created: new Date("2023/12/27"),
     streak: 2,
     done: false,
@@ -23,12 +23,8 @@ export const workoutsData: TWorkout[] = [
     title: "lower body",
     checkIns: 1,
     created: new Date("2023/12/27"),
-    streak: 0,
+    streak: 1,
     done: false,
-    days: [
-      { date: new Date("2023/12/27"), done: false },
-      { date: new Date("2023/12/28"), done: true },
-      { date: new Date("2023/12/29"), done: false },
-    ],
+    days: [{ date: new Date("2023/12/30"), done: true }],
   },
 ];

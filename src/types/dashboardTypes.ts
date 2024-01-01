@@ -5,5 +5,9 @@ export type TWorkout = {
   streak: number;
   checkIns: number;
   done: boolean;
-  days?: { date: Date; done: boolean }[];
+  days?: TDay[];
+};
+export type TDay = {
+  date: Date;
+  done: boolean;
 };

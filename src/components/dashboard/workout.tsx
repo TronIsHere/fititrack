@@ -1,10 +1,13 @@
-import { getMonthDays, isSameDay, startOfDay } from "@/lib/dateUtils";
-import { TWorkout } from "@/types/workout";
+import { isSameDay } from "@/lib/dateUtils";
+import { calculateConsistency, calculateStreak } from "@/lib/utils";
+import { TDay, TWorkout } from "@/types/dashboardTypes";
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { BiSolidEdit } from "react-icons/bi";
 import { FaCheck } from "react-icons/fa6";
 import { MdDeleteOutline } from "react-icons/md";
+import { renderDoneIndicator } from "../ui/workout/done-indicator";
+import { renderEditButtons } from "../ui/workout/edit-button";
 import { renderDayGrid } from "../ui/workout/render-day-grid";
 interface workoutProps {
   workout: TWorkout;
@@ -20,69 +23,74 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   if (!workout) {
     return null;
   }
-  const { checkIns, title, streak, days, done }: TWorkout = workout;
-  const [workoutState, setWorkoutState] = useState<TWorkout>(workout);
-  const handleWorkout = () => {
-    const today = new Date();
 
+  const { title }: TWorkout = workout;
+  const [workoutState, setWorkoutState] = useState<TWorkout>(workout);
+  const consistency = calculateConsistency(workoutState.days || []);
+
+  useEffect(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const currentDays = workoutState.days || []; // Provide a default empty array
+    const todayExists = currentDays.some((day) => isSameDay(day.date, today));
+
+    if (!todayExists) {
+      const updatedDays = [...currentDays, { date: today, done: false }];
+
+      setWorkoutState((prevState) => ({
+        ...prevState,
+        days: updatedDays,
+      }));
+    }
+  }, [workoutState.days]);
+
+  const handleWorkout = () => {
     setWorkoutState((prevState) => {
+      const today = new Date();
       const currentDays = prevState.days || [];
       const existingDayIndex = currentDays.findIndex((d) =>
         isSameDay(d.date, today)
       );
 
-      let updatedDays;
+      let updatedDays = [...currentDays];
+      let updatedCheckIns = prevState.checkIns;
 
       if (existingDayIndex >= 0) {
-        updatedDays = [...currentDays];
+        const wasDone = updatedDays[existingDayIndex].done;
         updatedDays[existingDayIndex] = {
           ...updatedDays[existingDayIndex],
-          done: !updatedDays[existingDayIndex].done,
+          done: !wasDone,
         };
+        updatedCheckIns += wasDone ? -1 : 1;
       } else {
-        updatedDays = [...currentDays, { date: today, done: true }];
+        updatedDays.push({ date: today, done: true });
+        updatedCheckIns++;
       }
 
       return {
         ...prevState,
-        done: !workoutState.done,
         days: updatedDays,
+        checkIns: updatedCheckIns,
+        streak: calculateStreak(updatedDays),
       };
     });
   };
 
-  const renderEditButtons = () => (
-    <div>
-      <button className="text-palletRed-500">
-        <MdDeleteOutline size={24} />
-      </button>
-      <button className="text-palletGray-300 ml-5">
-        <BiSolidEdit size={24} />
-      </button>
-    </div>
-  );
-  const renderDoneIndicator = () => (
-    <div
-      className={`w-6 h-6 border-2 flex justify-center items-center rounded-lg cursor-pointer ${
-        workoutState?.done
-          ? "border-palletGreen-600 bg-palletGreen-600"
-          : "border-palletGray-100"
-      } mt-1`}
-      onClick={handleWorkout}
-    >
-      {workoutState?.done && <FaCheck color="#fff" size={14} />}
-    </div>
-  );
   return (
     <div className="bg-white w-full rounded-xl p-5 mb-6 dark:bg-darkPrimary">
       <div className="flex justify-between">
         <span className=" pt-1 font-medium">{title}</span>
-        {editEnabled ? renderEditButtons() : renderDoneIndicator()}
+        {editEnabled
+          ? renderEditButtons()
+          : renderDoneIndicator(workoutState.done, handleWorkout)}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-5 w-full my-8 mb-3">
         <div className="col-span-1 flex flex-col items-start md:items-center">
           <div className="flex items-end">
-            <span className="font-semibold text-3xl">{20}</span>
+            <span className="font-semibold text-3xl">
+              {consistency.toFixed(0)}
+            </span>
             <span className="text-palletGray-200">%</span>
           </div>
           <span className="text-palletGray-200 font-normal text-sm mt-4">
@@ -91,7 +99,9 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         </div>
         <div className="col-span-1 flex flex-col items-start md:items-center">
           <div className="flex items-end">
-            <span className="font-semibold text-3xl">{streak}</span>
+            <span className="font-semibold text-3xl">
+              {workoutState.streak}
+            </span>
             <span className="text-palletGray-200">days</span>
           </div>
           <span className="text-palletGray-200 font-normal text-sm mt-4">
@@ -100,7 +110,9 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         </div>
         <div className="col-span-1 flex flex-col items-start md:items-center my-5 md:my-0">
           <div className="flex items-end">
-            <span className="font-semibold text-3xl">{checkIns}</span>
+            <span className="font-semibold text-3xl">
+              {workoutState.checkIns}
+            </span>
             <span className="text-palletGray-200"></span>
           </div>
           <span className="text-palletGray-200 font-normal text-sm mt-4">

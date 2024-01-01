@@ -21,7 +21,7 @@ import { workoutsData } from "@/data/dummy_data";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { newWeight } from "@/store/slices/userSlice";
-import { TWorkout } from "@/types/workout";
+import { TWorkout } from "@/types/dashboardTypes";
 import { useState } from "react";
 const DashboardPage: MyPage = () => {
   const [newDayState, setNewDayState] = useState<boolean>(true);
