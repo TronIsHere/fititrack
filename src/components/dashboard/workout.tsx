@@ -1,5 +1,9 @@
 import { isSameDay } from "@/lib/dateUtils";
-import { calculateConsistency, calculateStreak } from "@/lib/utils";
+import {
+  calculateConsistency,
+  calculateStreak,
+  capitalizeFirstLetter,
+} from "@/lib/utils";
 import { TWorkout } from "@/components/types/dashboardTypes";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
@@ -80,7 +84,9 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   return (
     <div className="bg-white w-full rounded-xl p-5 mb-6 dark:bg-darkPrimary">
       <div className="flex justify-between">
-        <span className=" pt-1 font-medium">{title}</span>
+        <span className=" pt-1 font-medium">
+          {capitalizeFirstLetter(title)}
+        </span>
         {editEnabled
           ? renderEditButtons()
           : renderDoneIndicator(workoutState.done, handleWorkout)}

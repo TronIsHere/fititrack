@@ -6,10 +6,28 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import MuscleSelect from "@/components/ui/workout/muscle-select";
+import WorkoutFrequency from "@/components/ui/workout/workout-frequency";
+import WorkoutType from "@/components/ui/workout/workout-type";
+import { daysOfWeek } from "@/lib/dateUtils";
 import Link from "next/link";
+import { useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
 // TODO: responsive design
 const AddWorkout: MyPage = () => {
+  const [workoutDuration, setWorkoutDuration] = useState("");
+  const [durationUnit, setDurationUnit] = useState<"Minutes" | "Hours">(
+    "Minutes"
+  );
+
+  const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWorkoutDuration(event.target.value);
+  };
+
+  const handleDurationUnitChange = (unit: "Minutes" | "Hours") => {
+    setDurationUnit(unit);
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-7 gap-6 ">
       <div className="col-span-5">
@@ -68,84 +86,13 @@ const AddWorkout: MyPage = () => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row mt-5">
-            <div className="flex flex-col  ">
-              <span>Workout frequency</span>
-              <div className="flex flex-col md:flex-row border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
-                <span className="px-2 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
-                  Mon
-                </span>
-                <span className="px-2 my-2 md:my-0  py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
-                  Tue
-                </span>
-                <span className="px-2 my-2 md:my-0 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
-                  Wen
-                </span>
-                <span className="px-2 my-2 md:my-0 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
-                  Thu
-                </span>
-                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
-                  Fri
-                </span>
-                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
-                  Sat
-                </span>
-                <span className="px-2 my-2 md:my-0 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
-                  Sun
-                </span>
-              </div>
-            </div>
-            <div className="ml-0 md:ml-5">
-              <br />
-              <div className="flex border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
-                <span className="px-2 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
-                  Weekdays
-                </span>
-                <span className="px-2 py-1 text-palletGray-100 rounded-md mr-1 cursor-pointer">
-                  Every day
-                </span>
-              </div>
-            </div>
+            <WorkoutFrequency />
           </div>
           <div className="flex mt-5">
-            <div className="flex flex-col  ">
-              <span>Workout type</span>
-              <div className="flex border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
-                <span className="px-5 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
-                  Strength
-                </span>
-                <span className="px-5 py-1 text-palletGray-100 rounded-md mr-1 cursor-pointer">
-                  Cardio
-                </span>
-              </div>
-            </div>
+            <WorkoutType />
           </div>
           <div className="flex mt-5">
-            <div className="flex flex-col  ">
-              <span>What muscles you focus</span>
-              <div className="flex flex-col md:flex-row border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
-                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
-                  Legs
-                </span>
-                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
-                  Arms
-                </span>
-                <span className="px-2 my-2 md:my-0 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
-                  Chest
-                </span>
-                <span className="px-2 my-2 md:my-0 py-1  text-palletGray-100 rounded-md mr-1 cursor-pointer">
-                  Core
-                </span>
-                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
-                  Neck
-                </span>
-                <span className="px-2 my-2 md:my-0 py-1 text-palletGray-100 rounded-md mr-1 cursor-pointer">
-                  Back
-                </span>
-                <span className="px-2 my-2 md:my-0 py-1 bg-palletPurple-300  text-white rounded-md mr-1 cursor-pointer">
-                  Gluteus
-                </span>
-              </div>
-            </div>
+            <MuscleSelect />
           </div>
           <div className="flex mt-5">
             <div className="flex flex-col">
@@ -154,18 +101,28 @@ const AddWorkout: MyPage = () => {
                 <div className="flex border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
                   <input
                     type="text"
+                    value={workoutDuration}
+                    onChange={handleDurationChange}
                     className="p-1 w-10 text-center dark:bg-darkPrimary"
                   />
                 </div>
                 <div className="flex border-2 rounded-lg border-palletGray-100 p-1 px-2 mt-2 text-sm ml-3">
                   <DropdownMenu>
                     <DropdownMenuTrigger className="text-palletPurple-300 flex items-center">
-                      Minutes
+                      {durationUnit}
                       <BsFillCaretDownFill className="ml-2" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      <DropdownMenuItem>Minutes</DropdownMenuItem>
-                      <DropdownMenuItem>Hours</DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => handleDurationUnitChange("Minutes")}
+                      >
+                        Minutes
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => handleDurationUnitChange("Hours")}
+                      >
+                        Hours
+                      </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
@@ -183,6 +140,7 @@ const AddWorkout: MyPage = () => {
     </div>
   );
 };
+
 AddWorkout.getLayout = (page: any) => {
   return <DashboardLayout>{page}</DashboardLayout>;
 };

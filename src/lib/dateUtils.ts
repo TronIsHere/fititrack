@@ -1,5 +1,7 @@
 import { getDaysInMonth } from "date-fns";
 
+export const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
 const date = new Date();
 
 export const getMonthDays = getDaysInMonth(date.getMonth());
