@@ -1,11 +1,8 @@
 import { isSameDay } from "@/lib/dateUtils";
 import { calculateConsistency, calculateStreak } from "@/lib/utils";
-import { TDay, TWorkout } from "@/types/dashboardTypes";
+import { TWorkout } from "@/types/dashboardTypes";
 import { NextPage } from "next";
-import { memo, useEffect, useState } from "react";
-import { BiSolidEdit } from "react-icons/bi";
-import { FaCheck } from "react-icons/fa6";
-import { MdDeleteOutline } from "react-icons/md";
+import { useEffect, useState } from "react";
 import { renderDoneIndicator } from "../ui/workout/done-indicator";
 import { renderEditButtons } from "../ui/workout/edit-button";
 import { renderDayGrid } from "../ui/workout/render-day-grid";
