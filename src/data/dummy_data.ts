@@ -1,4 +1,4 @@
-import { TWorkout } from "@/types/dashboardTypes";
+import { TWorkout } from "@/components/types/dashboardTypes";
 
 export const missions = [
   { id: 1, title: "Cardio 10 miles", done: false },

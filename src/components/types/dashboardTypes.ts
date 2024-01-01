@@ -11,3 +11,4 @@ export type TDay = {
   date: Date;
   done: boolean;
 };
+export type Theme = "Light" | "Auto" | "Dark";

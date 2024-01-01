@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../store";
+import { RootState } from "../store";
 
 // Define a type for the slice state
 interface UserState {
@@ -27,6 +26,9 @@ export const userSlice = createSlice({
     toggleDarkMode: (state) => {
       state.darkMode = !state.darkMode;
     },
+    changeDarkMode: (state, action: PayloadAction<boolean>) => {
+      state.darkMode = action.payload;
+    },
     newWeight: (state, action: PayloadAction<number>) => {
       state.weight = action.payload;
     },
@@ -42,10 +44,16 @@ export const userSlice = createSlice({
   },
 });
 
-export const { toggleDarkMode, newWeight, levelUp, changeMaxXp, addXp } =
-  userSlice.actions;
+export const {
+  toggleDarkMode,
+  changeDarkMode,
+  newWeight,
+  levelUp,
+  changeMaxXp,
+  addXp,
+} = userSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const darkModeCount = (state: RootState) => state.user.darkMode;
+export const darkModeSelector = (state: RootState) => state.user.darkMode;
 
 export default userSlice.reducer;

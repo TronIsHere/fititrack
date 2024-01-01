@@ -1,6 +1,8 @@
 import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
+import { TWorkout } from "@/components/types/dashboardTypes";
 import { MyPage } from "@/components/types/nextjs";
+import { workoutsData } from "@/data/dummy_data";
 import Link from "next/link";
 
 const WorkoutsPage: MyPage = () => {
@@ -17,9 +19,16 @@ const WorkoutsPage: MyPage = () => {
               Add
             </Link>
           </div>
-          <WorkoutComponent editEnabled={true} />
-          <WorkoutComponent editEnabled={true} />
-          <WorkoutComponent editEnabled={true} />
+          {workoutsData.map((workout: TWorkout) => {
+            console.log(workout, 2);
+            return (
+              <WorkoutComponent
+                editEnabled={true}
+                workout={workout}
+                updateWorkout={() => console.log("clicked")}
+              />
+            );
+          })}
         </div>
         <div className="col-span-2"></div>
       </div>

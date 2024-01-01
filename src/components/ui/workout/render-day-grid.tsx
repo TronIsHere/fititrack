@@ -1,5 +1,5 @@
 import { getMonthDays } from "@/lib/dateUtils";
-import { TWorkout } from "@/types/dashboardTypes";
+import { TWorkout } from "@/components/types/dashboardTypes";
 
 export const renderDayGrid = (state: TWorkout) => {
   return [...Array(getMonthDays)].map((_, index) => {

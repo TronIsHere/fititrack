@@ -19,9 +19,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { workoutsData } from "@/data/dummy_data";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
-import { capitalizeFirstLetter } from "@/lib/utils";
 import { newWeight } from "@/store/slices/userSlice";
-import { TWorkout } from "@/types/dashboardTypes";
+import { TWorkout } from "@/components/types/dashboardTypes";
 import { useState } from "react";
 const DashboardPage: MyPage = () => {
   const [newDayState, setNewDayState] = useState<boolean>(true);
@@ -93,7 +92,6 @@ const DashboardPage: MyPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-7 mt-6 gap-6">
           <div className="col-span-5">
             {workoutsData.map((workout: TWorkout) => {
-              console.log(workout, 2);
               return (
                 <WorkoutComponent
                   workout={workout}

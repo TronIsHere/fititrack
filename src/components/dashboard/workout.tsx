@@ -1,6 +1,6 @@
 import { isSameDay } from "@/lib/dateUtils";
 import { calculateConsistency, calculateStreak } from "@/lib/utils";
-import { TWorkout } from "@/types/dashboardTypes";
+import { TWorkout } from "@/components/types/dashboardTypes";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { renderDoneIndicator } from "../ui/workout/done-indicator";

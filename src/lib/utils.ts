@@ -1,4 +1,4 @@
-import { TDay } from "@/types/dashboardTypes";
+import { TDay } from "@/components/types/dashboardTypes";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { isSameDay } from "./dateUtils";

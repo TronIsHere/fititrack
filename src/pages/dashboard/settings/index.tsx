@@ -1,10 +1,35 @@
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import BillHistoryComponent from "@/components/settings/billHistory";
+import { Theme } from "@/components/types/dashboardTypes";
 import { MyPage } from "@/components/types/nextjs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { changeDarkMode, toggleDarkMode } from "@/store/slices/userSlice";
+import { RootState } from "@/store/store";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const SettingsPage: MyPage = () => {
+  const [theme, setTheme] = useState<Theme>("Dark"); // Default to 'Dark'
+  const darkModeState = useSelector((state: RootState) => state.user.darkMode);
+  const dispatch = useDispatch();
+  const themes: Theme[] = ["Light", "Auto", "Dark"];
+
+  const nextTheme = (selectedTheme: Theme): void => {
+    setTheme(selectedTheme);
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    if (selectedTheme === "Dark") {
+      dispatch(changeDarkMode(true));
+    } else if (selectedTheme === "Auto") {
+      if (darkThemeMq.matches) {
+        dispatch(changeDarkMode(true));
+      } else {
+        dispatch(changeDarkMode(false));
+      }
+    } else {
+      dispatch(changeDarkMode(false));
+    }
+  };
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-7 gap-6 ">
@@ -72,18 +97,22 @@ const SettingsPage: MyPage = () => {
                       </span>
                     </div>
                   </div>
-                  <div className=" pl-2 pt-8">
-                    <span className="pl-0.5 ">Theme</span>
+                  <div className="pl-2 pt-8">
+                    <span className="pl-0.5">Theme</span>
                     <div className="flex border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm w-60 justify-center">
-                      <span className="px-5 py-1 text-palletGray-100 rounded-md mr-1 cursor-pointer">
-                        Light
-                      </span>
-                      <span className="px-5 py-1 text-palletGray-100 rounded-md mr-1 cursor-pointer">
-                        Auto
-                      </span>
-                      <span className="px-5 py-1 bg-palletPurple-300 text-white rounded-md mr-1 cursor-pointer">
-                        Dark
-                      </span>
+                      {themes.map((t) => (
+                        <span
+                          key={t}
+                          className={`px-5 py-1 rounded-md mr-1 cursor-pointer transition duration-300 ease-in-out ${
+                            theme === t
+                              ? "bg-palletPurple-300 text-white"
+                              : "text-palletGray-100 hover:bg-palletPurple-300 hover:text-white"
+                          }`}
+                          onClick={() => nextTheme(t)}
+                        >
+                          {t}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
