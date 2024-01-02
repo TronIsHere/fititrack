@@ -1,22 +1,25 @@
 import { daysOfWeek } from "@/lib/dateUtils";
 import { FC, useState } from "react";
 
-const WorkoutFrequency: FC = () => {
-  const [selectedDays, setSelectedDays] = useState<string[]>([]);
-  const [selectedFrequency, setSelectedFrequency] = useState<
-    "Weekdays" | "Every day"
-  >("Weekdays");
+interface WorkoutFrequencyProps {
+  onWorkoutFrequencyChange: (type: "Weekdays" | "Every day") => void;
+  workoutFrequencyState: "Weekdays" | "Every day";
+  onWorkoutFrequencyDayChange: (day: string) => void;
+  selectedDayState: string[];
+}
+const WorkoutFrequency: FC<WorkoutFrequencyProps> = ({
+  onWorkoutFrequencyChange,
+  workoutFrequencyState,
+  selectedDayState,
+  onWorkoutFrequencyDayChange,
+}) => {
   const handleFrequencySelect = (frequency: "Weekdays" | "Every day") => {
-    setSelectedFrequency(frequency);
+    onWorkoutFrequencyChange(frequency);
+  };
+  const handleFrequencyDaySelect = (day: string) => {
+    onWorkoutFrequencyDayChange(day);
   };
 
-  const handleDaySelect = (day: string) => {
-    setSelectedDays((prevDays) =>
-      prevDays.includes(day)
-        ? prevDays.filter((d) => d !== day)
-        : [...prevDays, day]
-    );
-  };
   return (
     <>
       <div className="flex flex-col  ">
@@ -26,11 +29,11 @@ const WorkoutFrequency: FC = () => {
             <span
               key={day}
               className={`px-2 py-1 rounded-md mr-1 cursor-pointer transition duration-300 ease-in-out ${
-                selectedDays.includes(day)
+                selectedDayState.includes(day)
                   ? "bg-palletPurple-300 text-white"
                   : "text-palletGray-100 hover:bg-palletPurple-300 hover:text-white"
               }`}
-              onClick={() => handleDaySelect(day)}
+              onClick={() => handleFrequencyDaySelect(day)}
             >
               {day}
             </span>
@@ -43,7 +46,7 @@ const WorkoutFrequency: FC = () => {
         <div className="flex border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
           <span
             className={`px-2 py-1 rounded-md mr-1 cursor-pointer transition duration-300 ease-in-out ${
-              selectedFrequency === "Weekdays"
+              workoutFrequencyState === "Weekdays"
                 ? "bg-palletPurple-300 text-white"
                 : "text-palletGray-100 hover:bg-palletPurple-300 hover:text-white"
             }`}
@@ -53,7 +56,7 @@ const WorkoutFrequency: FC = () => {
           </span>
           <span
             className={`px-2 py-1 rounded-md mr-1 cursor-pointer transition duration-300 ease-in-out ${
-              selectedFrequency === "Every day"
+              workoutFrequencyState === "Every day"
                 ? "bg-palletPurple-300 text-white"
                 : "text-palletGray-100 hover:bg-palletPurple-300 hover:text-white"
             }`}

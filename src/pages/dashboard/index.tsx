@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { workoutsData } from "@/data/dummy_data";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { newWeight } from "@/store/slices/userSlice";
 import { useState } from "react";
@@ -26,6 +25,7 @@ const DashboardPage: MyPage = () => {
   const [newDayState, setNewDayState] = useState<boolean>(true);
   const weightState = useAppSelector((state) => state.user.weight);
   const darkModeState = useAppSelector((state) => state.user.darkMode);
+  const workoutsState = useAppSelector((state) => state.workout.workouts);
   const dispatch = useAppDispatch();
   const weightHandler = (weight: number) => {
     dispatch(newWeight(weight));
@@ -95,7 +95,7 @@ const DashboardPage: MyPage = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-7 mt-6 gap-6">
           <div className="col-span-5">
-            {workoutsData.map((workout: TWorkout) => {
+            {workoutsState.map((workout: TWorkout) => {
               return (
                 <WorkoutComponent
                   workout={workout}

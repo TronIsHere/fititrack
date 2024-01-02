@@ -2,10 +2,11 @@ import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { TWorkout } from "@/components/types/dashboardTypes";
 import { MyPage } from "@/components/types/nextjs";
-import { workoutsData } from "@/data/dummy_data";
+import { useAppSelector } from "@/hooks/storeHooks";
 import Link from "next/link";
 
 const WorkoutsPage: MyPage = () => {
+  const workoutsState = useAppSelector((state) => state.workout.workouts);
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
@@ -19,7 +20,7 @@ const WorkoutsPage: MyPage = () => {
               Add
             </Link>
           </div>
-          {workoutsData.map((workout: TWorkout) => {
+          {workoutsState.map((workout: TWorkout) => {
             console.log(workout, 2);
             return (
               <WorkoutComponent

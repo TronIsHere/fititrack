@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/layouts/dashboardLayout";
+import { TWorkout } from "@/components/types/dashboardTypes";
 import { MyPage } from "@/components/types/nextjs";
 import {
   DropdownMenu,
@@ -9,28 +10,57 @@ import {
 import MuscleSelect from "@/components/ui/workout/muscle-select";
 import WorkoutFrequency from "@/components/ui/workout/workout-frequency";
 import WorkoutType from "@/components/ui/workout/workout-type";
+import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
+import useMusclesSelect from "@/hooks/workout/useMuscleSelect";
+import useWorkoutDetails from "@/hooks/workout/useWorkoutDetails";
+import useWorkoutFrequency from "@/hooks/workout/useWorkoutFrequency";
+import useWorkoutType from "@/hooks/workout/useWorkoutType";
+import { addWorkout } from "@/store/slices/workoutSlice";
 import Link from "next/link";
 import { useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
 
 // TODO: responsive design
 
 const AddWorkout: MyPage = () => {
-  const [workoutDuration, setWorkoutDuration] = useState("");
-  const [selectedColor, setSelectedColor] = useState("bg-red-400");
+  const { nameWorkout, selectedColor, handleNameChange, handleColorSelect } =
+    useWorkoutDetails();
+  const {
+    workoutFrequency,
+    selectedDays,
+    handleWorkoutFrequencyChange,
+    handleDaySelect,
+  } = useWorkoutFrequency();
+  const { workoutType, handleWorkoutTypeChange } = useWorkoutType();
+  const { selectedMuscles, handleMuscleSelect } = useMusclesSelect();
+  const dispatch = useAppDispatch();
+
+  const [workoutDuration, setWorkoutDuration] = useState<string>("");
+
   const [durationUnit, setDurationUnit] = useState<"Minutes" | "Hours">(
     "Minutes"
   );
-
   const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWorkoutDuration(event.target.value);
-  };
-  const handleColorSelect = (colorClass: string) => {
-    setSelectedColor(colorClass);
   };
 
   const handleDurationUnitChange = (unit: "Minutes" | "Hours") => {
     setDurationUnit(unit);
+  };
+
+  const workoutsState = useAppSelector((state) => state.workout.workouts);
+  const addHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const newWorkout: TWorkout = {
+      id: workoutsState.length + 1, // Modify according to your ID generation logic
+      title: nameWorkout,
+      checkIns: 0,
+      created: new Date(),
+      streak: 0,
+      done: false,
+      days: [],
+    };
+    dispatch(addWorkout(newWorkout));
   };
 
   return (
@@ -50,6 +80,7 @@ const AddWorkout: MyPage = () => {
             <div className="flex flex-col w-full mr-2">
               <span>Name of this workout</span>
               <input
+                onChange={handleNameChange}
                 type="text"
                 className="border-2 mt-2 rounded-lg p-1.5 pl-2 text-sm border-palletGray-100 dark:bg-darkPrimary"
                 placeholder="your workout’s name.."
@@ -106,13 +137,24 @@ const AddWorkout: MyPage = () => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row mt-5">
-            <WorkoutFrequency />
+            <WorkoutFrequency
+              onWorkoutFrequencyChange={handleWorkoutFrequencyChange}
+              workoutFrequencyState={workoutFrequency}
+              onWorkoutFrequencyDayChange={handleDaySelect}
+              selectedDayState={selectedDays}
+            />
           </div>
           <div className="flex mt-5">
-            <WorkoutType />
+            <WorkoutType
+              onWorkoutTypeChange={handleWorkoutTypeChange}
+              workoutType={workoutType}
+            />
           </div>
           <div className="flex mt-5">
-            <MuscleSelect />
+            <MuscleSelect
+              muscleSelectState={selectedMuscles}
+              onMuscleSelectChange={handleMuscleSelect}
+            />
           </div>
           <div className="flex mt-5">
             <div className="flex flex-col">
@@ -150,7 +192,10 @@ const AddWorkout: MyPage = () => {
             </div>
           </div>
           <div className="flex mt-10 justify-end">
-            <button className="bg-palletGreen-600 h-10 text-white px-8 rounded-md mt-3">
+            <button
+              className="bg-palletGreen-600 h-10 text-white px-8 rounded-md mt-3"
+              onClick={addHandler}
+            >
               Add
             </button>
           </div>

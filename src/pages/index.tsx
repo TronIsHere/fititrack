@@ -9,9 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
   const router = useRouter();
-  // useEffect(() => {
-  //   router.push("/waitlist");
-  // });
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
   const dispatch = useDispatch();
   const darkModeHandler = () => {
