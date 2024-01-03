@@ -50,7 +50,6 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   }, [workoutState.days]);
 
   const handleWorkout = () => {
-    dispatch(addXp(20));
     setWorkoutState((prevState) => {
       //doing streak and grid and checkIns in same function
       const today = new Date();
@@ -61,9 +60,9 @@ const WorkoutComponent: NextPage<workoutProps> = ({
 
       let updatedDays = [...currentDays];
       let updatedCheckIns = prevState.checkIns;
-
+      let wasDone = false;
       if (existingDayIndex >= 0) {
-        const wasDone = updatedDays[existingDayIndex].done;
+        wasDone = updatedDays[existingDayIndex].done;
         updatedDays[existingDayIndex] = {
           ...updatedDays[existingDayIndex],
           done: !wasDone,
@@ -73,7 +72,9 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         updatedDays.push({ date: today, done: true });
         updatedCheckIns++;
       }
-
+      if (!wasDone) {
+        dispatch(addXp(20)); // Only add XP if the workout was not already done
+      }
       return {
         ...prevState,
         days: updatedDays,
