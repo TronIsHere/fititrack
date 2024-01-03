@@ -28,7 +28,13 @@ const DashboardPage: MyPage = () => {
   const workoutsState = useAppSelector((state) => state.workout.workouts);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    setOpen(true);
+    const today = new Date().toISOString().slice(0, 10); // Get current date in YYYY-MM-DD format
+    const lastVisited = localStorage.getItem("lastVisited"); // Replace with your state management if not using localStorage
+
+    if (lastVisited !== today) {
+      setOpen(true); // It's a new day
+      localStorage.setItem("lastVisited", today); // Update the last visited date
+    }
   }, []);
   const weightHandler = (weight: number) => {
     dispatch(newWeight(weight));
@@ -79,7 +85,11 @@ const DashboardPage: MyPage = () => {
             <Button type="submit" variant={"primary"}>
               Log
             </Button>
-            <Button type="submit" variant={"destructive"}>
+            <Button
+              type="submit"
+              variant={"destructive"}
+              onClick={() => setOpen(false)}
+            >
               Cancel
             </Button>
           </DialogFooter>
@@ -109,6 +119,7 @@ const DashboardPage: MyPage = () => {
             {workoutsState.map((workout: TWorkout) => {
               return (
                 <WorkoutComponent
+                  key={workout.id}
                   workout={workout}
                   updateWorkout={() => console.log("clicked")}
                 />
