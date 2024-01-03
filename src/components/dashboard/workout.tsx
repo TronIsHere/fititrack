@@ -50,7 +50,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   }, [workoutState.days]);
 
   const handleWorkout = () => {
-    dispatch(addXp(40));
+    dispatch(addXp(20));
     setWorkoutState((prevState) => {
       //doing streak and grid and checkIns in same function
       const today = new Date();
