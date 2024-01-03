@@ -20,19 +20,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { newWeight } from "@/store/slices/userSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const DashboardPage: MyPage = () => {
-  const [newDayState, setNewDayState] = useState<boolean>(true);
+  const [open, setOpen] = useState(false);
   const weightState = useAppSelector((state) => state.user.weight);
   const darkModeState = useAppSelector((state) => state.user.darkMode);
   const workoutsState = useAppSelector((state) => state.workout.workouts);
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    setOpen(true);
+  }, []);
   const weightHandler = (weight: number) => {
     dispatch(newWeight(weight));
   };
   return (
     <>
-      <Dialog open={false}>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild></DialogTrigger>
         <DialogContent
           className="sm:max-w-[425px] max-w-[350px]"
@@ -50,7 +53,11 @@ const DashboardPage: MyPage = () => {
                 Last night Sleep
               </Label>
               <div className="col-span-3 flex items-center">
-                <Input id="sleep" defaultValue="7.5" />
+                <Input
+                  id="sleep"
+                  defaultValue="7.5"
+                  className={darkModeState ? "bg-darkPrimary" : "bg-white"}
+                />
                 <span className="pl-2 font-bold">Hour</span>
               </div>
             </div>
@@ -59,13 +66,17 @@ const DashboardPage: MyPage = () => {
                 Today's weight
               </Label>
               <div className="col-span-3 flex items-center">
-                <Input id="weight" defaultValue="80" />
+                <Input
+                  id="weight"
+                  defaultValue="80"
+                  className={darkModeState ? "bg-darkPrimary" : "bg-white"}
+                />
                 <span className="pl-2 font-bold">KG</span>
               </div>
             </div>
           </div>
           <DialogFooter className="flex flex-row justify-end gap-2">
-            <Button type="submit" className="bg-palletPurple-500">
+            <Button type="submit" variant={"primary"}>
               Log
             </Button>
             <Button type="submit" variant={"destructive"}>
@@ -103,6 +114,7 @@ const DashboardPage: MyPage = () => {
                 />
               );
             })}
+            {/* <MyChart /> */}
           </div>
           <div className="col-span-5 md:col-span-2">
             <MissionsComponent />
