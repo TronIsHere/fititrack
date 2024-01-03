@@ -16,7 +16,7 @@ const initialState: UserState = {
   weight: 80,
   level: 1,
   maxXp: 100,
-  xp: 0,
+  xp: 50,
 };
 
 export const userSlice = createSlice({
@@ -32,7 +32,7 @@ export const userSlice = createSlice({
     newWeight: (state, action: PayloadAction<number>) => {
       state.weight = action.payload;
     },
-    levelUp: (state, action: PayloadAction<number>) => {
+    levelUp: (state) => {
       state.level = ++state.level;
     },
     changeMaxXp: (state, action: PayloadAction<number>) => {
@@ -40,6 +40,21 @@ export const userSlice = createSlice({
     },
     addXp: (state, action: PayloadAction<number>) => {
       state.xp = state.xp + action.payload;
+      if (state.xp >= state.maxXp) {
+        state.level += 1;
+
+        // Gradually increase maxXp in a controlled manner
+        const increaseFactor = 2; // Adjust this factor to control the growth rate
+        const randomness = 0.3; // Maximum percentage of randomness
+        const randomAdjustment =
+          1 + Math.random() * randomness - randomness / 2;
+
+        state.maxXp = Math.floor(
+          state.maxXp * increaseFactor * randomAdjustment
+        );
+
+        state.xp = 0;
+      }
     },
   },
 });

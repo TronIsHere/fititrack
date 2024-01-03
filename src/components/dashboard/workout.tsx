@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import { renderDoneIndicator } from "../ui/workout/done-indicator";
 import { renderEditButtons } from "../ui/workout/edit-button";
 import { renderDayGrid } from "../ui/workout/render-day-grid";
+import { useAppDispatch } from "@/hooks/storeHooks";
+import { addXp } from "@/store/slices/userSlice";
 interface workoutProps {
   workout: TWorkout;
   editEnabled?: boolean;
@@ -28,7 +30,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   const { title }: TWorkout = workout;
   const [workoutState, setWorkoutState] = useState<TWorkout>(workout);
   const consistency = calculateConsistency(workoutState.days || []);
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
     // checking if today doesn't exist add it so user can see the correct stats
     const today = new Date();
@@ -48,6 +50,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   }, [workoutState.days]);
 
   const handleWorkout = () => {
+    dispatch(addXp(40));
     setWorkoutState((prevState) => {
       //doing streak and grid and checkIns in same function
       const today = new Date();

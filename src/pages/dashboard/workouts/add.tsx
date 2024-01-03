@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import MuscleSelect from "@/components/ui/workout/muscle-select";
 import WorkoutFrequency from "@/components/ui/workout/workout-frequency";
@@ -19,7 +19,6 @@ import { addWorkout } from "@/store/slices/workoutSlice";
 import Link from "next/link";
 import { useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
-import { useDispatch } from "react-redux";
 
 // TODO: responsive design
 
