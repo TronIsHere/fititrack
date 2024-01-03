@@ -23,14 +23,15 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   workout,
   updateWorkout,
 }) => {
-  if (!workout) {
-    return null;
-  }
-
   const { title }: TWorkout = workout;
   const [workoutState, setWorkoutState] = useState<TWorkout>(workout);
   const consistency = calculateConsistency(workoutState.days || []);
   const dispatch = useAppDispatch();
+
+  if (!workout) {
+    return null;
+  }
+
   useEffect(() => {
     // checking if today doesn't exist add it so user can see the correct stats
     const today = new Date();

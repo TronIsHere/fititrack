@@ -24,6 +24,7 @@ const WorkoutsPage: MyPage = () => {
             console.log(workout, 2);
             return (
               <WorkoutComponent
+                key={workout.id}
                 editEnabled={true}
                 workout={workout}
                 updateWorkout={() => console.log("clicked")}

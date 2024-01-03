@@ -70,7 +70,7 @@ const DashboardPage: MyPage = () => {
             </div>
             <div className="grid grid-cols-5 items-center gap-4">
               <Label htmlFor="weight" className="text-right col-span-2">
-                Today's weight
+                Today&apos;s weight
               </Label>
               <div className="col-span-3 flex items-center">
                 <Input

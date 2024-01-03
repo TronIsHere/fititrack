@@ -46,7 +46,7 @@ const LoginPage: NextPage = () => {
                 </Button>
 
                 <p className="text-sm block mt-4">
-                  Don't you have an account with us?{" "}
+                  Don&apos;t you have an account with us?{" "}
                   <Link href="/register" className="text-palletPurple-400">
                     {" "}
                     create an account
