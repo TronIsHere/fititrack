@@ -9,11 +9,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RootState } from "@/store/store";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { GiWeightScale } from "react-icons/gi";
-import { useSelector } from "react-redux";
 import { useToast } from "../ui/toasts/use-toast";
 interface weightProps {
   weight: number;

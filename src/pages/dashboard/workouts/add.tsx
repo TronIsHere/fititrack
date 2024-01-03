@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import MuscleSelect from "@/components/ui/workout/muscle-select";
 import WorkoutFrequency from "@/components/ui/workout/workout-frequency";
@@ -54,7 +54,7 @@ const AddWorkout: MyPage = () => {
       id: workoutsState.length + 1, // Modify according to your ID generation logic
       title: nameWorkout,
       checkIns: 0,
-      created: new Date(),
+      created: new Date().toISOString(),
       streak: 0,
       done: false,
       days: [],

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 
 interface MuscleSelectProps {
   onMuscleSelectChange: (muscle: string) => void;

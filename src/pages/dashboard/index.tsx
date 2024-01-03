@@ -21,10 +21,11 @@ import { Label } from "@/components/ui/label";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { newWeight } from "@/store/slices/userSlice";
 import { useEffect, useState } from "react";
+
 const DashboardPage: MyPage = () => {
   const [open, setOpen] = useState(false);
-  const weightState = useAppSelector((state) => state.user.weight);
-  const darkModeState = useAppSelector((state) => state.user.darkMode);
+  const userState = useAppSelector((state) => state.user);
+  const { darkMode: darkModeState, weight: weightState } = userState;
   const workoutsState = useAppSelector((state) => state.workout.workouts);
   const dispatch = useAppDispatch();
   useEffect(() => {
