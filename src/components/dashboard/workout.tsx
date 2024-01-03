@@ -37,10 +37,15 @@ const WorkoutComponent: NextPage<workoutProps> = ({
     today.setHours(0, 0, 0, 0);
 
     const currentDays = workoutState.days || []; // Provide a default empty array
-    const todayExists = currentDays.some((day) => isSameDay(day.date, today));
+    const todayExists = currentDays.some((day) =>
+      isSameDay(new Date(day.date), today)
+    );
 
     if (!todayExists) {
-      const updatedDays = [...currentDays, { date: today, done: false }];
+      const updatedDays = [
+        ...currentDays,
+        { date: today.toISOString(), done: false },
+      ];
 
       setWorkoutState((prevState) => ({
         ...prevState,
@@ -55,7 +60,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
       const today = new Date();
       const currentDays = prevState.days || [];
       const existingDayIndex = currentDays.findIndex((d) =>
-        isSameDay(d.date, today)
+        isSameDay(new Date(d.date), today)
       );
 
       let updatedDays = [...currentDays];
@@ -69,7 +74,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         };
         updatedCheckIns += wasDone ? -1 : 1;
       } else {
-        updatedDays.push({ date: today, done: true });
+        updatedDays.push({ date: today.toISOString(), done: true });
         updatedCheckIns++;
       }
       if (!wasDone) {

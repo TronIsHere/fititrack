@@ -10,12 +10,15 @@ export const renderDayGrid = (state: TWorkout) => {
       index + 1
     );
 
-    const day = state.days?.find(
-      (d) =>
-        d.date.getDate() === targetDate.getDate() &&
-        d.date.getMonth() === targetDate.getMonth() &&
-        d.date.getFullYear() === targetDate.getFullYear()
-    );
+    const day = state.days?.find((date) => {
+      let d = new Date(date.date);
+
+      return (
+        d.getDate() === targetDate.getDate() &&
+        d.getMonth() === targetDate.getMonth() &&
+        d.getFullYear() === targetDate.getFullYear()
+      );
+    });
 
     const isDone = day?.done ?? false;
     return (

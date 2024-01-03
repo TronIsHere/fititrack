@@ -1,6 +1,6 @@
 export type TWorkout = {
   id?: any;
-  created?: any;
+  created?: string;
   title: string;
   streak: number;
   checkIns: number;
@@ -8,7 +8,7 @@ export type TWorkout = {
   days?: TDay[];
 };
 export type TDay = {
-  date: Date;
+  date: string;
   done: boolean;
 };
 export type Theme = "Light" | "Auto" | "Dark";
