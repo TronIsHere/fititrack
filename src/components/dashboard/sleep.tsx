@@ -7,6 +7,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { isTimesValid } from "@/lib/dateUtils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
@@ -83,12 +89,21 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
         </DialogHeader>
         <div className="flex flex-col">
           <span className="pb-2">Date</span>
-          <Input
-            type={"text"}
-            value={"today"}
-            className={darkModeDialog ? "bg-darkPrimary" : "bg-white"}
-            readOnly
-          ></Input>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Input
+                  type={"text"}
+                  value={"today"}
+                  className={darkModeDialog ? "bg-darkPrimary" : "bg-white"}
+                  disabled
+                ></Input>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>you can only add sleep data to today</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
         <div className="grid grid-cols-2 gap-10">
           <div className="flex flex-col">
@@ -109,11 +124,7 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
           </div>
         </div>
         <DialogFooter>
-          <Button
-            type="submit"
-            className="bg-palletPurple-500"
-            onClick={handleSleepData}
-          >
+          <Button type="submit" variant={"primary"} onClick={handleSleepData}>
             Add
           </Button>
           <Button

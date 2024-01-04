@@ -106,7 +106,7 @@ const WeightComponent: FC<weightProps> = ({
         <DialogFooter className="gap-2 flex flex-row justify-end">
           <Button
             type="submit"
-            className="bg-palletPurple-500"
+            variant={"primary"}
             onClick={() => {
               if (isNaN(weightState)) {
                 toast({
