@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { isTimesValid } from "@/lib/dateUtils";
 
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
@@ -13,11 +14,26 @@ import { FaBedPulse } from "react-icons/fa6";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import SleepBar from "../ui/sleepBar";
+import { useToast } from "../ui/toasts/use-toast";
 interface sleepProps {
   darkModeDialog: boolean;
 }
 const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
+  const { toast } = useToast();
   const [open, setOpen] = useState(false);
+  const [fromTime, setFromTime] = useState<string>();
+  const [toTime, setToTime] = useState<string>();
+  const handleSleepData = () => {
+    if (fromTime && toTime) {
+      if (isTimesValid(fromTime, toTime)) {
+      } else {
+        toast({
+          variant: "destructive",
+          description: "Times are not valid ",
+        });
+      }
+    }
+  };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
@@ -78,24 +94,26 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
           <div className="flex flex-col">
             <span className="pb-2">from</span>
             <Input
-              type={"text"}
-              value={"10:00 AM"}
+              type={"time"}
+              onChange={(e) => setFromTime(e.target.value)}
               className={darkModeDialog ? "bg-darkPrimary" : "bg-white"}
-              readOnly
             ></Input>
           </div>
           <div className="flex flex-col">
             <span className="pb-2">to</span>
             <Input
-              type={"text"}
-              value={"8:00 AM"}
+              type={"time"}
+              onChange={(e) => setToTime(e.target.value)}
               className={darkModeDialog ? "bg-darkPrimary" : "bg-white"}
-              readOnly
             ></Input>
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" className="bg-palletPurple-500">
+          <Button
+            type="submit"
+            className="bg-palletPurple-500"
+            onClick={handleSleepData}
+          >
             Add
           </Button>
           <Button
