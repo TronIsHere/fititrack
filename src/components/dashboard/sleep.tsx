@@ -38,6 +38,11 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
           description: "Times are not valid ",
         });
       }
+    } else {
+      toast({
+        variant: "destructive",
+        description: "Please insert correct time",
+      });
     }
   };
   return (
