@@ -32,7 +32,7 @@ export const calculateStreak = (days: TDay[]) => {
 
   let isStreakContinuing = true;
   for (let i = days.length - 1; i >= 0; i--) {
-    if (isSameDay(days[i].date, currentDate)) {
+    if (isSameDay(new Date(days[i].date), currentDate)) {
       if (!days[i].done && isStreakContinuing) {
         // Breaks the streak only if it's the most recent day and it's marked as undone
         isStreakContinuing = false;

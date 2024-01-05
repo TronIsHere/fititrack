@@ -9,26 +9,27 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
+import { newWeight } from "@/store/slices/userSlice";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { GiWeightScale } from "react-icons/gi";
 import { TWeight } from "../types/weight";
 import { useToast } from "../ui/toasts/use-toast";
 interface weightProps {
-  weight: TWeight[];
   darkModeDialog: boolean;
-  weightHandler: (value: number) => void;
 }
-const WeightComponent: FC<weightProps> = ({
-  weight,
-  weightHandler,
-  darkModeDialog,
-}) => {
-  const [weightState, setWeight] = useState<TWeight[]>(weight);
+const WeightComponent: FC<weightProps> = ({ darkModeDialog }) => {
+  const WeightState = useAppSelector((state) => state.user.weight);
+  const [weightState, setWeight] = useState<TWeight[]>(WeightState);
   const [newWeightState, setNewWeight] = useState<number>(0);
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
-
+  const dispatch = useAppDispatch();
+  const weightHandler = (weight: number) => {
+    const newWeightData: TWeight = { date: new Date().toISOString(), weight };
+    dispatch(newWeight(newWeightData));
+  };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>

@@ -25,10 +25,8 @@ import { useEffect, useState } from "react";
 
 const DashboardPage: MyPage = () => {
   const [open, setOpen] = useState(false);
-  const userState = useAppSelector((state) => state.user);
-  const { darkMode: darkModeState, weight: weightState } = userState;
+  const darkModeState = useAppSelector((state) => state.user.darkMode);
   const workoutsState = useAppSelector((state) => state.workout.workouts);
-  const dispatch = useAppDispatch();
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10); // Get current date in YYYY-MM-DD format
     const lastVisited = localStorage.getItem("lastVisited"); // Replace with your state management if not using localStorage
@@ -38,10 +36,7 @@ const DashboardPage: MyPage = () => {
       localStorage.setItem("lastVisited", today); // Update the last visited date
     }
   }, []);
-  const weightHandler = (weight: number) => {
-    const newWeightData: TWeight = { date: new Date().toISOString(), weight };
-    dispatch(newWeight(newWeightData));
-  };
+
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
@@ -104,11 +99,7 @@ const DashboardPage: MyPage = () => {
         </span>
         <div className="flex flex-col md:flex-row">
           <div className="flex mt-10">
-            <WeightComponent
-              darkModeDialog={darkModeState}
-              weight={weightState}
-              weightHandler={weightHandler}
-            ></WeightComponent>
+            <WeightComponent darkModeDialog={darkModeState}></WeightComponent>
           </div>
           <div className="flex mt-10 ml-0 md:ml-6">
             <SleepComponent darkModeDialog={darkModeState} />

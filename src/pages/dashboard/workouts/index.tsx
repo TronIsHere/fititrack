@@ -21,7 +21,6 @@ const WorkoutsPage: MyPage = () => {
             </Link>
           </div>
           {workoutsState.map((workout: TWorkout) => {
-            console.log(workout, 2);
             return (
               <WorkoutComponent
                 key={workout.id}

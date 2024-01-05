@@ -6,21 +6,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { isTimesValid } from "@/lib/dateUtils";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { isTimesValid } from "@/lib/dateUtils";
 
+import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
+import { calculateTotalSleepPerDay, groupByDayOfWeek } from "@/lib/timeUtils";
+import { newSleep } from "@/store/slices/userSlice";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaBedPulse } from "react-icons/fa6";
+import { TSleep } from "../types/sleep";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import SleepBar from "../ui/sleepBar";
 import { useToast } from "../ui/toasts/use-toast";
+import { SleepChart } from "../ui/sleep/sleepChart";
 interface sleepProps {
   darkModeDialog: boolean;
 }
@@ -29,9 +34,23 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
   const [open, setOpen] = useState(false);
   const [fromTime, setFromTime] = useState<string>();
   const [toTime, setToTime] = useState<string>();
+  const dispatch = useAppDispatch();
+
   const handleSleepData = () => {
     if (fromTime && toTime) {
       if (isTimesValid(fromTime, toTime)) {
+        console.log(fromTime, toTime);
+        const newSleepData: TSleep = {
+          date: new Date().toISOString(),
+          from: fromTime,
+          to: toTime,
+        };
+        dispatch(newSleep(newSleepData));
+        toast({
+          variant: "success",
+          description: "Sleep added",
+        });
+        setOpen(false);
       } else {
         toast({
           variant: "destructive",
@@ -45,6 +64,7 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
       });
     }
   };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
@@ -60,29 +80,7 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
               className="-mt-2 -mr-2 opacity-20 hidden group-hover:block"
             />
           </div>
-          <div className="flex justify-center  mx-0 md:mx-10  pt-4">
-            <div className="flex flex-col items-center w-10 font-light text-sm">
-              <SleepBar value={20} indicatorColor={"#7B78EB"} day={"Mon"} />
-            </div>
-            <div className="flex flex-col items-center w-10 font-light text-sm">
-              <SleepBar value={0} indicatorColor={"#7B78EB"} day={"Tue"} />
-            </div>
-            <div className="flex flex-col items-center w-10 font-light text-sm">
-              <SleepBar value={0} indicatorColor={"#7B78EB"} day={"Wed"} />
-            </div>
-            <div className="flex flex-col items-center w-10 font-light text-sm">
-              <SleepBar value={0} indicatorColor={"#7B78EB"} day={"Thu"} />
-            </div>
-            <div className="flex flex-col items-center w-10 font-light text-sm">
-              <SleepBar value={30} indicatorColor={"#7B78EB"} day={"Fri"} />
-            </div>
-            <div className="flex flex-col items-center w-10 font-light text-sm">
-              <SleepBar value={12} indicatorColor={"#7B78EB"} day={"Sat"} />
-            </div>
-            <div className="flex flex-col items-center w-10 font-light text-sm">
-              <SleepBar value={70} indicatorColor={"#7B78EB"} day={"Sun"} />
-            </div>
-          </div>
+          <SleepChart />
         </div>
       </DialogTrigger>
       <DialogContent

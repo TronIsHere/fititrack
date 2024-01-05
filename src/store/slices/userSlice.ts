@@ -1,3 +1,4 @@
+import { TSleep } from "@/components/types/sleep";
 import { TWeight } from "@/components/types/weight";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
@@ -6,6 +7,7 @@ import { RootState } from "../store";
 interface UserState {
   darkMode: boolean;
   weight: TWeight[];
+  sleep: TSleep[];
   level: number;
   maxXp: number;
   xp: number;
@@ -14,6 +16,33 @@ interface UserState {
 // Define the initial state using that type
 const initialState: UserState = {
   darkMode: false,
+  sleep: [
+    {
+      date: new Date("2024/01/01").toISOString(),
+      from: "09:00",
+      to: "10:00",
+    },
+    {
+      date: new Date("2024/01/02").toISOString(),
+      from: "22:00",
+      to: "12:00",
+    },
+    {
+      date: new Date("2024/01/03").toISOString(),
+      from: "06:00",
+      to: "18:00",
+    },
+    {
+      date: new Date("2024/03/03").toISOString(),
+      from: "06:00",
+      to: "18:00",
+    },
+    {
+      date: new Date("2024/01/04").toISOString(),
+      from: "22:00",
+      to: "03:00",
+    },
+  ],
   weight: [{ date: new Date("2023/12/04").toISOString(), weight: 20 }],
   level: 1,
   maxXp: 100,
@@ -32,6 +61,9 @@ export const userSlice = createSlice({
     },
     newWeight: (state, action: PayloadAction<TWeight>) => {
       state.weight.push(action.payload);
+    },
+    newSleep: (state, action: PayloadAction<TSleep>) => {
+      state.sleep.push(action.payload);
     },
     levelUp: (state) => {
       state.level = ++state.level;
@@ -67,6 +99,7 @@ export const {
   levelUp,
   changeMaxXp,
   addXp,
+  newSleep,
 } = userSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
