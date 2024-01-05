@@ -12,9 +12,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { isTimesValid } from "@/lib/dateUtils";
 
 import { useAppDispatch } from "@/hooks/storeHooks";
+import { isTimesValid } from "@/lib/timeUtils";
 import { newSleep } from "@/store/slices/userSlice";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
@@ -37,7 +37,6 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
   const handleSleepData = () => {
     if (fromTime && toTime) {
       if (isTimesValid(fromTime, toTime)) {
-        console.log(fromTime, toTime);
         const newSleepData: TSleep = {
           date: new Date().toISOString(),
           from: fromTime,

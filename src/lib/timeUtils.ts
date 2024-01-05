@@ -69,3 +69,32 @@ export const calculateTotalSleepPerDay = (dayData: TSleep[]) => {
     return total + durationHours;
   }, 0);
 };
+export const isTimesValid = (time1: string, time2: string) => {
+  const date = new Date(); // Replace this with your actual date state
+
+  // Create Date objects for comparison
+  const fromDateTime = new Date(date);
+  const [fromHours, fromMinutes] = time1.split(":");
+  fromDateTime.setHours(parseInt(fromHours, 10), parseInt(fromMinutes, 10));
+
+  const toDateTime = new Date(date);
+  const [toHours, toMinutes] = time2.split(":");
+  toDateTime.setHours(parseInt(toHours, 10), parseInt(toMinutes, 10));
+
+  // Check if the 'from' time is after the 'to' time, indicating an overnight span
+  if (fromDateTime > toDateTime) {
+    // Adjust 'toDateTime' to the next day
+    toDateTime.setDate(toDateTime.getDate() + 1);
+  }
+
+  // Check if the 'from' time is before the 'to' time
+  if (fromDateTime < toDateTime) {
+    // Proceed with valid time range
+    return true;
+    // Here you can add further logic to handle the valid time range
+  } else {
+    // Handle invalid time range
+    return false;
+    // Here you can add logic to notify the user about the invalid time range
+  }
+};

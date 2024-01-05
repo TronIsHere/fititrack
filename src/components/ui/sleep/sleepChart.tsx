@@ -7,6 +7,7 @@ export const SleepChart: FC = () => {
   // Adjust according to your Redux setup
   const sleepData = useAppSelector((state) => state.user.sleep);
   const groupedData = groupByDayOfWeek(sleepData);
+  const maxSleepHour = 8;
   console.log(groupedData);
   type DayOfWeek = keyof typeof groupedData;
   const sleepHoursByDay = (Object.keys(groupedData) as DayOfWeek[]).map(
@@ -23,7 +24,10 @@ export const SleepChart: FC = () => {
   return (
     <div className="flex justify-center mx-0 md:mx-10 pt-4">
       {sleepHoursByDay.map((dayData) => {
-        const sleepPercentage = Math.min((dayData.sleepHours / 8) * 100, 100);
+        const sleepPercentage = Math.min(
+          (dayData.sleepHours / maxSleepHour) * 100,
+          100
+        );
         return (
           <div
             key={dayData.day}

@@ -27,21 +27,6 @@ const initialState: UserState = {
       from: "22:00",
       to: "12:00",
     },
-    {
-      date: new Date("2024/01/03").toISOString(),
-      from: "06:00",
-      to: "18:00",
-    },
-    {
-      date: new Date("2024/03/03").toISOString(),
-      from: "06:00",
-      to: "18:00",
-    },
-    {
-      date: new Date("2024/01/04").toISOString(),
-      from: "22:00",
-      to: "03:00",
-    },
   ],
   weight: [{ date: new Date("2023/12/04").toISOString(), weight: 20 }],
   level: 1,
