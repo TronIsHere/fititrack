@@ -20,8 +20,7 @@ interface weightProps {
   darkModeDialog: boolean;
 }
 const WeightComponent: FC<weightProps> = ({ darkModeDialog }) => {
-  const WeightState = useAppSelector((state) => state.user.weight);
-  const [weightState, setWeight] = useState<TWeight[]>(WeightState);
+  const weightSelector = useAppSelector((state) => state.user.weight);
   const [newWeightState, setNewWeight] = useState<number>(0);
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
@@ -48,7 +47,7 @@ const WeightComponent: FC<weightProps> = ({ darkModeDialog }) => {
           </div>
           <div className="flex justify-center pt-8">
             <span className="text-3xl">
-              {weight[weight.length - 1].weight}
+              {weightSelector[weightSelector.length - 1].weight}
               <span className="text-palletGray-200">kg</span>
             </span>
           </div>
@@ -97,7 +96,9 @@ const WeightComponent: FC<weightProps> = ({ darkModeDialog }) => {
                     }
                   }}
                   id="weight"
-                  defaultValue={weightState[weightState.length - 1].weight}
+                  defaultValue={
+                    weightSelector[weightSelector.length - 1].weight
+                  }
                   onChange={(e) => setNewWeight(parseInt(e.target.value))}
                 />
 

@@ -1,4 +1,3 @@
-import { TSleep } from "@/components/types/sleep";
 import { useAppSelector } from "@/hooks/storeHooks";
 import { calculateTotalSleepPerDay, groupByDayOfWeek } from "@/lib/timeUtils";
 import { FC } from "react";

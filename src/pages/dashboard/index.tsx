@@ -6,7 +6,6 @@ import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { TWorkout } from "@/components/types/dashboardTypes";
 import { MyPage } from "@/components/types/nextjs";
-import { TWeight } from "@/components/types/weight";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,8 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
-import { newWeight } from "@/store/slices/userSlice";
+import { useAppSelector } from "@/hooks/storeHooks";
 import { useEffect, useState } from "react";
 
 const DashboardPage: MyPage = () => {

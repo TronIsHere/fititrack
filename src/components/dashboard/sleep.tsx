@@ -14,8 +14,7 @@ import {
 } from "@/components/ui/tooltip";
 import { isTimesValid } from "@/lib/dateUtils";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
-import { calculateTotalSleepPerDay, groupByDayOfWeek } from "@/lib/timeUtils";
+import { useAppDispatch } from "@/hooks/storeHooks";
 import { newSleep } from "@/store/slices/userSlice";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
@@ -23,9 +22,8 @@ import { FaBedPulse } from "react-icons/fa6";
 import { TSleep } from "../types/sleep";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import SleepBar from "../ui/sleepBar";
-import { useToast } from "../ui/toasts/use-toast";
 import { SleepChart } from "../ui/sleep/sleepChart";
+import { useToast } from "../ui/toasts/use-toast";
 interface sleepProps {
   darkModeDialog: boolean;
 }
