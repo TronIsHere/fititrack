@@ -7,6 +7,7 @@ import { RootState } from "../store";
 interface UserState {
   darkMode: boolean;
   weight: TWeight[];
+  age: number;
   sleep: TSleep[];
   level: number;
   maxXp: number;
@@ -16,6 +17,7 @@ interface UserState {
 // Define the initial state using that type
 const initialState: UserState = {
   darkMode: false,
+  age: 20,
   sleep: [
     {
       date: new Date("2024/01/01").toISOString(),

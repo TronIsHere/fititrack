@@ -94,7 +94,7 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
               <TooltipTrigger>
                 <Input
                   type={"text"}
-                  value={"today"}
+                  value={"Today"}
                   className={darkModeDialog ? "bg-darkPrimary" : "bg-white"}
                   disabled
                 ></Input>
