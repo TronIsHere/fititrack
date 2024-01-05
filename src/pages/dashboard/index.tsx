@@ -6,6 +6,7 @@ import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { TWorkout } from "@/components/types/dashboardTypes";
 import { MyPage } from "@/components/types/nextjs";
+import { TWeight } from "@/components/types/weight";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -38,7 +39,8 @@ const DashboardPage: MyPage = () => {
     }
   }, []);
   const weightHandler = (weight: number) => {
-    dispatch(newWeight(weight));
+    const newWeightData: TWeight = { date: new Date().toISOString(), weight };
+    dispatch(newWeight(newWeightData));
   };
   return (
     <>

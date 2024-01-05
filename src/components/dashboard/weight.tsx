@@ -12,9 +12,10 @@ import { Label } from "@/components/ui/label";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { GiWeightScale } from "react-icons/gi";
+import { TWeight } from "../types/weight";
 import { useToast } from "../ui/toasts/use-toast";
 interface weightProps {
-  weight: number;
+  weight: TWeight[];
   darkModeDialog: boolean;
   weightHandler: (value: number) => void;
 }
@@ -23,7 +24,8 @@ const WeightComponent: FC<weightProps> = ({
   weightHandler,
   darkModeDialog,
 }) => {
-  const [weightState, setNewWeight] = useState<number>(weight);
+  const [weightState, setWeight] = useState<TWeight[]>(weight);
+  const [newWeightState, setNewWeight] = useState<number>(0);
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
 
@@ -45,7 +47,7 @@ const WeightComponent: FC<weightProps> = ({
           </div>
           <div className="flex justify-center pt-8">
             <span className="text-3xl">
-              {weight}
+              {weight[weight.length - 1].weight}
               <span className="text-palletGray-200">kg</span>
             </span>
           </div>
@@ -76,14 +78,14 @@ const WeightComponent: FC<weightProps> = ({
                   className={darkModeDialog ? "bg-darkPrimary" : "bg-white"}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      if (isNaN(weightState)) {
+                      if (isNaN(newWeightState) && newWeightState > 10) {
                         toast({
                           variant: "destructive",
                           description: "Amount is incorrect",
                         });
                         return;
                       }
-                      weightHandler(weightState!);
+                      weightHandler(newWeightState!);
                       toast({
                         variant: "success",
                         description: "New weight added",
@@ -94,7 +96,7 @@ const WeightComponent: FC<weightProps> = ({
                     }
                   }}
                   id="weight"
-                  defaultValue={weight}
+                  defaultValue={weightState[weightState.length - 1].weight}
                   onChange={(e) => setNewWeight(parseInt(e.target.value))}
                 />
 
@@ -108,7 +110,7 @@ const WeightComponent: FC<weightProps> = ({
             type="submit"
             variant={"primary"}
             onClick={() => {
-              if (isNaN(weightState)) {
+              if (isNaN(newWeightState) && newWeightState > 10) {
                 toast({
                   variant: "destructive",
                   description: "Amount is incorrect",
@@ -120,7 +122,7 @@ const WeightComponent: FC<weightProps> = ({
                 description: "New weight added",
               });
 
-              weightHandler(weightState!);
+              weightHandler(newWeightState!);
               setOpen(false);
             }}
           >

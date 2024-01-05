@@ -1,10 +1,11 @@
+import { TWeight } from "@/components/types/weight";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 // Define a type for the slice state
 interface UserState {
   darkMode: boolean;
-  weight: number;
+  weight: TWeight[];
   level: number;
   maxXp: number;
   xp: number;
@@ -13,7 +14,7 @@ interface UserState {
 // Define the initial state using that type
 const initialState: UserState = {
   darkMode: false,
-  weight: 80,
+  weight: [{ date: new Date("2023/12/04").toISOString(), weight: 20 }],
   level: 1,
   maxXp: 100,
   xp: 50,
@@ -29,8 +30,8 @@ export const userSlice = createSlice({
     changeDarkMode: (state, action: PayloadAction<boolean>) => {
       state.darkMode = action.payload;
     },
-    newWeight: (state, action: PayloadAction<number>) => {
-      state.weight = action.payload;
+    newWeight: (state, action: PayloadAction<TWeight>) => {
+      state.weight.push(action.payload);
     },
     levelUp: (state) => {
       state.level = ++state.level;
