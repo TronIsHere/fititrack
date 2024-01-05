@@ -96,7 +96,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
           {capitalizeFirstLetter(title)}
         </span>
         {editEnabled
-          ? renderEditButtons()
+          ? renderEditButtons(updateWorkout)
           : renderDoneIndicator(workoutState.done, handleWorkout)}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-5 w-full my-8 mb-3">

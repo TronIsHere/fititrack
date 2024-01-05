@@ -27,7 +27,7 @@ const initialState: UserState = {
     {
       date: new Date("2024/01/02").toISOString(),
       from: "22:00",
-      to: "12:00",
+      to: "05:00",
     },
   ],
   weight: [{ date: new Date("2023/12/04").toISOString(), weight: 20 }],

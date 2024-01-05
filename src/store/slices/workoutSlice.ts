@@ -39,7 +39,8 @@ export const workoutSlice = createSlice({
   name: "workouts",
   initialState,
   reducers: {
-    updateWorkout: (state, action: PayloadAction<TWorkout>) => {
+    updateWorkout: (state, action: PayloadAction<TWorkout[]>) => {
+      state.workouts = action.payload;
       // Implementation to update a workout
     },
     addWorkout: (state, action: PayloadAction<TWorkout>) => {

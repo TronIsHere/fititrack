@@ -2,11 +2,19 @@ import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { TWorkout } from "@/components/types/dashboardTypes";
 import { MyPage } from "@/components/types/nextjs";
-import { useAppSelector } from "@/hooks/storeHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
+import { updateWorkout } from "@/store/slices/workoutSlice";
 import Link from "next/link";
 
 const WorkoutsPage: MyPage = () => {
   const workoutsState = useAppSelector((state) => state.workout.workouts);
+  const dispatch = useAppDispatch();
+  const handleUpdateWorkout = (workoutId: number) => {
+    const updatedWorkouts: TWorkout[] = workoutsState.filter(
+      (workout) => workout.id !== workoutId
+    );
+    dispatch(updateWorkout(updatedWorkouts));
+  };
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
@@ -26,7 +34,7 @@ const WorkoutsPage: MyPage = () => {
                 key={workout.id}
                 editEnabled={true}
                 workout={workout}
-                updateWorkout={() => console.log("clicked")}
+                updateWorkout={() => handleUpdateWorkout(workout.id)}
               />
             );
           })}
