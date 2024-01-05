@@ -28,9 +28,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   const consistency = calculateConsistency(workoutState.days || []);
   const dispatch = useAppDispatch();
 
-  if (!workout) {
-    return null;
-  }
+  const hasWorkout = !!workout;
 
   useEffect(() => {
     // checking if today doesn't exist add it so user can see the correct stats
@@ -53,7 +51,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         days: updatedDays,
       }));
     }
-  }, [workoutState.days]);
+  }, [workoutState.days, hasWorkout]);
 
   const handleWorkout = () => {
     setWorkoutState((prevState) => {
