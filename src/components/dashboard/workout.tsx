@@ -12,6 +12,7 @@ import { renderEditButtons } from "../ui/workout/edit-button";
 import { renderDayGrid } from "../ui/workout/render-day-grid";
 import { useAppDispatch } from "@/hooks/storeHooks";
 import { addXp } from "@/store/slices/userSlice";
+import { updateSingleWorkout } from "@/store/slices/workoutSlice";
 interface workoutProps {
   workout: TWorkout;
   editEnabled?: boolean;
@@ -35,7 +36,15 @@ const WorkoutComponent: NextPage<workoutProps> = ({
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const currentDays = workoutState.days || []; // Provide a default empty array
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const currentDays = workoutState.days || []; // Current days from the state
+
+    // Check if yesterday exists in the days array and is marked as done
+    const yesterdayWasDone = currentDays.some(
+      (day) => isSameDay(new Date(day.date), yesterday) && day.done
+    );
     const todayExists = currentDays.some((day) =>
       isSameDay(new Date(day.date), today)
     );
@@ -48,15 +57,25 @@ const WorkoutComponent: NextPage<workoutProps> = ({
 
       setWorkoutState((prevState) => ({
         ...prevState,
+        done: updatedDays[updatedDays.length - 1].done,
         days: updatedDays,
+        streak: yesterdayWasDone ? prevState.streak : 0,
       }));
+      const updatedWorkout: TWorkout = {
+        ...workoutState,
+        done: updatedDays[updatedDays.length - 1].done,
+        days: updatedDays,
+        streak: yesterdayWasDone ? workoutState.streak : 0,
+      };
+      dispatch(updateSingleWorkout({ id: workoutState.id, updatedWorkout }));
     }
   }, [workoutState.days, hasWorkout]);
 
   const handleWorkout = () => {
     setWorkoutState((prevState) => {
-      //doing streak and grid and checkIns in same function
       const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
       const currentDays = prevState.days || [];
       const existingDayIndex = currentDays.findIndex((d) =>
         isSameDay(new Date(d.date), today)
@@ -65,6 +84,8 @@ const WorkoutComponent: NextPage<workoutProps> = ({
       let updatedDays = [...currentDays];
       let updatedCheckIns = prevState.checkIns;
       let wasDone = false;
+
+      // Check if the workout was done today and update accordingly
       if (existingDayIndex >= 0) {
         wasDone = updatedDays[existingDayIndex].done;
         updatedDays[existingDayIndex] = {
@@ -76,16 +97,31 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         updatedDays.push({ date: today.toISOString(), done: true });
         updatedCheckIns++;
       }
+
+      // Only add XP if the workout was not already done
       if (!wasDone) {
-        dispatch(addXp(20)); // Only add XP if the workout was not already done
+        dispatch(addXp(20));
       }
-      return {
-        ...prevState,
-        days: updatedDays,
-        checkIns: updatedCheckIns,
-        done: !workoutState.done,
-        streak: calculateStreak(updatedDays),
+
+      // Calculate the new streak
+      const newStreak = calculateStreak(updatedDays);
+
+      const newWorkoutData = {
+        ...prevState, // Spread the previous state of the workout
+        days: updatedDays, // Assign the updated days
+        checkIns: updatedCheckIns, // Update the check-ins count
+        done: !prevState.done, // Toggle the done state
+        streak: newStreak, // New streak calculation
       };
+
+      dispatch(
+        updateSingleWorkout({
+          id: prevState.id,
+          updatedWorkout: newWorkoutData,
+        })
+      );
+
+      return newWorkoutData;
     });
   };
 

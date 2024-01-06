@@ -30,23 +30,36 @@ export const calculateStreak = (days: TDay[]) => {
   let currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
 
-  let isStreakContinuing = true;
   for (let i = days.length - 1; i >= 0; i--) {
-    if (isSameDay(new Date(days[i].date), currentDate)) {
-      if (!days[i].done && isStreakContinuing) {
-        // Breaks the streak only if it's the most recent day and it's marked as undone
-        isStreakContinuing = false;
+    const day = new Date(days[i].date);
+    day.setHours(0, 0, 0, 0);
+
+    // Check if the day is the same as the current date
+    if (isSameDay(day, currentDate)) {
+      if (days[i].done) {
+        streak++;
+        // Move to the previous day
+        currentDate.setDate(currentDate.getDate() - 1);
+      } else {
+        // If the most recent day is not done, break the streak
+        break;
       }
     } else {
-      if (!isStreakContinuing || !days[i].done) {
-        break; // Stops counting if the streak is already broken or the day is not done
-      }
-      currentDate.setDate(currentDate.getDate() - 1);
-    }
-    if (isStreakContinuing) {
-      streak++;
+      // If there is a gap between days (missed workout), break the streak
+      break;
     }
   }
 
   return streak;
+};
+
+export const isLastDoneDateToday = (days: TDay[]) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset time to the start of the day
+
+  const lastDoneDay = [...days]
+    .reverse()
+    .find((day) => day.done && isSameDay(new Date(day.date), today));
+
+  return Boolean(lastDoneDay);
 };

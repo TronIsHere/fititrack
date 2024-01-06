@@ -1,4 +1,7 @@
-import { TWorkout } from "@/components/types/dashboardTypes";
+import {
+  TWorkout,
+  UpdateWorkoutPayload,
+} from "@/components/types/dashboardTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
@@ -9,30 +12,7 @@ interface WorkoutState {
 
 // Define the initial state using that type
 const initialState: WorkoutState = {
-  workouts: [
-    {
-      id: 1,
-      title: "upper body",
-      checkIns: 2,
-      created: new Date("2023/12/27").toISOString(),
-      streak: 2,
-      done: false,
-      days: [
-        { date: new Date("2023/12/10").toISOString(), done: false },
-        { date: new Date("2023/12/14").toISOString(), done: true },
-        { date: new Date("2023/12/29").toISOString(), done: true },
-      ],
-    },
-    {
-      id: 2,
-      title: "lower body",
-      checkIns: 1,
-      created: new Date("2023/12/27").toISOString(),
-      streak: 1,
-      done: false,
-      days: [{ date: new Date("2023/12/30").toISOString(), done: true }],
-    },
-  ],
+  workouts: [],
 };
 
 export const workoutSlice = createSlice({
@@ -43,6 +23,17 @@ export const workoutSlice = createSlice({
       state.workouts = action.payload;
       // Implementation to update a workout
     },
+    updateSingleWorkout: (
+      state,
+      action: PayloadAction<UpdateWorkoutPayload>
+    ) => {
+      const { id, updatedWorkout } = action.payload;
+      const index = state.workouts.findIndex((workout) => workout.id === id);
+      if (index !== -1) {
+        state.workouts[index] = updatedWorkout;
+      }
+      // Implementation to update a workout
+    },
     addWorkout: (state, action: PayloadAction<TWorkout>) => {
       state.workouts.push(action.payload);
     },
@@ -50,7 +41,8 @@ export const workoutSlice = createSlice({
   },
 });
 
-export const { updateWorkout, addWorkout } = workoutSlice.actions;
+export const { updateWorkout, addWorkout, updateSingleWorkout } =
+  workoutSlice.actions;
 
 // Selector
 export const selectWorkouts = (state: RootState) => state.workout.workouts;

@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/toasts/toaster";
-import { store } from "@/store/store";
+import { store, persistor } from "@/store/store";
 import "@/styles/global.css";
 import "@/styles/style.css";
 import { NextPage } from "next";
@@ -7,6 +7,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { ReactNode } from "react";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 type Page<P = {}> = NextPage<P> & {
   getLayout?: (page: ReactNode) => ReactNode;
@@ -57,7 +58,9 @@ export default function App({ Component, pageProps }: Props) {
       </Head>
       <Toaster />
       <Provider store={store}>
-        {getLayout(<Component {...pageProps} />)}
+        <PersistGate loading={null} persistor={persistor}>
+          {getLayout(<Component {...pageProps} />)}
+        </PersistGate>
       </Provider>
     </>
   );

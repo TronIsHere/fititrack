@@ -7,6 +7,10 @@ export type TWorkout = {
   done: boolean;
   days?: TDay[];
 };
+export type UpdateWorkoutPayload = {
+  id: number;
+  updatedWorkout: TWorkout;
+};
 export type TDay = {
   date: string;
   done: boolean;
