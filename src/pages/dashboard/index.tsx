@@ -6,6 +6,7 @@ import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { TWorkout } from "@/components/types/dashboardTypes";
 import { MyPage } from "@/components/types/nextjs";
+import { TSleep } from "@/components/types/sleep";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,22 +19,59 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAppSelector } from "@/hooks/storeHooks";
+import { toast } from "@/components/ui/toasts/use-toast";
+import useLastVisited from "@/hooks/lastVisited";
+import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
+import { isTimesValid } from "@/lib/timeUtils";
+import { newSleep, newWeight } from "@/store/slices/userSlice";
 import { useEffect, useState } from "react";
 
 const DashboardPage: MyPage = () => {
   const [open, setOpen] = useState(false);
+  const [weightData, setWeightData] = useState<string>("");
+  const [fromTime, setFromTime] = useState<string>("22:00");
+  const [toTime, setToTime] = useState<string>("7:00");
   const darkModeState = useAppSelector((state) => state.user.darkMode);
   const workoutsState = useAppSelector((state) => state.workout.workouts);
+  const dispatch = useAppDispatch();
+  const isNewDay = useLastVisited();
   useEffect(() => {
-    const today = new Date().toISOString().slice(0, 10); // Get current date in YYYY-MM-DD format
-    const lastVisited = localStorage.getItem("lastVisited"); // Replace with your state management if not using localStorage
-
-    if (lastVisited !== today) {
+    if (isNewDay) {
       setOpen(true); // It's a new day
-      localStorage.setItem("lastVisited", today); // Update the last visited date
     }
-  }, []);
+  }, [isNewDay]);
+
+  const handleLogClick = () => {
+    // Dispatch newWeight and newSleep actions with the data
+    if (weightData !== "") {
+      const weightEntry = {
+        date: new Date().toISOString(),
+        weight: parseFloat(weightData), // Convert string to a number
+      };
+      dispatch(newWeight(weightEntry));
+    }
+
+    if (fromTime !== "" && toTime !== "") {
+      if (isTimesValid(fromTime, toTime)) {
+        const sleepEntry: TSleep = {
+          date: new Date().toISOString(),
+          from: fromTime,
+          to: toTime,
+        };
+        dispatch(newSleep(sleepEntry));
+        setOpen(false);
+      } else {
+        toast({
+          variant: "destructive",
+          description: "Times are not valid ",
+        });
+      }
+    } else {
+      setOpen(false);
+    }
+
+    // Close the dialog
+  };
 
   return (
     <>
@@ -55,12 +93,27 @@ const DashboardPage: MyPage = () => {
                 Last night Sleep
               </Label>
               <div className="col-span-3 flex items-center">
-                <Input
-                  id="sleep"
-                  defaultValue="7.5"
-                  className={darkModeState ? "bg-darkPrimary" : "bg-white"}
-                />
-                <span className="pl-2 font-bold">Hour</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="flex flex-col">
+                    <span className="pb-2">from</span>
+                    <Input
+                      type={"time"}
+                      value={fromTime}
+                      onChange={(e) => setFromTime(e.target.value)}
+                      className={darkModeState ? "bg-darkPrimary" : "bg-white"}
+                    ></Input>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="pb-2">to</span>
+                    <Input
+                      type={"time"}
+                      value={toTime}
+                      onChange={(e) => setToTime(e.target.value)}
+                      className={darkModeState ? "bg-darkPrimary" : "bg-white"}
+                    ></Input>
+                  </div>
+                </div>
+                {/* <span className="pl-2 font-bold">Hour</span> */}
               </div>
             </div>
             <div className="grid grid-cols-5 items-center gap-4">
@@ -69,6 +122,7 @@ const DashboardPage: MyPage = () => {
               </Label>
               <div className="col-span-3 flex items-center">
                 <Input
+                  onChange={(e) => setWeightData(e.target.value)}
                   id="weight"
                   defaultValue="80"
                   className={darkModeState ? "bg-darkPrimary" : "bg-white"}
@@ -78,7 +132,7 @@ const DashboardPage: MyPage = () => {
             </div>
           </div>
           <DialogFooter className="flex flex-row justify-end gap-2">
-            <Button type="submit" variant={"primary"}>
+            <Button type="submit" variant={"primary"} onClick={handleLogClick}>
               Log
             </Button>
             <Button
