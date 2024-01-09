@@ -165,6 +165,7 @@ const DashboardPage: MyPage = () => {
             {workoutsState.map((workout: TWorkout) => {
               return (
                 <WorkoutComponent
+                  opacity={workout.done}
                   key={workout.id}
                   workout={workout}
                   updateWorkout={() => console.log("clicked")}

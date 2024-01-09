@@ -3,6 +3,7 @@ import {
   calculateConsistency,
   calculateStreak,
   capitalizeFirstLetter,
+  cn,
 } from "@/lib/utils";
 import { TWorkout } from "@/components/types/dashboardTypes";
 import { NextPage } from "next";
@@ -16,12 +17,14 @@ import { updateSingleWorkout } from "@/store/slices/workoutSlice";
 interface workoutProps {
   workout: TWorkout;
   editEnabled?: boolean;
+  opacity?: boolean;
   updateWorkout: () => void;
 }
 
 const WorkoutComponent: NextPage<workoutProps> = ({
   editEnabled,
   workout,
+  opacity,
   updateWorkout,
 }) => {
   const { title }: TWorkout = workout;
@@ -126,7 +129,12 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   };
 
   return (
-    <div className="bg-white w-full rounded-xl p-5 mb-6 dark:bg-darkPrimary">
+    <div
+      className={cn(
+        "bg-white w-full rounded-xl p-5 mb-6 dark:bg-darkPrimary",
+        opacity ? "opacity-90" : ""
+      )}
+    >
       <div className="flex justify-between">
         <span className=" pt-1 font-medium">
           {capitalizeFirstLetter(title)}
