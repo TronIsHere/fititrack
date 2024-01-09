@@ -1,27 +1,28 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import userSlice from "./slices/userSlice";
-import workoutSlice from "./slices/workoutSlice";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
+  persistReducer,
+  persistStore,
   PURGE,
   REGISTER,
+  REHYDRATE,
 } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import userSlice from "./slices/userSlice";
+import workoutSlice from "./slices/workoutSlice";
+import { missionSlice } from "./slices/missionsSlice";
+
 const persistConfig = {
   key: "root",
   storage,
-
-  // Add any other reducer you want to persist here
 };
 
 const rootReducer = combineReducers({
   user: userSlice,
   workout: workoutSlice,
+  mission: missionSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

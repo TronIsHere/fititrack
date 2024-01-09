@@ -40,6 +40,12 @@ export const userSlice = createSlice({
   name: "User",
   initialState,
   reducers: {
+    clearCharacter: (state) => {
+      //TODO: for debug
+      state.xp = 0;
+      state.level = 1;
+      state.maxXp = 100;
+    },
     toggleDarkMode: (state) => {
       state.darkMode = !state.darkMode;
     },
@@ -87,6 +93,7 @@ export const {
   changeMaxXp,
   addXp,
   newSleep,
+  clearCharacter,
 } = userSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

@@ -28,3 +28,9 @@ export const getCurrentWeek = () => {
 
   return { startOfWeek, endOfWeek };
 };
+
+export const getWeekStartDate = () => {
+  const now = new Date();
+  const firstDayOfWeek = now.getDate() - now.getDay(); // Adjust based on week start day
+  return new Date(now.setDate(firstDayOfWeek)).toISOString().split("T")[0];
+};
