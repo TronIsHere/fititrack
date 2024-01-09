@@ -8,7 +8,6 @@ export const SleepChart: FC = () => {
   const sleepData = useAppSelector((state) => state.user.sleep);
   const groupedData = groupByDayOfWeek(sleepData);
   const maxSleepHour = 8;
-  console.log(groupedData);
   type DayOfWeek = keyof typeof groupedData;
   const sleepHoursByDay = (Object.keys(groupedData) as DayOfWeek[]).map(
     (day) => ({
