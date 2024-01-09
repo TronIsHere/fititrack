@@ -75,7 +75,7 @@ const DashboardPage: MyPage = () => {
 
   return (
     <>
-      <Dialog open={true} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild></DialogTrigger>
         <DialogContent
           className="sm:max-w-[525px] max-w-[350px]"

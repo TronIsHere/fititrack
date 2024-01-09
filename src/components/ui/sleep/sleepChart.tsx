@@ -1,11 +1,21 @@
 import { useAppSelector } from "@/hooks/storeHooks";
+import { getCurrentWeek } from "@/lib/dateUtils";
 import { calculateTotalSleepPerDay, groupByDayOfWeek } from "@/lib/timeUtils";
 import { FC } from "react";
 import SleepBar from "../sleepBar";
 
 export const SleepChart: FC = () => {
-  // Adjust according to your Redux setup
-  const sleepData = useAppSelector((state) => state.user.sleep);
+  const { startOfWeek, endOfWeek } = getCurrentWeek();
+  console.log(startOfWeek, 1);
+  console.log(endOfWeek, 2);
+  // Filter the sleep data for the current week
+  const sleepData = useAppSelector((state) =>
+    state.user.sleep.filter((sleepEntry) => {
+      const entryDate = new Date(sleepEntry.date);
+      return entryDate >= startOfWeek && entryDate <= endOfWeek;
+    })
+  );
+
   const groupedData = groupByDayOfWeek(sleepData);
   const maxSleepHour = 8;
   type DayOfWeek = keyof typeof groupedData;

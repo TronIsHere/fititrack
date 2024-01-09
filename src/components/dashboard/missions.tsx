@@ -5,7 +5,6 @@ import { FaMedal, FaCheck } from "react-icons/fa6";
 export const MissionsComponent = () => {
   const [missionState, setMissionState] = useState(missions);
   const missionDoneHandler = (id: number, index: number) => {
-    console.log(missionState);
     setMissionState(
       missionState.map((mission) => {
         if (mission.id === id) {
@@ -53,14 +52,6 @@ export const MissionsComponent = () => {
           </div>
         );
       })}
-      {/* <div className="flex mt-5 pl-2 justify-between">
-        <span className="text-sm line-through text-palletGreen-600">
-          10 minutes cardio
-        </span>
-        <div className="w-6 h-6 border-2 rounded-lg cursor-pointer border-palletGreen-600 bg-palletGreen-600 flex justify-center items-center">
-          <FaCheck color="#fff" size={14} />
-        </div>
-      </div> */}
     </div>
   );
 };

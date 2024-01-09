@@ -17,3 +17,14 @@ export const isSameDay = (date1: Date, date2: Date) => {
   d2.setHours(0, 0, 0, 0);
   return d1.getTime() === d2.getTime();
 };
+
+export const getCurrentWeek = () => {
+  const currentDate = new Date();
+  const firstDayOfWeek = currentDate.getDate() - currentDate.getDay();
+  const lastDayOfWeek = firstDayOfWeek + 6;
+
+  const startOfWeek = new Date(currentDate.setDate(firstDayOfWeek));
+  const endOfWeek = new Date(currentDate.setDate(lastDayOfWeek));
+
+  return { startOfWeek, endOfWeek };
+};
