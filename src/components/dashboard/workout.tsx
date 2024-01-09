@@ -5,7 +5,7 @@ import {
   capitalizeFirstLetter,
   cn,
 } from "@/lib/utils";
-import { TWorkout } from "@/components/types/dashboardTypes";
+
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { renderDoneIndicator } from "../ui/workout/done-indicator";
@@ -14,6 +14,7 @@ import { renderDayGrid } from "../ui/workout/render-day-grid";
 import { useAppDispatch } from "@/hooks/storeHooks";
 import { addXp } from "@/store/slices/userSlice";
 import { updateSingleWorkout } from "@/store/slices/workoutSlice";
+import { TWorkout } from "../types/workout";
 interface workoutProps {
   workout: TWorkout;
   editEnabled?: boolean;
@@ -141,7 +142,11 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         </span>
         {editEnabled
           ? renderEditButtons(updateWorkout)
-          : renderDoneIndicator(workoutState.done, handleWorkout)}
+          : renderDoneIndicator(
+              workoutState.done,
+              handleWorkout,
+              workout.color
+            )}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-5 w-full my-8 mb-3">
         <div className="col-span-1 flex flex-col items-start md:items-center">
@@ -179,7 +184,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         </div>
         <div className="col-span-2 flex flex-col w-full items-center justify-end">
           <div className="flex justify-start mx-8 flex-wrap">
-            {renderDayGrid(workoutState)}
+            {renderDayGrid(workoutState, workout.color)}
           </div>
         </div>
       </div>

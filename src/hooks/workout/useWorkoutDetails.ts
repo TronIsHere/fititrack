@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const useWorkoutDetails = () => {
   const [nameWorkout, setNameWorkout] = useState<string>("");
-  const [selectedColor, setSelectedColor] = useState("bg-red-400");
+  const [selectedColor, setSelectedColor] = useState("red-400");
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameWorkout(e.target.value);

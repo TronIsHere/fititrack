@@ -4,7 +4,7 @@ import SleepComponent from "@/components/dashboard/sleep";
 import WeightComponent from "@/components/dashboard/weight";
 import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
-import { TWorkout } from "@/components/types/dashboardTypes";
+import { TWorkout } from "@/components/types/workout";
 import { MyPage } from "@/components/types/nextjs";
 import { TSleep } from "@/components/types/sleep";
 import { Button } from "@/components/ui/button";

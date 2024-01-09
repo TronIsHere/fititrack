@@ -1,5 +1,5 @@
 import DashboardLayout from "@/components/layouts/dashboardLayout";
-import { TWorkout } from "@/components/types/dashboardTypes";
+import { TWorkout } from "@/components/types/workout";
 import { MyPage } from "@/components/types/nextjs";
 import {
   DropdownMenu,
@@ -19,6 +19,8 @@ import { addWorkout } from "@/store/slices/workoutSlice";
 import Link from "next/link";
 import { useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/toasts/use-toast";
 
 // TODO: responsive design
 
@@ -34,7 +36,8 @@ const AddWorkout: MyPage = () => {
   const { workoutType, handleWorkoutTypeChange } = useWorkoutType();
   const { selectedMuscles, handleMuscleSelect } = useMusclesSelect();
   const dispatch = useAppDispatch();
-
+  const router = useRouter();
+  const { toast } = useToast();
   const [workoutDuration, setWorkoutDuration] = useState<string>("");
 
   const [durationUnit, setDurationUnit] = useState<"Minutes" | "Hours">(
@@ -58,8 +61,20 @@ const AddWorkout: MyPage = () => {
       streak: 0,
       done: false,
       days: [],
+      muscles: selectedMuscles,
+      type: workoutType,
+      color: selectedColor,
+      duration:
+        durationUnit == "Hours"
+          ? parseInt(workoutDuration)
+          : parseInt(workoutDuration) * 60,
     };
     dispatch(addWorkout(newWorkout));
+    toast({
+      variant: "success",
+      description: "Workout added ",
+    });
+    router.push("/dashboard/workouts");
   };
 
   return (
@@ -90,43 +105,43 @@ const AddWorkout: MyPage = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center">
                   <div
-                    className={`border-2 border-palletGray-100 ${selectedColor} w-9 h-9 rounded-md mt-2 cursor-pointer`}
+                    className={`border-2 border-palletGray-100 bg-${selectedColor} w-9 h-9 rounded-md mt-2 cursor-pointer`}
                   ></div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem
-                    onClick={() => handleColorSelect("bg-red-500")}
+                    onClick={() => handleColorSelect("red-500")}
                   >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-red-500"></div>{" "}
                     Red
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => handleColorSelect("bg-blue-500")}
+                    onClick={() => handleColorSelect("blue-500")}
                   >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-blue-500"></div>{" "}
                     Blue
                   </DropdownMenuItem>
 
                   <DropdownMenuItem
-                    onClick={() => handleColorSelect("bg-green-500")}
+                    onClick={() => handleColorSelect("green-500")}
                   >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-green-500"></div>
                     Green
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => handleColorSelect("bg-yellow-500")}
+                    onClick={() => handleColorSelect("yellow-500")}
                   >
-                    <div className="w-4 h-4 rounded-sm mr-1 bg-yellow-950"></div>
-                    Brown
+                    <div className="w-4 h-4 rounded-sm mr-1 bg-yellow-500"></div>
+                    Yellow
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => handleColorSelect("bg-purple-500")}
+                    onClick={() => handleColorSelect("purple-500")}
                   >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-purple-500"></div>
                     Purple
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => handleColorSelect("bg-gray-500")}
+                    onClick={() => handleColorSelect("gray-500")}
                   >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-gray-500"></div>
                     Gray
@@ -135,14 +150,14 @@ const AddWorkout: MyPage = () => {
               </DropdownMenu>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row mt-5">
+          {/* <div className="flex flex-col md:flex-row mt-5">
             <WorkoutFrequency
               onWorkoutFrequencyChange={handleWorkoutFrequencyChange}
               workoutFrequencyState={workoutFrequency}
               onWorkoutFrequencyDayChange={handleDaySelect}
               selectedDayState={selectedDays}
             />
-          </div>
+          </div> */}
           <div className="flex mt-5">
             <WorkoutType
               onWorkoutTypeChange={handleWorkoutTypeChange}

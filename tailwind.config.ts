@@ -4,8 +4,20 @@ export default module.exports = {
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
+
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
+  ],
+  safelist: [
+    "border-red-500",
+    "bg-red-500",
+    "border-yellow-500",
+    "bg-yellow-500",
+    "border-blue-500",
+    "bg-blue-500",
+    "border-purple-500",
+    "bg-purple-500",
+    // Add more classes as needed
   ],
   theme: {
     container: {

@@ -1,7 +1,10 @@
 import { getMonthDays } from "@/lib/dateUtils";
-import { TWorkout } from "@/components/types/dashboardTypes";
+import { TWorkout } from "@/components/types/workout";
 
-export const renderDayGrid = (state: TWorkout) => {
+export const renderDayGrid = (
+  state: TWorkout,
+  color: string = "palletPurple-400"
+) => {
   return [...Array(getMonthDays)].map((_, index) => {
     const currentDate = new Date();
     const targetDate = new Date(
@@ -21,11 +24,10 @@ export const renderDayGrid = (state: TWorkout) => {
     });
 
     const isDone = day?.done ?? false;
+    const bgColor = isDone ? color : "palletGray-100";
     return (
       <div
-        className={`w-4 h-4 rounded-[2px] ${
-          isDone ? "bg-palletPurple-400" : "bg-palletGray-100"
-        } m-1`}
+        className={`w-4 h-4 rounded-[2px] bg-${bgColor} m-1`}
         key={index}
       ></div>
     );
