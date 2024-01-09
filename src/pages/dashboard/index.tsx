@@ -75,10 +75,10 @@ const DashboardPage: MyPage = () => {
 
   return (
     <>
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={true} onOpenChange={setOpen}>
         <DialogTrigger asChild></DialogTrigger>
         <DialogContent
-          className="sm:max-w-[425px] max-w-[350px]"
+          className="sm:max-w-[525px] max-w-[350px]"
           darkMode={darkModeState}
         >
           <DialogHeader>
@@ -87,13 +87,13 @@ const DashboardPage: MyPage = () => {
               how did you sleep last night? did you weight yourself today?
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-5 items-center gap-4">
+          <div className="grid gap-4 py-4 justify-center items-center md:mr-16 mr-0 ">
+            <div className="grid grid-cols-5 items-center gap-4 w-full">
               <Label htmlFor="sleep" className="text-right col-span-2">
                 Last night Sleep
               </Label>
-              <div className="col-span-3 flex items-center">
-                <div className="grid grid-cols-2 gap-2">
+              <div className="col-span-3 flex items-center ">
+                <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
                   <div className="flex flex-col">
                     <span className="pb-2">from</span>
                     <Input
@@ -116,7 +116,7 @@ const DashboardPage: MyPage = () => {
                 {/* <span className="pl-2 font-bold">Hour</span> */}
               </div>
             </div>
-            <div className="grid grid-cols-5 items-center gap-4">
+            <div className="grid grid-cols-5 items-center gap-4 mt-5 md:mt-0">
               <Label htmlFor="weight" className="text-right col-span-2">
                 Today&apos;s weight
               </Label>
@@ -145,7 +145,7 @@ const DashboardPage: MyPage = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <div className="">
+      <div>
         <span className="mt-4 block text-lg">
           Welcome <strong>Erwin</strong>, good morning
         </span>
