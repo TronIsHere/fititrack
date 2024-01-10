@@ -110,6 +110,12 @@ const AddWorkout: MyPage = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem
+                    onClick={() => handleColorSelect("palletPurple-600")}
+                  >
+                    <div className="w-4 h-4 rounded-sm mr-1 bg-palletPurple-500"></div>
+                    Purple
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
                     onClick={() => handleColorSelect("red-500")}
                   >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-red-500"></div>{" "}
@@ -133,12 +139,6 @@ const AddWorkout: MyPage = () => {
                   >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-yellow-500"></div>
                     Yellow
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => handleColorSelect("purple-500")}
-                  >
-                    <div className="w-4 h-4 rounded-sm mr-1 bg-purple-500"></div>
-                    Purple
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => handleColorSelect("gray-500")}
