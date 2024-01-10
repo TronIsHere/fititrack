@@ -4,8 +4,15 @@ import { Theme } from "@/components/types/dashboardTypes";
 import { MyPage } from "@/components/types/nextjs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/components/ui/toasts/use-toast";
+import { useAppSelector } from "@/hooks/storeHooks";
 import { themes } from "@/lib/themeUtils";
-import { changeDarkMode, toggleDarkMode } from "@/store/slices/userSlice";
+import { capitalizeFirstLetter } from "@/lib/utils";
+import {
+  changeDarkMode,
+  changeName,
+  toggleDarkMode,
+} from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,8 +21,11 @@ const SettingsPage: MyPage = () => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
   const dispatch = useDispatch();
   const [theme, setTheme] = useState<Theme>(darkModeState ? "Dark" : "Light");
+  const name = useAppSelector((state) => state.user.name);
+  const { toast } = useToast();
   useEffect(() => {
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+
     let isDarkMode = false;
 
     if (theme === "Dark") {
@@ -28,7 +38,14 @@ const SettingsPage: MyPage = () => {
       dispatch(changeDarkMode(isDarkMode));
     }
   }, [theme, darkModeState, dispatch]);
+  const saveHandler = () => {
+    dispatch(changeName("Erwin Aghajani"));
 
+    toast({
+      variant: "success",
+      description: "Saved Successfully",
+    });
+  };
   const nextTheme = (selectedTheme: Theme): void => {
     setTheme(selectedTheme);
   };
@@ -66,7 +83,7 @@ const SettingsPage: MyPage = () => {
                     </div>
                     <div className="flex flex-col justify-center pl-4">
                       <span className="font-semibold text-palletPurple-900 dark:text-white">
-                        Erwin Aghajani
+                        {capitalizeFirstLetter(name)}
                       </span>
                       <span className="text-palletGray-200 text-sm mt-1">
                         erwin.aghajani@gmail.com
@@ -119,7 +136,10 @@ const SettingsPage: MyPage = () => {
                   </div>
                 </div>
                 <div className="flex justify-end mt-10 mb-4 pr-2">
-                  <button className="bg-palletGreen-600 text-white py-2 px-4 rounded-lg text-sm">
+                  <button
+                    className="bg-palletGreen-600 text-white py-2 px-4 rounded-lg text-sm"
+                    onClick={() => saveHandler()}
+                  >
                     Save Profile
                   </button>
                 </div>
