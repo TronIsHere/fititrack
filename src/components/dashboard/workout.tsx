@@ -28,7 +28,6 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   opacity,
   updateWorkout,
 }) => {
-  console.log(updateWorkout, 30);
   const { title }: TWorkout = workout;
   const [workoutState, setWorkoutState] = useState<TWorkout>(workout);
   const consistency = calculateConsistency(workoutState.days || []);

@@ -9,28 +9,7 @@ interface WorkoutState {
 
 // Define the initial state using that type
 const initialState: WorkoutState = {
-  workouts: [
-    {
-      id: 1,
-      title: "upper body",
-      checkIns: 0,
-      created: new Date("2023/12/27").toISOString(),
-      streak: 0,
-      done: false,
-      days: [],
-      type: "Cardio",
-    },
-    {
-      id: 2,
-      title: "lower body",
-      checkIns: 1,
-      created: new Date("2023/12/27").toISOString(),
-      streak: 0,
-      done: false,
-      days: [{ date: new Date("2023/12/30").toISOString(), done: true }],
-      type: "Strength",
-    },
-  ],
+  workouts: [],
 };
 
 export const workoutSlice = createSlice({
@@ -50,12 +29,11 @@ export const workoutSlice = createSlice({
       if (index !== -1) {
         state.workouts[index] = updatedWorkout;
       }
-      // Implementation to update a workout
+      // Implementation to update a single workout
     },
     addWorkout: (state, action: PayloadAction<TWorkout>) => {
       state.workouts.push(action.payload);
     },
-    // Additional reducers can be added here
   },
 });
 
