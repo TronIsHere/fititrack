@@ -12,10 +12,14 @@ interface UserState {
   level: number;
   maxXp: number;
   xp: number;
+  name: string;
+  lastName: string;
 }
 
 // Define the initial state using that type
 const initialState: UserState = {
+  name: "erwin",
+  lastName: "aghajani",
   darkMode: false,
   age: 20,
   sleep: [
