@@ -15,8 +15,8 @@ export default module.exports = {
     "bg-yellow-500",
     "border-blue-500",
     "bg-blue-500",
-    "border-purple-500",
-    "bg-purple-500",
+    "border-palletPurple-400",
+    "bg-palletPurple-400",
     // Add more classes as needed
   ],
   theme: {

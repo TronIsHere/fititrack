@@ -1,14 +1,14 @@
 import DashboardLayout from "@/components/layouts/dashboardLayout";
-import { TWorkout } from "@/components/types/workout";
 import { MyPage } from "@/components/types/nextjs";
+import { TWorkout } from "@/components/types/workout";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useToast } from "@/components/ui/toasts/use-toast";
 import MuscleSelect from "@/components/ui/workout/muscle-select";
-import WorkoutFrequency from "@/components/ui/workout/workout-frequency";
 import WorkoutType from "@/components/ui/workout/workout-type";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import useMusclesSelect from "@/hooks/workout/useMuscleSelect";
@@ -17,10 +17,9 @@ import useWorkoutFrequency from "@/hooks/workout/useWorkoutFrequency";
 import useWorkoutType from "@/hooks/workout/useWorkoutType";
 import { addWorkout } from "@/store/slices/workoutSlice";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/toasts/use-toast";
 
 const AddWorkout: MyPage = () => {
   const { nameWorkout, selectedColor, handleNameChange, handleColorSelect } =
@@ -107,6 +106,10 @@ const AddWorkout: MyPage = () => {
                   ></div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => handleColorSelect("")}>
+                    <div className="checkerboard-pattern"></div>
+                    Dynamic
+                  </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => handleColorSelect("palletPurple-600")}
                   >

@@ -15,7 +15,7 @@ import useMusclesSelect from "@/hooks/workout/useMuscleSelect";
 import useWorkoutDetails from "@/hooks/workout/useWorkoutDetails";
 import useWorkoutFrequency from "@/hooks/workout/useWorkoutFrequency";
 import useWorkoutType from "@/hooks/workout/useWorkoutType";
-import { addWorkout, updateSingleWorkout } from "@/store/slices/workoutSlice";
+import { updateSingleWorkout } from "@/store/slices/workoutSlice";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -55,7 +55,7 @@ const EditWorkout: MyPage = () => {
     setDurationUnit(unit);
   };
   const searchParams = useSearchParams();
-  const workoutID = searchParams.get("slug");
+  const workoutID = searchParams.get("id");
   const workoutsState = useAppSelector((state) => state.workout.workouts);
   useEffect(() => {
     // Find the workout with the given ID

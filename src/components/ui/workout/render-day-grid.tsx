@@ -24,7 +24,7 @@ export const renderDayGrid = (
     });
 
     const isDone = day?.done ?? false;
-    const bgColor = isDone ? color : "palletGray-100";
+    const bgColor = isDone ? color || "palletPurple-400" : "palletGray-100";
     return (
       <div
         className={`w-4 h-4 rounded-[2px] bg-${bgColor} m-1`}

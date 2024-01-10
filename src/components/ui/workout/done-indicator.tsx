@@ -10,7 +10,9 @@ export const renderDoneIndicator = (
     <div
       className={`w-6 h-6 border-2 flex justify-center items-center rounded-lg cursor-pointer mt-1 ${
         done
-          ? `border-${color} bg-${color}`
+          ? `border-${color || "palletGreen-600"} bg-${
+              color || "palletGreen-600"
+            }`
           : "border-palletGray-100 bg-transparent"
       }`}
       onClick={onclick}

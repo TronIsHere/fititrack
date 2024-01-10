@@ -1,13 +1,35 @@
-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    @apply text-palletGray-100/* Firefox */
-  }
-  
-.custom-background{
+input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  @apply text-palletGray-100/* Firefox */;
+}
+
+.custom-background {
   background-color: #f5f4f4;
 }
-.tab-trigger{
+.tab-trigger {
   @apply data-[state=active]:shadow-none data-[state=active]:bg-transparent data-[state=active]:border-palletPurple-500 data-[state=active]:text-palletPurple-500 data-[state=active]:border-b-2 data-[state=active]:pb-3 data-[state=active]:pt-2;
 }
-.tab-trigger{
+.tab-trigger {
   @apply data-[state=active]:shadow-none data-[state=active]:bg-transparent data-[state=active]:border-palletPurple-300 data-[state=active]:text-palletPurple-300 data-[state=active]:border-b-2 data-[state=active]:pb-3 data-[state=active]:pt-2;
+}
+.checkerboard-pattern {
+  @apply w-4 h-4 rounded-sm mr-1; /* Tailwind classes */
+  background-image: linear-gradient(
+      45deg,
+      #222ed1 25%,
+      transparent 25%,
+      transparent 75%,
+      #a26e28 75%,
+      #42bc32
+    ),
+    linear-gradient(
+      45deg,
+      #222ed1 25%,
+      #42bc32 25%,
+      #42bc32 75%,
+      #222ed1 75%,
+      #222ed1
+    );
+  background-size: 10px 10px;
+  background-position: 0 0, 5px 5px;
 }
