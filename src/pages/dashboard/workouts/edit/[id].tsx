@@ -139,6 +139,10 @@ const EditWorkout: MyPage = () => {
                   ></div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => handleColorSelect("")}>
+                    <div className="checkerboard-pattern"></div>
+                    Dynamic
+                  </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => handleColorSelect("palletPurple-500")}
                   >

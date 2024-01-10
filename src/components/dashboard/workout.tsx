@@ -111,11 +111,11 @@ const WorkoutComponent: NextPage<workoutProps> = ({
       const newStreak = calculateStreak(updatedDays);
 
       const newWorkoutData = {
-        ...prevState, // Spread the previous state of the workout
-        days: updatedDays, // Assign the updated days
-        checkIns: updatedCheckIns, // Update the check-ins count
-        done: !prevState.done, // Toggle the done state
-        streak: newStreak, // New streak calculation
+        ...prevState,
+        days: updatedDays,
+        checkIns: updatedCheckIns,
+        done: !prevState.done,
+        streak: newStreak,
       };
 
       dispatch(

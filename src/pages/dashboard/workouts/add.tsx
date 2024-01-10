@@ -101,17 +101,23 @@ const AddWorkout: MyPage = () => {
               <span>Color</span>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center">
-                  <div
-                    className={`border-2 border-palletGray-100 bg-${selectedColor} w-9 h-9 rounded-md mt-2 cursor-pointer`}
-                  ></div>
+                  {selectedColor == "" ? (
+                    <div
+                      className={`border-2 border-palletGray-100 checkerboard-pattern w-9 h-9 rounded-md mt-2 cursor-pointer`}
+                    ></div>
+                  ) : (
+                    <div
+                      className={`border-2 border-palletGray-100 bg-${selectedColor} w-9 h-9 rounded-md mt-2 cursor-pointer`}
+                    ></div>
+                  )}
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem onClick={() => handleColorSelect("")}>
-                    <div className="checkerboard-pattern"></div>
+                    <div className="w-4 h-4 rounded-sm mr-1 checkerboard-pattern"></div>
                     Dynamic
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => handleColorSelect("palletPurple-600")}
+                    onClick={() => handleColorSelect("palletPurple-500")}
                   >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-palletPurple-500"></div>
                     Purple
