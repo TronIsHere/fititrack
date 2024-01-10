@@ -13,13 +13,11 @@ interface UserState {
   maxXp: number;
   xp: number;
   name: string;
-  lastName: string;
 }
 
 // Define the initial state using that type
 const initialState: UserState = {
-  name: "erwin",
-  lastName: "aghajani",
+  name: "erwin aghajani",
   darkMode: false,
   age: 20,
   sleep: [
@@ -44,6 +42,9 @@ export const userSlice = createSlice({
   name: "User",
   initialState,
   reducers: {
+    changeName: (state, action: PayloadAction<string>) => {
+      state.name = action.payload;
+    },
     clearCharacter: (state) => {
       //TODO: for debug
       state.xp = 0;
@@ -98,6 +99,7 @@ export const {
   addXp,
   newSleep,
   clearCharacter,
+  changeName,
 } = userSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
