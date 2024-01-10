@@ -123,7 +123,7 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
             ></Input>
           </div>
         </div>
-        <DialogFooter>
+        <DialogFooter className="gap-2 flex flex-row justify-end">
           <Button type="submit" variant={"primary"} onClick={handleSleepData}>
             Add
           </Button>

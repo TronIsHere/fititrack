@@ -110,7 +110,7 @@ const EditWorkout: MyPage = () => {
     <div className="grid grid-cols-1 md:grid-cols-7 gap-6 ">
       <div className="col-span-5">
         <div className="flex justify-between items-center mb-10">
-          <span className="mt-4 block text-2xl font-bold">New workout</span>
+          <span className="mt-4 block text-2xl font-bold">Edit workout</span>
           <Link
             href={"/dashboard/workouts"}
             className="bg-palletPurple-500 py-2 text-white px-8 rounded-md mt-3"

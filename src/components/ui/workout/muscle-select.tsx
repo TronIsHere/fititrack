@@ -18,7 +18,7 @@ const MuscleSelect: FC<MuscleSelectProps> = ({
   return (
     <div className="flex flex-col  ">
       <span>What muscles you focus</span>
-      <div className="flex flex-col md:flex-row border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
+      <div className="flex flex-col md:flex-row border-2 gap-2 md:gap-0 rounded-lg border-palletGray-100 p-1 mt-2 text-sm">
         {muscles.map((muscle) => (
           <span
             key={muscle}
