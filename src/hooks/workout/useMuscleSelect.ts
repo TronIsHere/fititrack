@@ -14,6 +14,7 @@ const useMusclesSelect = () => {
   return {
     selectedMuscles,
     handleMuscleSelect,
+    setSelectedMuscles,
   };
 };
 

@@ -8,7 +8,7 @@ export type TWorkout = {
   checkIns: number;
   done: boolean;
   muscles?: string[];
-  type?: string;
+  type: "Strength" | "Cardio";
   duration?: number;
   color?: string;
   days?: TDay[];

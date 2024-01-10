@@ -1,7 +1,4 @@
-import {
-  TWorkout,
-  UpdateWorkoutPayload,
-} from "@/components/types/dashboardTypes";
+import { TWorkout, UpdateWorkoutPayload } from "@/components/types/workout";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
@@ -21,6 +18,7 @@ const initialState: WorkoutState = {
       streak: 0,
       done: false,
       days: [],
+      type: "Cardio",
     },
     {
       id: 2,
@@ -30,6 +28,7 @@ const initialState: WorkoutState = {
       streak: 0,
       done: false,
       days: [{ date: new Date("2023/12/30").toISOString(), done: true }],
+      type: "Strength",
     },
   ],
 };

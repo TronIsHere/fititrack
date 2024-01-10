@@ -1,19 +1,26 @@
 import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
-import { TWorkout } from "@/components/types/dashboardTypes";
+import { TWorkout } from "@/components/types/workout";
 import { MyPage } from "@/components/types/nextjs";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { updateWorkout } from "@/store/slices/workoutSlice";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Router } from "next/router";
 
 const WorkoutsPage: MyPage = () => {
   const workoutsState = useAppSelector((state) => state.workout.workouts);
   const dispatch = useAppDispatch();
-  const handleUpdateWorkout = (workoutId: number) => {
-    const updatedWorkouts: TWorkout[] = workoutsState.filter(
-      (workout) => workout.id !== workoutId
-    );
-    dispatch(updateWorkout(updatedWorkouts));
+  const router = useRouter();
+  const handleUpdateWorkout = (type: "edit" | "delete", workoutId: number) => {
+    if (type == "delete") {
+      const updatedWorkouts: TWorkout[] = workoutsState.filter(
+        (workout) => workout.id !== workoutId
+      );
+      dispatch(updateWorkout(updatedWorkouts));
+    } else {
+      router.push(`/dashboard/workouts/edit/${workoutId}`);
+    }
   };
   return (
     <>
@@ -34,7 +41,7 @@ const WorkoutsPage: MyPage = () => {
                 key={workout.id}
                 editEnabled={true}
                 workout={workout}
-                updateWorkout={() => handleUpdateWorkout(workout.id)}
+                updateWorkout={(type) => handleUpdateWorkout(type, workout.id)}
               />
             );
           })}

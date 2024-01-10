@@ -1,46 +1,52 @@
 import DashboardLayout from "@/components/layouts/dashboardLayout";
-import { TWorkout } from "@/components/types/workout";
 import { MyPage } from "@/components/types/nextjs";
+import { TWorkout } from "@/components/types/workout";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useToast } from "@/components/ui/toasts/use-toast";
 import MuscleSelect from "@/components/ui/workout/muscle-select";
-import WorkoutFrequency from "@/components/ui/workout/workout-frequency";
 import WorkoutType from "@/components/ui/workout/workout-type";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import useMusclesSelect from "@/hooks/workout/useMuscleSelect";
 import useWorkoutDetails from "@/hooks/workout/useWorkoutDetails";
 import useWorkoutFrequency from "@/hooks/workout/useWorkoutFrequency";
 import useWorkoutType from "@/hooks/workout/useWorkoutType";
-import { addWorkout } from "@/store/slices/workoutSlice";
+import { addWorkout, updateSingleWorkout } from "@/store/slices/workoutSlice";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/toasts/use-toast";
 
-const AddWorkout: MyPage = () => {
-  const { nameWorkout, selectedColor, handleNameChange, handleColorSelect } =
-    useWorkoutDetails();
+const EditWorkout: MyPage = () => {
+  const {
+    nameWorkout,
+    selectedColor,
+    setNameWorkout,
+    handleNameChange,
+    handleColorSelect,
+  } = useWorkoutDetails();
   const {
     workoutFrequency,
     selectedDays,
     handleWorkoutFrequencyChange,
     handleDaySelect,
   } = useWorkoutFrequency();
+  const [selectedWorkout, setSelectedWorkout] = useState<TWorkout | null>(null);
   const { workoutType, handleWorkoutTypeChange } = useWorkoutType();
-  const { selectedMuscles, handleMuscleSelect } = useMusclesSelect();
+  const { selectedMuscles, handleMuscleSelect, setSelectedMuscles } =
+    useMusclesSelect();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { toast } = useToast();
   const [workoutDuration, setWorkoutDuration] = useState<string>("");
-
   const [durationUnit, setDurationUnit] = useState<"Minutes" | "Hours">(
     "Minutes"
   );
+
   const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWorkoutDuration(event.target.value);
   };
@@ -48,31 +54,56 @@ const AddWorkout: MyPage = () => {
   const handleDurationUnitChange = (unit: "Minutes" | "Hours") => {
     setDurationUnit(unit);
   };
-
+  const searchParams = useSearchParams();
+  const workoutID = searchParams.get("slug");
   const workoutsState = useAppSelector((state) => state.workout.workouts);
-  const addHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const newWorkout: TWorkout = {
-      id: workoutsState.length + 1, // Modify according to your ID generation logic
-      title: nameWorkout,
-      checkIns: 0,
-      created: new Date().toISOString(),
-      streak: 0,
-      done: false,
-      days: [],
-      muscles: selectedMuscles,
-      type: workoutType,
-      color: selectedColor,
-      duration:
-        durationUnit === "Hours"
-          ? parseInt(workoutDuration) * 60
-          : parseInt(workoutDuration),
-    };
-    dispatch(addWorkout(newWorkout));
-    toast({
-      variant: "success",
-      description: "Workout added ",
-    });
-    router.push("/dashboard/workouts");
+  useEffect(() => {
+    // Find the workout with the given ID
+
+    const workoutToEdit: TWorkout | undefined = workoutsState.find(
+      (workout) => workout.id === parseInt(workoutID!)
+    );
+
+    if (workoutToEdit) {
+      handleNameChange(workoutToEdit.title);
+      handleColorSelect(workoutToEdit.color || "palletPurple-500");
+      handleWorkoutTypeChange(workoutToEdit.type);
+      setSelectedMuscles(workoutToEdit.muscles || []);
+      setWorkoutDuration(workoutToEdit.duration?.toString() || "");
+    } else {
+      router.push("/dashboard/workouts");
+    }
+  }, [workoutID]);
+  const EditHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const workoutToEdit: TWorkout | undefined = workoutsState.find(
+      (workout) => workout.id === parseInt(workoutID!)
+    );
+    if (workoutToEdit) {
+      const updatedWorkout: TWorkout = {
+        ...workoutToEdit,
+        title: nameWorkout,
+        muscles: selectedMuscles,
+        type: workoutType,
+        color: selectedColor,
+        duration:
+          durationUnit === "Hours"
+            ? parseInt(workoutDuration) * 60
+            : parseInt(workoutDuration),
+      };
+
+      dispatch(updateSingleWorkout({ id: updatedWorkout.id, updatedWorkout }));
+      toast({
+        variant: "success",
+        description: "Workout updated",
+      });
+      router.push("/dashboard/workouts");
+    } else {
+      // Handle the case where no workout is found
+      toast({
+        variant: "destructive",
+        description: "Workout not found",
+      });
+    }
   };
 
   return (
@@ -93,6 +124,7 @@ const AddWorkout: MyPage = () => {
               <span>Name of this workout</span>
               <input
                 onChange={(e) => handleNameChange(e.target.value)}
+                value={nameWorkout}
                 type="text"
                 className="border-2 mt-2 rounded-lg p-1.5 pl-2 text-sm border-palletGray-100 dark:bg-darkPrimary"
                 placeholder="your workout’s name.."
@@ -108,7 +140,7 @@ const AddWorkout: MyPage = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem
-                    onClick={() => handleColorSelect("palletPurple-600")}
+                    onClick={() => handleColorSelect("palletPurple-500")}
                   >
                     <div className="w-4 h-4 rounded-sm mr-1 bg-palletPurple-500"></div>
                     Purple
@@ -206,9 +238,9 @@ const AddWorkout: MyPage = () => {
           <div className="flex mt-10 justify-end">
             <button
               className="bg-palletGreen-600 h-10 text-white px-8 rounded-md mt-3"
-              onClick={addHandler}
+              onClick={EditHandler}
             >
-              Add
+              Edit
             </button>
           </div>
         </div>
@@ -218,8 +250,8 @@ const AddWorkout: MyPage = () => {
   );
 };
 
-AddWorkout.getLayout = (page: any) => {
+EditWorkout.getLayout = (page: any) => {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
 
-export default AddWorkout;
+export default EditWorkout;

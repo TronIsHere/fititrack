@@ -19,7 +19,7 @@ interface workoutProps {
   workout: TWorkout;
   editEnabled?: boolean;
   opacity?: boolean;
-  updateWorkout: () => void;
+  updateWorkout: (type: "edit" | "delete") => void;
 }
 
 const WorkoutComponent: NextPage<workoutProps> = ({
@@ -28,6 +28,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   opacity,
   updateWorkout,
 }) => {
+  console.log(updateWorkout, 30);
   const { title }: TWorkout = workout;
   const [workoutState, setWorkoutState] = useState<TWorkout>(workout);
   const consistency = calculateConsistency(workoutState.days || []);

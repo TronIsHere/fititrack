@@ -4,8 +4,8 @@ const useWorkoutDetails = () => {
   const [nameWorkout, setNameWorkout] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState("palletPurple-500");
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNameWorkout(e.target.value);
+  const handleNameChange = (title: string) => {
+    setNameWorkout(title);
   };
 
   const handleColorSelect = (colorClass: string) => {
@@ -17,6 +17,7 @@ const useWorkoutDetails = () => {
     selectedColor,
     handleNameChange,
     handleColorSelect,
+    setNameWorkout,
   };
 };
 
