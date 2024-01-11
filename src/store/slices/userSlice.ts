@@ -8,6 +8,7 @@ interface UserState {
   darkMode: boolean;
   weight: TWeight[];
   age: number;
+  email: string;
   sleep: TSleep[];
   level: number;
   maxXp: number;
@@ -20,6 +21,7 @@ const initialState: UserState = {
   name: "erwin aghajani",
   darkMode: false,
   age: 20,
+  email: "erwin.aghajani@gmail.com",
   sleep: [
     {
       date: new Date("2024/01/01").toISOString(),
@@ -44,6 +46,9 @@ export const userSlice = createSlice({
   reducers: {
     changeName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
+    },
+    changeEmail: (state, action: PayloadAction<string>) => {
+      state.email = action.payload;
     },
     clearCharacter: (state) => {
       //TODO: for debug
@@ -100,6 +105,7 @@ export const {
   newSleep,
   clearCharacter,
   changeName,
+  changeEmail,
 } = userSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
