@@ -14,6 +14,7 @@ import {
   toggleDarkMode,
 } from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -21,11 +22,11 @@ const SettingsPage: MyPage = () => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
   const dispatch = useDispatch();
   const [theme, setTheme] = useState<Theme>(darkModeState ? "Dark" : "Light");
+  const [nameState, setNameState] = useState<string>("");
   const name = useAppSelector((state) => state.user.name);
   const { toast } = useToast();
   useEffect(() => {
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-
     let isDarkMode = false;
 
     if (theme === "Dark") {
@@ -39,7 +40,7 @@ const SettingsPage: MyPage = () => {
     }
   }, [theme, darkModeState, dispatch]);
   const saveHandler = () => {
-    dispatch(changeName("Erwin Aghajani"));
+    dispatch(changeName(nameState));
 
     toast({
       variant: "success",
@@ -98,12 +99,13 @@ const SettingsPage: MyPage = () => {
                   <div className="flex flex-col pl-2 pt-10 w-full">
                     <span className="pl-0.5 ">Name</span>
                     <input
+                      defaultValue={name}
                       type="text"
                       className="border-2 mt-2 rounded-lg p-1.5 pl-2 text-sm border-palletGray-100 dark:bg-darkPrimary"
-                      placeholder="your workout’s name.."
+                      onChange={(e) => setNameState(e.target.value)}
                     />
                   </div>
-                  <div className="flex flex-col pl-2 pt-8 ">
+                  {/* <div className="flex flex-col pl-2 pt-8 ">
                     <span className="pl-0.5 ">Weight</span>
                     <div className="border-2 mt-2 w-24 flex rounded-lg p-1 text-sm border-palletGray-100 dark:bg-darkPrimary">
                       <input
@@ -115,22 +117,36 @@ const SettingsPage: MyPage = () => {
                         KG
                       </span>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="pl-2 pt-8">
                     <span className="pl-0.5">Theme</span>
-                    <div className="flex border-2 rounded-lg border-palletGray-100 p-1 mt-2 text-sm w-60 justify-center">
+                    <div className="flex justify-center gap-5 mt-5">
                       {themes.map((t) => (
-                        <span
+                        <div
                           key={t}
-                          className={`px-5 py-1 rounded-md mr-1 cursor-pointer transition duration-300 ease-in-out ${
-                            theme === t
-                              ? "bg-palletPurple-300 text-white"
-                              : "text-palletGray-100 hover:bg-palletPurple-300 hover:text-white"
-                          }`}
+                          className="flex flex-col items-center cursor-pointer"
                           onClick={() => nextTheme(t)}
                         >
-                          {t}
-                        </span>
+                          <Image
+                            src={`/images/${t}Theme.png`} // Assuming image names are consistent with theme names
+                            className={`rounded-md transition-all duration-500 ${
+                              theme === t ? "ring-4 ring-palletPurple-300" : ""
+                            }`} // Highlight the selected theme
+                            alt={`${t} theme`}
+                            width={200}
+                            height={200}
+                          />
+                          <span
+                            className={`mt-2 text-sm ${
+                              theme === t
+                                ? "text-palletPurple-300"
+                                : "text-palletGray-100"
+                            }`}
+                          >
+                            {t.charAt(0).toUpperCase() + t.slice(1)}{" "}
+                            {/* Capitalize the first letter */}
+                          </span>
+                        </div>
                       ))}
                     </div>
                   </div>

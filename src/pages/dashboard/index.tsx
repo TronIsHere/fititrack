@@ -35,6 +35,7 @@ const DashboardPage: MyPage = () => {
   const workoutsState = useAppSelector((state) => state.workout.workouts);
   const dispatch = useAppDispatch();
   const isNewDay = useLastVisited();
+
   useEffect(() => {
     if (isNewDay) {
       setOpen(true); // It's a new day

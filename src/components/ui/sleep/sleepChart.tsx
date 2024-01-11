@@ -6,8 +6,6 @@ import SleepBar from "../sleepBar";
 
 export const SleepChart: FC = () => {
   const { startOfWeek, endOfWeek } = getCurrentWeek();
-  console.log(startOfWeek, 1);
-  console.log(endOfWeek, 2);
   // Filter the sleep data for the current week
   const sleepData = useAppSelector((state) =>
     state.user.sleep.filter((sleepEntry) => {
