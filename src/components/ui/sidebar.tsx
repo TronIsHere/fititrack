@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
 import { BiSolidDashboard } from "react-icons/bi";
+import { FaChartLine } from "react-icons/fa6";
 import { FiActivity, FiLogOut } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { IoSettings } from "react-icons/io5";
@@ -35,6 +36,13 @@ const SidebarComponent: NextPage<sidebarProps> = ({ darkMode }) => {
           >
             <FiActivity className="" size={20} />
             <span className=" pl-3">Workouts</span>
+          </Link>
+          <Link
+            href={"/dashboard/history"}
+            className="flex items-center text-palletGray-200 py-2 px-6 rounded-full cursor-pointer mt-3 hover:text-palletPurple-500 hover:bg-palletPurple-200 duration-500"
+          >
+            <FaChartLine className="" size={20} />
+            <span className=" pl-3">History</span>
           </Link>
           <Link
             href={"/dashboard/settings"}
