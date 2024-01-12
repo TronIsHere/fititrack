@@ -23,10 +23,6 @@ const CharacterComponent = () => {
                 {xpState}/{maxXpState} xp
               </span>
             </div>
-            {/* <div className="h-4 bg-palletGray-100 rounded-lg mt-2">
-              
-              <div className="h-4 bg-palletYellow-400 rounded-lg w-32"></div>
-            </div> */}
             <Progress
               value={(xpState / maxXpState) * 100}
               className={"mt-2 bg-palletGray-100"}
