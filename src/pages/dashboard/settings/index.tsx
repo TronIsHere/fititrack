@@ -84,15 +84,15 @@ const SettingsPage: MyPage = () => {
                   <div className="flex flex-col pl-2 pt-3 w-full">
                     <span className="pl-0.5 ">Current password</span>
                     <Input
-                      type="text"
                       className="border mt-2  text-sm border-palletGray-100 dark:bg-darkPrimary"
+                      isPassword={true}
                       // onChange={(e) => setNewPasswordState(e.target.value)}
                     />
                   </div>
                   <div className="flex flex-col pl-2 pt-8 w-full">
                     <span className="pl-0.5 ">New password</span>
                     <Input
-                      type="text"
+                      isPassword={true}
                       className="border mt-2  text-sm border-palletGray-100 dark:bg-darkPrimary"
                       onChange={(e) => setNewPasswordState(e.target.value)}
                     />
@@ -100,7 +100,7 @@ const SettingsPage: MyPage = () => {
                   <div className="flex flex-col pl-2 pt-8 w-full">
                     <span className="pl-0.5 ">Confirm new password</span>
                     <Input
-                      type="text"
+                      isPassword={true}
                       className="border mt-2  text-sm border-palletGray-100 dark:bg-darkPrimary"
                       onChange={(e) => setReEnterPasswordState(e.target.value)}
                     />
