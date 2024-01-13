@@ -17,7 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     if (isPassword) {
       inputType = showPassword ? "text" : "password";
     } else {
-      inputType = "text";
+      inputType = type;
     }
     return (
       <div className="relative">
