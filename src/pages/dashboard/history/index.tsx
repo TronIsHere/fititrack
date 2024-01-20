@@ -1,4 +1,3 @@
-import SleepHistoryChart from "@/components/history/sleep-chart";
 import WeightHistoryChart from "@/components/history/weight-chart";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";

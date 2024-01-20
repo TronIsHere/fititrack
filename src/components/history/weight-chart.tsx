@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { useAppSelector } from "@/hooks/storeHooks";
 
 ChartJS.register(
   CategoryScale,
@@ -122,8 +123,8 @@ const options = {
 };
 
 const WeightHistoryChart = () => {
+  const darkModeState = useAppSelector((state) => state.user.darkMode);
   const chartRef = useRef<ChartJS<"bar"> | null>(null);
-  const [svgPattern, setSvgPattern] = useState(null);
   useEffect(() => {
     // Ensure that window or document is available
     if (typeof window !== "undefined") {
@@ -144,7 +145,7 @@ const WeightHistoryChart = () => {
         <h2 className=" font-bold text-xl my-2">Weight</h2>
         <Select>
           <SelectTrigger
-            darkMode={true}
+            darkMode={darkModeState}
             className="w-[100px] flex justify-around border-2 border-palletGray-300 text-palletGray-300"
           >
             <SelectValue placeholder="Month" className="" />
