@@ -14,7 +14,7 @@ const HistoryPage: MyPage = () => {
         <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-5">
           <WeightHistoryChart />
         </div>
-        <div className="grid grid-cols-3 gap-6 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary ">
             <h3 className="font-bold text-lg">Sleep Quality overall</h3>
             <p className="text-sm text-muted-foreground  pt-2">
@@ -85,7 +85,7 @@ const HistoryPage: MyPage = () => {
         <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-10 ">
           <WeightHistoryChart />
         </div>
-        <div className="grid grid-cols-3 gap-6 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary">
             <h3 className="font-bold text-lg">Cardio or Strength</h3>
             <p className="text-sm text-muted-foreground  pt-2">
