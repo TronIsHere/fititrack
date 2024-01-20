@@ -1,3 +1,4 @@
+import SleepyDyas from "@/components/history/sleepyDays-chart";
 import WeightHistoryChart from "@/components/history/weight-chart";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
@@ -35,7 +36,11 @@ const HistoryPage: MyPage = () => {
                 </div>
               </div>
               <div className="">
-                <CircularProgress value={20} indicatorColor="#23b14b" />
+                <CircularProgress
+                  showPercentage={true}
+                  value={20}
+                  indicatorColor="#23b14b"
+                />
               </div>
             </div>
           </div>
@@ -44,11 +49,8 @@ const HistoryPage: MyPage = () => {
             <p className="text-sm text-muted-foreground  pt-2">
               days you sleep the most
             </p>
-            <div className="flex justify-center mt-5">
-              <span className="text-palletPurple-200 text-2xl mt-2">
-                Tuesday
-              </span>
-            </div>
+            {/* TODO: Refactor Charts */}
+            <SleepyDyas />
           </div>
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary ">
             <h3 className="font-bold text-lg">Average Sleep Duration</h3>
@@ -71,7 +73,11 @@ const HistoryPage: MyPage = () => {
                 </div>
               </div>
               <div className="">
-                <CircularProgress value={80} indicatorColor="#23b14b" />
+                <CircularProgress
+                  showPercentage={true}
+                  value={80}
+                  indicatorColor="#23b14b"
+                />
               </div>
             </div>
           </div>
@@ -79,15 +85,20 @@ const HistoryPage: MyPage = () => {
         <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-10 ">
           <WeightHistoryChart />
         </div>
-        <div className="grid grid-cols-3 gap-10 mt-6">
+        <div className="grid grid-cols-3 gap-6 mt-6">
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary">
-            <h3 className="font-bold text-lg">Historical Best</h3>
+            <h3 className="font-bold text-lg">Cardio or Strength</h3>
             <p className="text-sm text-muted-foreground  pt-2">
-              all-time lowest or healthiest weight since they started using the
-              app.
+              what did you train the most
             </p>
-            <div className="flex justify-center mt-5">
-              <span className="text-palletGreen-600 text-2xl mt-2">60kg</span>
+            <div className="flex justify-end items-center mt-5">
+              <CircularProgress
+                staticProgress={true}
+                textColor={"#7B78EB"}
+                value={100}
+                text={"Cardio"}
+                indicatorColor="#7B78EB"
+              />
             </div>
           </div>
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary ">
@@ -95,19 +106,38 @@ const HistoryPage: MyPage = () => {
             <p className="text-sm text-muted-foreground pt-2">
               Categorizing your body weight relative to height.
             </p>
-            <div className="flex justify-center mt-5">
-              <span className="text-palletPurple-200 text-2xl mt-2">20.2</span>
+            <div className="flex justify-between items-center mt-5">
+              <div className="flex flex-col">
+                <span className="text-muted-foreground text-sm ">Healthy</span>
+                <span className="text-2xl tracking-wide">20.2</span>
+              </div>
+              <CircularProgress
+                staticProgress={true}
+                textColor={"#23B24B"}
+                value={50}
+                text={"Healthy"}
+                indicatorColor="#23B24B"
+              />
             </div>
           </div>
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary ">
             <h3 className="font-bold text-lg">Average Weekly Loss/Gain</h3>
             <p className="text-sm text-muted-foreground  pt-2">
-              average amount of weight you lost or gained each week
+              average weight you lost or gained each week
             </p>
-            <div className="flex justify-center mt-5">
-              <span className="text-palletPurple-200 text-2xl mt-2">
-                8.8 hours
-              </span>
+            <div className="flex justify-between items-center mt-5">
+              <div className="flex flex-col">
+                <span className="text-muted-foreground text-sm ">
+                  Weight loss
+                </span>
+                <p className="text-2xl tracking-normal mt-2">
+                  5 kg+{" "}
+                  <span className="text-sm text-muted-foreground">
+                    (per day)
+                  </span>
+                </p>
+              </div>
+              <CircularProgress value={100} indicatorColor="#23b14b" />
             </div>
           </div>
         </div>
