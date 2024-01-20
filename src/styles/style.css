@@ -13,7 +13,7 @@ input::placeholder {
   @apply data-[state=active]:shadow-none data-[state=active]:bg-transparent data-[state=active]:border-palletPurple-300 data-[state=active]:text-palletPurple-300 data-[state=active]:border-b-2 data-[state=active]:pb-3 data-[state=active]:pt-2;
 }
 .checkerboard-pattern {
-/* Tailwind classes */
+  /* Tailwind classes */
   background-image: linear-gradient(
       45deg,
       #222ed1 25%,
@@ -43,9 +43,10 @@ input::placeholder {
 }
 
 .ring-animation::after {
-  content: '';
+  content: "";
   position: absolute;
-  top: -2px; left: -2px;
+  top: -2px;
+  left: -2px;
   width: calc(100% + 4px);
   height: calc(100% + 4px);
   border-radius: inherit;

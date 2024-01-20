@@ -117,4 +117,10 @@
 input[type="time"]::-webkit-calendar-picker-indicator{
   background-color:white;
   border-radius: 5px;
-  }
+}
+.custom-pattern-bar {
+    background-color: #db3b3b;
+    background-size: auto;
+   
+}
+  

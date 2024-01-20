@@ -1,9 +1,8 @@
-import MyChart from "@/components/dashboard/chart";
+import SleepHistoryChart from "@/components/history/sleep-chart";
+import WeightHistoryChart from "@/components/history/weight-chart";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
-import SleepHistoryChart from "@/components/ui/history/sleep-chart";
-import WeightHistoryChart from "@/components/ui/history/workout-chart";
-import { SleepChart } from "@/components/ui/sleep/sleepChart";
+import CircularProgress from "@/components/ui/history/circularProgress";
 
 const HistoryPage: MyPage = () => {
   return (
@@ -13,11 +12,7 @@ const HistoryPage: MyPage = () => {
           <span className="mt-4 block text-2xl font-bold">History</span>
         </div>
         <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-5">
-          <h2 className=" font-bold text-xl my-2">Sleep</h2>
-          <h2 className="text-muted-foreground">
-            Your overall sleep data based on the logged data
-          </h2>
-          <SleepHistoryChart />
+          <WeightHistoryChart />
         </div>
         <div className="grid grid-cols-3 gap-6 mt-6">
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary ">
@@ -25,8 +20,24 @@ const HistoryPage: MyPage = () => {
             <p className="text-sm text-muted-foreground  pt-2">
               how well did you sleep
             </p>
-            <div className="flex justify-center mt-5">
-              <span className="text-palletGreen-600 text-2xl mt-2">Good</span>
+            <div className="flex justify-between mt-8">
+              <div className="flex flex-col">
+                <div className="flex flex-col">
+                  <span className="text-sm text-muted-foreground">
+                    Deep Sleep
+                  </span>
+                  <span className="text-lg text-bold">71%</span>
+                </div>
+                <div className="flex flex-col mt-3">
+                  <span className="text-sm text-muted-foreground">
+                    Light Sleep
+                  </span>
+                  <span className="text-lg text-bold">29%</span>
+                </div>
+              </div>
+              <div className="">
+                <CircularProgress value={20} indicatorColor="#23b14b" />
+              </div>
             </div>
           </div>
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary ">
@@ -45,18 +56,28 @@ const HistoryPage: MyPage = () => {
             <p className="text-sm text-muted-foreground  pt-2">
               On average how much did you sleep
             </p>
-            <div className="flex justify-center mt-5">
-              <span className="text-palletPurple-200 text-2xl mt-2">
-                8.8 hours
-              </span>
+            <div className="flex justify-between mt-8">
+              <div className="flex flex-col">
+                <div className="flex flex-col">
+                  <span className="text-sm text-muted-foreground">
+                    Deep Sleep
+                  </span>
+                  <span className="text-lg text-bold">71%</span>
+                </div>
+                <div className="flex flex-col mt-3">
+                  <span className="text-sm text-muted-foreground">
+                    Light Sleep
+                  </span>
+                  <span className="text-lg text-bold">29%</span>
+                </div>
+              </div>
+              <div className="">
+                <CircularProgress value={80} indicatorColor="#23b14b" />
+              </div>
             </div>
           </div>
         </div>
         <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-10 ">
-          <h2 className=" font-bold text-xl my-2">Weight</h2>
-          <h2 className="text-muted-foreground  pt-2">
-            Your overall wight data based on the logged data
-          </h2>
           <WeightHistoryChart />
         </div>
         <div className="grid grid-cols-3 gap-10 mt-6">
