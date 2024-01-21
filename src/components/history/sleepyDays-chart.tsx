@@ -1,24 +1,16 @@
-import { useEffect, useRef, useState } from "react";
-import { Bar } from "react-chartjs-2";
+import { useAppSelector } from "@/hooks/storeHooks";
 import {
-  Chart as ChartJS,
+  BarElement,
   CategoryScale,
+  Chart as ChartJS,
+  Filler,
+  Legend,
   LinearScale,
   Title,
   Tooltip,
-  Legend,
-  Filler,
-  BarElement,
 } from "chart.js";
-import patternomaly from "patternomaly";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { useAppSelector } from "@/hooks/storeHooks";
+import { useRef } from "react";
+import { Bar } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -64,62 +56,6 @@ const data = {
       borderRadius: 6,
     },
   ],
-};
-
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      display: false,
-    },
-    tooltip: {
-      enabled: true,
-      mode: "index",
-      intersect: false,
-      callbacks: {
-        // Customize the title
-        title: (tooltipItems: any) => {
-          return `${tooltipItems[0].formattedValue}hrs`;
-        },
-        // Customize the label
-        label: (tooltipItem: any) => {
-          return `Total Sleeping`;
-        },
-        // You can add more customization here...
-      },
-
-      backgroundColor: "#fff",
-      titleColor: "rgba(32, 32, 32, 1)",
-
-      titleFont: {
-        size: 14,
-        weight: "bold",
-      },
-      bodyColor: "rgba(102, 112, 133, 1)",
-      bodyFont: {
-        size: 10,
-      },
-      position: "average",
-      align: "center",
-      textAlign: "center",
-      bodyAlign: "center",
-      titleAlign: "center",
-      borderColor: "#ddd",
-      borderWidth: 1,
-      cornerRadius: 10,
-      displayColors: false,
-    },
-  },
-  scales: {
-    x: { grid: { display: false } },
-    y: {
-      grid: {
-        lineWidth: 2,
-        color: "#323743",
-      },
-    },
-  },
 };
 
 const SleepyDays = () => {
@@ -176,6 +112,7 @@ const SleepyDays = () => {
       y: {
         beginAtZero: false,
         border: {
+          dash: [6, 6],
           display: false,
         },
         grid: {

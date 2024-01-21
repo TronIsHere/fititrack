@@ -111,6 +111,7 @@ const SleepHistoryChart = () => {
       y: {
         beginAtZero: false,
         border: {
+          dash: [6, 8],
           display: false,
         },
         grid: {
