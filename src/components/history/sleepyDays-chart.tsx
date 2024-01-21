@@ -122,17 +122,69 @@ const options = {
   },
 };
 
-const SleepyDyas = () => {
+const SleepyDays = () => {
   const darkModeState = useAppSelector((state) => state.user.darkMode);
   const chartRef = useRef<ChartJS<"bar"> | null>(null);
-  useEffect(() => {
-    // Ensure that window or document is available
-    if (typeof window !== "undefined") {
-      // Now it's safe to use window or document
-      const chart = chartRef.current;
-    }
-  }, []);
 
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        enabled: true,
+        mode: "index",
+        intersect: false,
+        callbacks: {
+          // Customize the title
+          title: (tooltipItems: any) => {
+            return `${tooltipItems[0].formattedValue}hrs`;
+          },
+          // Customize the label
+          label: (tooltipItem: any) => {
+            return `Total Sleeping`;
+          },
+          // You can add more customization here...
+        },
+
+        backgroundColor: "#fff",
+        titleColor: "rgba(32, 32, 32, 1)",
+
+        titleFont: {
+          size: 14,
+          weight: "bold",
+        },
+        bodyColor: "rgba(102, 112, 133, 1)",
+        bodyFont: {
+          size: 10,
+        },
+        position: "average",
+        align: "center",
+        textAlign: "center",
+        bodyAlign: "center",
+        titleAlign: "center",
+        borderColor: "#ddd",
+        borderWidth: 1,
+        cornerRadius: 10,
+        displayColors: false,
+      },
+    },
+    scales: {
+      x: { grid: { display: false } },
+      y: {
+        beginAtZero: false,
+        border: {
+          display: false,
+        },
+        grid: {
+          lineWidth: 2,
+          color: darkModeState ? "#323743" : "#D5DBED",
+        },
+      },
+    },
+  };
   return (
     <>
       <div className="h-[150px] custom-pattern-container mt-5">
@@ -144,4 +196,4 @@ const SleepyDyas = () => {
   );
 };
 
-export default SleepyDyas;
+export default SleepyDays;

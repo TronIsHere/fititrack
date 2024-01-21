@@ -1,5 +1,5 @@
 import SleepHistoryChart from "@/components/history/sleep-chart";
-import SleepyDyas from "@/components/history/sleepyDays-chart";
+import SleepyDays from "@/components/history/sleepyDays-chart";
 import WeightHistoryChart from "@/components/history/weight-chart";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
@@ -54,8 +54,8 @@ const HistoryPage: MyPage = () => {
             <p className="text-sm text-muted-foreground  pt-2">
               days you sleep the most
             </p>
-            {/* TODO: Refactor Charts */}
-            <SleepyDyas />
+
+            <SleepyDays />
           </div>
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary ">
             <h3 className="font-bold text-lg">Average Sleep Duration</h3>
@@ -147,7 +147,7 @@ const HistoryPage: MyPage = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-          <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary col-span-1 md:col-span-2 divide-y divide-slate-600 order-2">
+          <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary col-span-1 md:col-span-2 divide-y divide-whitePrimary dark:divide-slate-600 order-2">
             <div className="flex flex-col md:flex-row items-center md:items-start justify-center">
               <Image
                 src="/images/jeff-level1.png"
@@ -181,7 +181,9 @@ const HistoryPage: MyPage = () => {
                       <Progress
                         value={20}
                         indicatorColor={"#5955ED"}
-                        className={"bg-darkSecondary h-2 mt-6 w-[200px]"}
+                        className={
+                          "bg-palletGray-100 dark:bg-darkSecondary h-2 mt-6 w-[200px]"
+                        }
                       />
                       <span className="text-xs pl-4 mt-6">
                         70% Complete of your goal
@@ -204,9 +206,9 @@ const HistoryPage: MyPage = () => {
 
             <div className="flex flex-col mt-5 space-y-3">
               {trained.map((item, index) => (
-                <div className="flex justify-between bg-white dark:bg-darkSecondary p-3 rounded-md">
+                <div className="flex justify-between bg-whitePrimary dark:bg-darkSecondary p-3 rounded-md">
                   <span>
-                    {index + 1}.{item}
+                    {index + 1}. {item}
                   </span>
                 </div>
               ))}

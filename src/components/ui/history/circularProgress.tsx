@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/hooks/storeHooks";
 import { FC, useMemo } from "react";
 
 interface CustomCircularProgressProps {
@@ -25,7 +26,7 @@ const CircularProgressBar: FC<CustomCircularProgressProps> = ({
   const circumference = 2 * Math.PI * radius;
   const offset = ((100 - value) / 100) * circumference;
   const gradientId = useMemo(() => `textGradient-${Math.random()}`, []);
-
+  const darkModeState = useAppSelector((state) => state.user.darkMode);
   let statusText = text || "";
   let statusColor = textColor || "";
   let backgroundStatusColor = staticProgress ? "#2b323e" : "";
@@ -59,7 +60,7 @@ const CircularProgressBar: FC<CustomCircularProgressProps> = ({
           </linearGradient>
         </defs>
         <circle
-          stroke={backgroundStatusColor}
+          stroke={darkModeState ? backgroundStatusColor : "#eee"}
           fill="transparent"
           strokeWidth={strokeWidth}
           r={radius}

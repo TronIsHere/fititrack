@@ -62,66 +62,68 @@ const data = {
   ],
 };
 
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      display: false,
-    },
-    tooltip: {
-      enabled: true,
-      mode: "index",
-      intersect: false,
-      callbacks: {
-        // Customize the title
-        title: (tooltipItems: any) => {
-          return `${tooltipItems[0].formattedValue} KG`;
-        },
-        // Customize the label
-        label: (tooltipItem: any) => {
-          return `Average Weight`;
-        },
-        // You can add more customization here...
-      },
-
-      backgroundColor: "#fff",
-      titleColor: "rgba(32, 32, 32, 1)",
-
-      titleFont: {
-        size: 14,
-        weight: "bold",
-      },
-      bodyColor: "rgba(102, 112, 133, 1)",
-      bodyFont: {
-        size: 10,
-      },
-      position: "average",
-      align: "center",
-      textAlign: "center",
-      bodyAlign: "center",
-      titleAlign: "center",
-      borderColor: "#ddd",
-      borderWidth: 1,
-      cornerRadius: 10,
-      displayColors: false,
-    },
-  },
-  scales: {
-    x: { grid: { display: false } },
-    y: {
-      grid: {
-        lineWidth: 2,
-        color: "#323743",
-      },
-    },
-  },
-};
-
 const WeightHistoryChart = () => {
   const darkModeState = useAppSelector((state) => state.user.darkMode);
   const chartRef = useRef<ChartJS<"bar"> | null>(null);
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        enabled: true,
+        mode: "index",
+        intersect: false,
+        callbacks: {
+          // Customize the title
+          title: (tooltipItems: any) => {
+            return `${tooltipItems[0].formattedValue} KG`;
+          },
+          // Customize the label
+          label: (tooltipItem: any) => {
+            return `Average Weight`;
+          },
+          // You can add more customization here...
+        },
 
+        backgroundColor: "#fff",
+        titleColor: "rgba(32, 32, 32, 1)",
+
+        titleFont: {
+          size: 14,
+          weight: "bold",
+        },
+        bodyColor: "rgba(102, 112, 133, 1)",
+        bodyFont: {
+          size: 10,
+        },
+        position: "average",
+        align: "center",
+        textAlign: "center",
+        bodyAlign: "center",
+        titleAlign: "center",
+        borderColor: "#ddd",
+        borderWidth: 1,
+        cornerRadius: 10,
+        displayColors: false,
+      },
+    },
+    scales: {
+      x: { grid: { display: false } },
+      y: {
+        beginAtZero: false,
+        border: {
+          display: false,
+        },
+        grid: {
+          lineWidth: 2,
+          color: darkModeState ? "#323743" : "#D5DBED",
+        },
+      },
+    },
+  };
   return (
     <>
       <div className="flex mb-4 justify-between">
