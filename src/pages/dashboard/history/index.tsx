@@ -146,17 +146,17 @@ const HistoryPage: MyPage = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-          <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary col-span-2 divide-y divide-slate-600">
-            <div className="flex justify-center">
+          <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary col-span-1 md:col-span-2 divide-y divide-slate-600 order-2">
+            <div className="flex flex-col md:flex-row items-center md:items-start justify-center">
               <Image
                 src="/images/jeff-level1.png"
                 alt="Jeff Image"
                 width={50}
                 height={50}
-                className={"ml-2"}
+                className={"ml-2 mb-3 md:mb-0"}
               />
               <div className="flex flex-col px-6">
-                <span className="text-2xl font-semibold ">
+                <span className="text-xl md:text-2xl font-semibold ">
                   Jeff is now Level 3 and he started to get compliments from his
                   mom
                 </span>
@@ -166,7 +166,7 @@ const HistoryPage: MyPage = () => {
             <div className="mt-8 pt-8">
               <div className="flex flex-col ">
                 <span className="text-lg">Congratulations 🎊</span>
-                <div className="flex justify-between ">
+                <div className="flex justify-between flex-col md:flex-row items-center ">
                   <div className="flex flex-col ">
                     <p className="text-muted-foreground pt-1">
                       {" "}
@@ -192,13 +192,13 @@ const HistoryPage: MyPage = () => {
                     alt="Trophy"
                     width={100}
                     height={80}
-                    className={"-mt-6"}
+                    className={"md:-mt-6 hidden md:block"}
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary">
+          <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary order-1">
             <h3 className="font-bold text-lg">Most muscles trained</h3>
 
             <div className="flex flex-col mt-5 space-y-3">
