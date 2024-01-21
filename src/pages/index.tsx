@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { BsMoonStars } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-// const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const router = useRouter();

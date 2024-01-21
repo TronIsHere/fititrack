@@ -4,6 +4,8 @@ import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
 import CircularProgress from "@/components/ui/history/circularProgress";
 
+const trained = ["Legs", "Neck", "Gluts", "Chest"];
+
 const HistoryPage: MyPage = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
@@ -138,6 +140,22 @@ const HistoryPage: MyPage = () => {
                 </p>
               </div>
               <CircularProgress value={100} indicatorColor="#23b14b" />
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary col-span-2"></div>
+          <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary">
+            <h3 className="font-bold text-lg">Most muscles trained</h3>
+
+            <div className="flex flex-col mt-5 space-y-3">
+              {trained.map((item, index) => (
+                <div className="flex justify-between bg-white dark:bg-darkSecondary p-3 rounded-md">
+                  <span>
+                    {index + 1}.{item}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

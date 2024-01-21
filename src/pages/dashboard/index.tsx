@@ -88,7 +88,7 @@ const DashboardPage: MyPage = () => {
               how did you sleep last night? did you weight yourself today?
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4 justify-center items-center md:mr-16 mr-0 ">
+          <div className="grid gap-4 py-4 justify-center items-center">
             <div className="grid grid-cols-5 items-center gap-4 w-full">
               <Label htmlFor="sleep" className="text-right col-span-2">
                 Last night Sleep
