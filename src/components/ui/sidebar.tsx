@@ -86,6 +86,9 @@ const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
         </div>
         {mobileMenu && (
           <ul className="mt-5 my-8 mx-4">
+            <span className="uppercase text-muted-foreground text-xs">
+              Overview
+            </span>
             {links.map((link, index) => (
               <NavLink
                 key={index}

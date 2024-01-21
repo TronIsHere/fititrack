@@ -87,7 +87,7 @@ const HistoryPage: MyPage = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-10 ">
+        <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-6 ">
           <WeightHistoryChart />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
