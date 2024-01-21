@@ -3,6 +3,8 @@ import WeightHistoryChart from "@/components/history/weight-chart";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
 import CircularProgress from "@/components/ui/history/circularProgress";
+import { Progress } from "@/components/ui/progress";
+import Image from "next/image";
 
 const trained = ["Legs", "Neck", "Gluts", "Chest"];
 
@@ -144,7 +146,58 @@ const HistoryPage: MyPage = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-          <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary col-span-2"></div>
+          <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary col-span-2 divide-y divide-slate-600">
+            <div className="flex justify-center">
+              <Image
+                src="/images/jeff-level1.png"
+                alt="Jeff Image"
+                width={50}
+                height={50}
+                className={"ml-2"}
+              />
+              <div className="flex flex-col px-6">
+                <span className="text-2xl font-semibold ">
+                  Jeff is now Level 3 and he started to get compliments from his
+                  mom
+                </span>
+                <span className="mt-5 text-palletYellow-500">Level 3</span>
+              </div>
+            </div>
+            <div className="mt-8 pt-8">
+              <div className="flex flex-col ">
+                <span className="text-lg">Congratulations 🎊</span>
+                <div className="flex justify-between ">
+                  <div className="flex flex-col ">
+                    <p className="text-muted-foreground pt-1">
+                      {" "}
+                      you have worked out for{" "}
+                      <span className="text-palletYellow-500 font-bold">
+                        689
+                      </span>{" "}
+                      hours!
+                    </p>
+                    <div className="flex justify-center items-center">
+                      <Progress
+                        value={20}
+                        indicatorColor={"#5955ED"}
+                        className={"bg-darkSecondary h-2 mt-6 w-[200px]"}
+                      />
+                      <span className="text-xs pl-4 mt-6">
+                        70% Complete of your goal
+                      </span>
+                    </div>
+                  </div>
+                  <Image
+                    src={"/images/Trophy1.png"}
+                    alt="Trophy"
+                    width={100}
+                    height={80}
+                    className={"-mt-6"}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary">
             <h3 className="font-bold text-lg">Most muscles trained</h3>
 
