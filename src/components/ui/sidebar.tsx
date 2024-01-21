@@ -52,7 +52,11 @@ const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
             className="mt-8 bg-white p-3 rounded-xl"
           />
         </Link>
+
         <ul className="mt-14 m-8">
+          <span className="uppercase text-muted-foreground text-xs">
+            Overview
+          </span>
           {links.map((link, index) => (
             <NavLink
               key={index}
