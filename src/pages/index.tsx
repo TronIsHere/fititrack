@@ -22,19 +22,23 @@ export default function Home() {
             <div className="flex justify-between px-3 md:px-0 ">
               <a href="#">
                 <Image
-                  src="./images/logo.svg"
+                  src={
+                    darkModeState ? "/images/logoDark.svg" : "/images/logo.svg"
+                  }
                   alt="logo"
                   width={200}
                   height={100}
-                  className="hidden md:block bg-white p-3 rounded-lg"
+                  className="hidden md:block p-3"
                 />
               </a>
               <Image
-                src="./images/logo.svg"
+                src={
+                  darkModeState ? "/images/logoDark.svg" : "/images/logo.svg"
+                }
                 alt="logo"
                 width={150}
                 height={100}
-                className="block md:hidden bg-white p-3 rounded-lg"
+                className="block md:hidden"
               />
               <div className="flex items-center">
                 <div

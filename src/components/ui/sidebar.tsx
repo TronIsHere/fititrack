@@ -1,5 +1,6 @@
 // path/filename: /components/SidebarComponent.tsx
 
+import { useAppSelector } from "@/hooks/storeHooks";
 import { NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
@@ -16,7 +17,7 @@ interface SidebarProps {
 
 const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
-
+  const darkModeState = useAppSelector((state) => state.user.darkMode);
   const links = [
     {
       href: "/dashboard",
@@ -46,10 +47,10 @@ const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
       <div className="hidden md:flex flex-col">
         <Link href={"/dashboard"} className="self-center">
           <img
-            src="/images/logo.svg"
+            src={darkModeState ? "/images/logoDark.svg" : "/images/logo.svg"}
             alt=""
             width={180}
-            className="mt-8 bg-white p-3 rounded-xl"
+            className="mt-8"
           />
         </Link>
 
@@ -71,10 +72,10 @@ const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
         <div className="flex justify-around items-center pb-4">
           <Link href={"/dashboard"}>
             <img
-              src="/images/logo.svg"
+              src={darkModeState ? "/images/logoDark.svg" : "/images/logo.svg"}
               alt=""
               width={180}
-              className="mt-8 bg-white rounded-lg p-3"
+              className="mt-8"
             />
           </Link>
           <HiMenuAlt3
