@@ -1,16 +1,23 @@
-import { useEffect, useRef, useState } from "react";
-import { Bar } from "react-chartjs-2";
+import { useAppSelector } from "@/hooks/storeHooks";
 import {
-  Chart as ChartJS,
+  BarElement,
   CategoryScale,
+  Chart as ChartJS,
+  Filler,
+  Legend,
   LinearScale,
   Title,
   Tooltip,
-  Legend,
-  Filler,
-  BarElement,
 } from "chart.js";
-import patternomaly from "patternomaly";
+import { useRef } from "react";
+import { Bar } from "react-chartjs-2";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 ChartJS.register(
   CategoryScale,
@@ -21,11 +28,7 @@ ChartJS.register(
   Filler,
   BarElement // Register the BarController
 );
-// const patterns = [
-//   patternomaly.draw("diagonal", "#1f77b4"), // diagonal pattern
-//   patternomaly.draw("cross", "#1f77b4"),
-//   // ... other patterns
-// ];
+
 const data = {
   labels: [
     "January",
@@ -45,10 +48,7 @@ const data = {
     {
       label: "This month",
       data: [50, 60, 68, 70, 78, 74, 62, 80, 78, 65, 75, 240],
-      // backgroundColor: [
-      //   patternomaly.draw("square", "#1f77b4"),
-      //   patternomaly.draw("line", "#ff7f0e"),
-      // ],
+      backgroundColor: "#5955ED",
       borderColor: "transparent",
       borderWidth: 1,
       barPercentage: 0.6,
@@ -114,30 +114,35 @@ const options = {
   },
 };
 
-const WeightHistoryChart = () => {
+const SleepHistoryChart = () => {
   const chartRef = useRef<ChartJS<"bar"> | null>(null);
-  const [svgPattern, setSvgPattern] = useState(null);
-  useEffect(() => {
-    // Ensure that window or document is available
-    if (typeof window !== "undefined") {
-      // Now it's safe to use window or document
-      const chart = chartRef.current;
-
-      if (chart) {
-        // Apply these patterns to your chart data
-        chart.data.datasets[0].backgroundColor = "#5955ED";
-        chart.update();
-      }
-    }
-  }, []);
+  const darkModeState = useAppSelector((state) => state.user.darkMode);
 
   return (
-    <div className="h-[300px] custom-pattern-container">
-      {/* 
+    <>
+      <div className="flex mb-4 justify-between">
+        <h2 className=" font-bold text-xl my-2">Sleep</h2>
+        <Select>
+          <SelectTrigger
+            darkMode={darkModeState}
+            className="w-[100px] flex justify-around border-2 border-palletGray-300 text-palletGray-300"
+          >
+            <SelectValue placeholder="Month" className="" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Month">Month</SelectItem>
+            <SelectItem value="Year">Year</SelectItem>
+            <SelectItem value="Week">Week</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="h-[300px] custom-pattern-container">
+        {/* 
 // @ts-ignore */}
-      <Bar ref={chartRef} options={options} data={data}></Bar>
-    </div>
+        <Bar ref={chartRef} options={options} data={data}></Bar>
+      </div>
+    </>
   );
 };
 
-export default WeightHistoryChart;
+export default SleepHistoryChart;

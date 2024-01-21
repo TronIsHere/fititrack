@@ -1,3 +1,4 @@
+import SleepHistoryChart from "@/components/history/sleep-chart";
 import SleepyDyas from "@/components/history/sleepyDays-chart";
 import WeightHistoryChart from "@/components/history/weight-chart";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
@@ -16,7 +17,7 @@ const HistoryPage: MyPage = () => {
           <span className="mt-4 block text-2xl font-bold">History</span>
         </div>
         <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-5">
-          <WeightHistoryChart />
+          <SleepHistoryChart />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary ">

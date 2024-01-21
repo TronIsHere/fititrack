@@ -1,16 +1,16 @@
-import { useEffect, useRef, useState } from "react";
-import { Bar } from "react-chartjs-2";
+import { useAppSelector } from "@/hooks/storeHooks";
 import {
-  Chart as ChartJS,
+  BarElement,
   CategoryScale,
+  Chart as ChartJS,
+  Filler,
+  Legend,
   LinearScale,
   Title,
   Tooltip,
-  Legend,
-  Filler,
-  BarElement,
 } from "chart.js";
-import patternomaly from "patternomaly";
+import { useRef } from "react";
+import { Bar } from "react-chartjs-2";
 import {
   Select,
   SelectContent,
@@ -18,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { useAppSelector } from "@/hooks/storeHooks";
 
 ChartJS.register(
   CategoryScale,
@@ -53,10 +52,7 @@ const data = {
     {
       label: "This month",
       data: [50, 60, 68, 70, 78, 74, 62, 80, 78, 65, 75, 240],
-      // backgroundColor: [
-      //   patternomaly.draw("square", "#1f77b4"),
-      //   patternomaly.draw("line", "#ff7f0e"),
-      // ],
+      backgroundColor: "#5955ED",
       borderColor: "transparent",
       borderWidth: 1,
       barPercentage: 0.6,
@@ -80,11 +76,11 @@ const options = {
       callbacks: {
         // Customize the title
         title: (tooltipItems: any) => {
-          return `${tooltipItems[0].formattedValue}hrs`;
+          return `${tooltipItems[0].formattedValue} KG`;
         },
         // Customize the label
         label: (tooltipItem: any) => {
-          return `Total Sleeping`;
+          return `Average Weight`;
         },
         // You can add more customization here...
       },
@@ -125,19 +121,6 @@ const options = {
 const WeightHistoryChart = () => {
   const darkModeState = useAppSelector((state) => state.user.darkMode);
   const chartRef = useRef<ChartJS<"bar"> | null>(null);
-  useEffect(() => {
-    // Ensure that window or document is available
-    if (typeof window !== "undefined") {
-      // Now it's safe to use window or document
-      const chart = chartRef.current;
-
-      if (chart) {
-        // Apply these patterns to your chart data
-        chart.data.datasets[0].backgroundColor = "#5955ED";
-        chart.update();
-      }
-    }
-  }, []);
 
   return (
     <>
