@@ -3,7 +3,7 @@ import { RootState } from "@/store/store";
 import { NextPage } from "next";
 import { ReactNode } from "react";
 import { useSelector } from "react-redux";
-import SidebarComponent from "../ui/sidebar";
+import SidebarComponent from "../sidebar/sidebar";
 
 interface LayoutProps {
   children: ReactNode;
@@ -11,10 +11,7 @@ interface LayoutProps {
 
 const DashboardLayout: NextPage<LayoutProps> = ({ children }) => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
-  // const darkModeHandler = () => {
-  //   dispatch(toggleDarkMode());
-  //   console.log(darkModeState, 1);
-  // };
+
   return (
     <div
       className={cn(
