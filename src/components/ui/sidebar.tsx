@@ -3,6 +3,7 @@
 import { useAppSelector } from "@/hooks/storeHooks";
 import { NextPage } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { BiSolidDashboard } from "react-icons/bi";
 import { FaChartLine } from "react-icons/fa6";
@@ -18,6 +19,7 @@ interface SidebarProps {
 const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const darkModeState = useAppSelector((state) => state.user.darkMode);
+  const router = useRouter();
   const links = [
     {
       href: "/dashboard",
@@ -64,6 +66,7 @@ const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
               href={link.href}
               icon={link.icon}
               label={link.label}
+              isActive={router.pathname === link.href} // Check if the link is active
             />
           ))}
         </ul>
