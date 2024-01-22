@@ -17,6 +17,9 @@ interface SidebarProps {
 
 const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const closeMobileMenu = useCallback(() => {
+    setMobileMenu(false);
+  }, []);
   const router = useRouter();
   const links = [
     {
@@ -50,6 +53,7 @@ const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
           icon={link.icon}
           label={link.label}
           isActive={router.pathname === link.href}
+          onClick={closeMobileMenu}
         />
       )),
     [router.pathname]
