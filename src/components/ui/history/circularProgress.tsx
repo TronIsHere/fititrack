@@ -5,7 +5,7 @@ interface CustomCircularProgressProps {
   value: number; // Progress value (0-100)
   size?: number; // Diameter of the circular progress bar
   strokeWidth?: number; // Width of the stroke
-  indicatorColor: string; // Color of the progress indicator
+  indicatorColor?: string; // Color of the progress indicator
   showPercentage?: boolean;
   staticProgress?: boolean;
   textColor?: string;
