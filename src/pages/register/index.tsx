@@ -44,11 +44,12 @@ const RegisterPage: NextPage = () => {
             <div className="flex flex-row items-center pt-10 md:pt-0">
               <Link href={"/"}>
                 <Image
-                  src="./images/logo.svg"
+                  src={
+                    darkModeState ? "/images/logoDark.svg" : "/images/logo.svg"
+                  }
                   alt="fitittrack logo "
                   width={200}
                   height={60}
-                  className="p-3 dark:bg-white rounded-lg"
                 />
               </Link>
               {/* <p className="pl-5">gaming your exercise!</p> */}
