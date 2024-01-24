@@ -22,8 +22,9 @@ const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
   const closeMobileMenu = useCallback(() => {
     setMobileMenu(false);
   }, []);
-  const handleLogout = () => {
-    signOut({ callbackUrl: "/" });
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    router.replace("/");
   };
   const links = [
     {

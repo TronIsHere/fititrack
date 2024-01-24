@@ -2,12 +2,10 @@ import { toggleDarkMode } from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { BsMoonStars } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
-  const router = useRouter();
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
   const dispatch = useDispatch();
   const darkModeHandler = () => {
