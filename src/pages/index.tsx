@@ -48,7 +48,7 @@ export default function Home() {
                   <BsMoonStars size={20} className="" color="white" />
                 </div>
                 <Link
-                  href={"/dashboard"}
+                  href={"/login"}
                   className="bg-palletPurple-500 px-7 py-2 rounded-md text-white"
                 >
                   Login

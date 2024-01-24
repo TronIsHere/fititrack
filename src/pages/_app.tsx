@@ -9,6 +9,7 @@ import { ReactNode } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
 const inter = Plus_Jakarta_Sans({ subsets: ["latin"] });
 type Page<P = {}> = NextPage<P> & {
   getLayout?: (page: ReactNode) => ReactNode;
@@ -59,11 +60,13 @@ export default function App({ Component, pageProps }: Props) {
       </Head>
       <Toaster />
       <div className={inter.className}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            {getLayout(<Component {...pageProps} />)}
-          </PersistGate>
-        </Provider>
+        <SessionProvider session={pageProps.session}>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              {getLayout(<Component {...pageProps} />)}
+            </PersistGate>
+          </Provider>
+        </SessionProvider>
       </div>
     </>
   );

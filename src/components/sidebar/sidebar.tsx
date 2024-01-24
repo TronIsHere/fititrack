@@ -10,6 +10,7 @@ import { IoSettings } from "react-icons/io5";
 import DesktopSidebar from "./desktop-sidebar";
 import MobileSidebar from "./mobile-sidebar";
 import NavLink from "../ui/navbar/navlink";
+import { signOut } from "next-auth/react";
 
 interface SidebarProps {
   darkMode: boolean;
@@ -17,10 +18,13 @@ interface SidebarProps {
 
 const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const router = useRouter();
   const closeMobileMenu = useCallback(() => {
     setMobileMenu(false);
   }, []);
-  const router = useRouter();
+  const handleLogout = () => {
+    signOut({ callbackUrl: "/" });
+  };
   const links = [
     {
       href: "/dashboard",
@@ -53,7 +57,7 @@ const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
           icon={link.icon}
           label={link.label}
           isActive={router.pathname === link.href}
-          onClick={closeMobileMenu}
+          onClick={link.label === "Logout" ? handleLogout : closeMobileMenu}
         />
       )),
     [router.pathname]

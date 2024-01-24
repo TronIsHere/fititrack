@@ -1,11 +1,41 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { RootState } from "@/store/store";
 import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
 import { useSelector } from "react-redux";
+async function createUser(email: string, password: string, name: string) {
+  const response = await fetch("/api/auth/signup", {
+    method: "POST",
+    body: JSON.stringify({ email, password, name }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  if (!response) {
+    throw new Error(data.message || "Something went wrong.");
+  }
+  return data;
+}
 const RegisterPage: NextPage = () => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const response = await createUser(
+      emailRef.current!.value,
+      passwordRef.current!.value,
+      nameRef.current!.value
+    );
+    router.push("/dashboard");
+  };
   return (
     <>
       <div className={darkModeState ? "dark" : ""}>
@@ -24,32 +54,33 @@ const RegisterPage: NextPage = () => {
               {/* <p className="pl-5">gaming your exercise!</p> */}
             </div>
             <div className="flex flex-col w-full md:w-1/2 px-5 md:px-0 pb-10 md:pb-0">
-              <form>
-                <p className="mt-14 md:mt-20 text-sm">Name</p>
-                <input
+              <form onSubmit={submitHandler}>
+                <p className="mt-14 md:mt-20 text-sm">Name and Last name</p>
+                <Input
                   type={"text"}
-                  className="border-2 mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
-                />
-                <p className="mt-8 text-sm">Last name</p>
-                <input
-                  type={"text"}
-                  className="border-2 mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                  className=" mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                  ref={nameRef}
                 />
                 <p className="mt-8 text-sm">Email</p>
-                <input
+                <Input
                   type={"email"}
-                  className="border-2 mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                  className="mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                  ref={emailRef}
                 />
                 <p className="mt-8 text-sm">Password</p>
-                <input
+                <Input
                   type={"password"}
-                  className="border-2 mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                  className=" mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                  ref={passwordRef}
                 />
                 <a
                   href="#"
                   className="mt-1 text-sm block hover:text-palletPurple-400"
                 ></a>
-                <Button className="bg-palletPurple-500 text-white mt-8 p-3 rounded-lg flex justify-center text-sm w-full">
+                <Button
+                  variant={"primary"}
+                  className=" text-white mt-8 p-3 rounded-lg flex justify-center text-sm w-full"
+                >
                   Register
                 </Button>
 

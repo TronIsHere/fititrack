@@ -25,6 +25,8 @@ import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { isTimesValid } from "@/lib/timeUtils";
 import { newSleep, newWeight } from "@/store/slices/userSlice";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const DashboardPage: MyPage = () => {
   const [open, setOpen] = useState(false);
@@ -35,8 +37,12 @@ const DashboardPage: MyPage = () => {
   const workoutsState = useAppSelector((state) => state.workout.workouts);
   const dispatch = useAppDispatch();
   const isNewDay = useLastVisited();
-
+  const session = useSession();
+  const router = useRouter();
   useEffect(() => {
+    if (!session.data) {
+      router.push("/");
+    }
     if (isNewDay) {
       setOpen(true); // It's a new day
     }

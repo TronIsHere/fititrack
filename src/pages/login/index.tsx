@@ -1,11 +1,32 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { RootState } from "@/store/store";
 import { NextPage } from "next";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { useRef } from "react";
+import { useRouter } from "next/navigation";
 const LoginPage: NextPage = () => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const enteredEmail = emailRef.current?.value;
+    const enteredPassword = passwordRef.current?.value;
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: enteredEmail,
+      password: enteredPassword,
+    });
+    if (!result?.error) {
+      router.push("/dashboard");
+    }
+    console.log(result?.status, 1);
+  };
   return (
     <>
       <div className={darkModeState ? "dark" : ""}>
@@ -24,24 +45,28 @@ const LoginPage: NextPage = () => {
               {/* <p className="pl-5">gaming your exercise!</p> */}
             </div>
             <div className="flex flex-col px-5 md:px-0 pb-10 md:pb-0">
-              <form>
+              <form onSubmit={submitHandler}>
                 <p className="mt-14 md:mt-20 text-sm">Email</p>
-                <input
+                <Input
                   type={"email"}
-                  className="border-2 mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                  className=" mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                  ref={emailRef}
                 />
                 <p className="mt-8 text-sm">Password</p>
-                <input
+                <Input
                   type={"password"}
-                  className="border-2 mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                  className=" mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
                 />
                 <a
                   href="#"
-                  className="mt-1 text-sm block hover:text-palletPurple-400"
+                  className="mt-1.5 text-sm block hover:text-palletPurple-400"
                 >
                   forget your password?
                 </a>
-                <Button className="bg-palletPurple-500 text-white mt-8 p-3 rounded-lg flex justify-center text-sm w-full">
+                <Button
+                  variant={"primary"}
+                  className=" text-white mt-8 p-3 rounded-lg flex justify-center text-sm w-full"
+                >
                   Login
                 </Button>
 
