@@ -14,7 +14,10 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     !password ||
     password.trim().length < 7
   ) {
-    return res.status(422).json({ message: "Invalid input" });
+    return res.status(422).json({
+      message:
+        "Insert correct email or password should be more than 8 characters.",
+    });
   }
 
   const client = await ConnectToDatabase();
@@ -25,7 +28,7 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const existingUser = await db.collection("users").findOne({ email });
 
     if (existingUser) {
-      return res.status(422).json({ message: "User already exists" });
+      return res.status(409).json({ message: "User already exists" });
     }
 
     // const hashedPassword = await hashPassword(password);

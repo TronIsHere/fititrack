@@ -1,23 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { RootState } from "@/store/store";
-import { NextPage } from "next";
-import Image from "next/image";
-import { getSession, signIn, useSession } from "next-auth/react";
-import Link from "next/link";
-import { useSelector } from "react-redux";
-import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import LoadingButton from "@/components/ui/loading-button";
+import { useToast } from "@/components/ui/toasts/use-toast";
 import {
   LoginValidator,
   TLoginValidator,
 } from "@/lib/validators/AuthValidator";
+import { RootState } from "@/store/store";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { NextPage } from "next";
+import { getSession, signIn } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 const LoginPage: NextPage = () => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
-  const session = useSession();
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+  const { toast } = useToast();
   useEffect(() => {}, []);
   const {
     register,
@@ -27,15 +30,25 @@ const LoginPage: NextPage = () => {
     resolver: zodResolver(LoginValidator),
   });
   const submitHandler = async ({ email, password }: TLoginValidator) => {
+    setLoading(true);
     const result = await signIn("credentials", {
       redirect: false,
       email,
       password,
     });
     if (!result?.error) {
+      toast({
+        variant: "success",
+        description: "logged in!",
+      });
       router.push("/dashboard");
+    } else {
+      toast({
+        variant: "destructive",
+        description: result?.error,
+      });
+      setLoading(false);
     }
-    console.log(result?.status, 1);
   };
   return (
     <>
@@ -87,12 +100,7 @@ const LoginPage: NextPage = () => {
                     {errors.password.message}
                   </p>
                 )}
-                <Button
-                  variant={"primary"}
-                  className=" text-white mt-8 p-3 rounded-lg flex justify-center text-sm w-full"
-                >
-                  Login
-                </Button>
+                <LoadingButton loadingState={loading} label="login" />
 
                 <p className="text-sm block mt-4">
                   Don&apos;t you have an account with us?{" "}

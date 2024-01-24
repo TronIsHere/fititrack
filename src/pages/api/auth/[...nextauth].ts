@@ -31,7 +31,7 @@ const nextAuthOptions: NextAuthOptions = {
         const user = await userCollection.findOne({ email: email });
         if (!user) {
           client.close();
-          throw new Error("No user found!");
+          throw new Error("Wrong email or password");
         }
         // const isValid = await verifyPassword(
         //   password,
@@ -40,7 +40,7 @@ const nextAuthOptions: NextAuthOptions = {
         const isValid = password == user.password;
         if (!isValid) {
           client.close();
-          throw new Error("Could not log you in!");
+          throw new Error("Wrong pmail or password");
         }
         client.close();
         return { id: user._id.toString(), email: user.email };
