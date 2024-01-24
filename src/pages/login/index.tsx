@@ -56,6 +56,7 @@ const LoginPage: NextPage = () => {
                 <Input
                   type={"password"}
                   className=" mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                  ref={passwordRef}
                 />
                 <a
                   href="#"
