@@ -1,11 +1,16 @@
 import { toggleDarkMode } from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsMoonStars } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-
-export default function Home() {
+interface HomeProps {
+  logged: boolean;
+  session: any; // Assuming you have a Session type from 'next-auth'
+}
+export default function Home({ logged, session }: HomeProps) {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
   const dispatch = useDispatch();
   const darkModeHandler = () => {
@@ -45,12 +50,21 @@ export default function Home() {
                 >
                   <BsMoonStars size={20} className="" color="white" />
                 </div>
-                <Link
-                  href={"/login"}
-                  className="bg-palletPurple-500 px-7 py-2 rounded-md text-white"
-                >
-                  Login
-                </Link>
+                {logged ? (
+                  <Link
+                    href={"/"}
+                    className="bg-palletPurple-500 px-7 py-2 rounded-md text-white"
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link
+                    href={"/login"}
+                    className="bg-palletPurple-500 px-7 py-2 rounded-md text-white"
+                  >
+                    Login
+                  </Link>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-1 px-4 md:px-0 md:grid-cols-2 gap-20 mt-20">
@@ -200,3 +214,16 @@ export default function Home() {
     </div>
   );
 }
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession({ req: context.req });
+
+  if (!session) {
+    return {
+      props: { logged: false, session: null },
+    };
+  }
+
+  return {
+    props: { session, logged: true },
+  };
+};

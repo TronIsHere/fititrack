@@ -4,6 +4,7 @@ import { NextApiHandler } from "next";
 import { MongoClient } from "mongodb";
 import { ConnectToDatabase } from "@/lib/db";
 import { NextAuthOptions } from "next-auth";
+import { verifyPassword } from "@/lib/authUtils";
 
 interface Credentials {
   email: string;
@@ -33,11 +34,7 @@ const nextAuthOptions: NextAuthOptions = {
           client.close();
           throw new Error("Wrong email or password");
         }
-        // const isValid = await verifyPassword(
-        //   password,
-        //   user.password
-        // );
-        const isValid = password == user.password;
+        const isValid = await verifyPassword(password, user.password);
         if (!isValid) {
           client.close();
           throw new Error("Wrong pmail or password");
