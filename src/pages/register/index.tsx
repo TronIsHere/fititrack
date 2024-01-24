@@ -1,11 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  RegisterValidator,
+  TRegisterValidator,
+} from "@/lib/validators/AuthValidator";
 import { RootState } from "@/store/store";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 async function createUser(email: string, password: string, name: string) {
   const response = await fetch("/api/auth/signup", {
@@ -23,18 +30,29 @@ async function createUser(email: string, password: string, name: string) {
 }
 const RegisterPage: NextPage = () => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
+
   const router = useRouter();
-  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const response = await createUser(
-      emailRef.current!.value,
-      passwordRef.current!.value,
-      nameRef.current!.value
-    );
-    router.push("/dashboard");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TRegisterValidator>({
+    resolver: zodResolver(RegisterValidator),
+  });
+  const submitHandler = async ({
+    email,
+    password,
+    name,
+  }: TRegisterValidator) => {
+    console.log(name, password, email);
+    // e.preventDefault();
+    // const response = await createUser(
+    //   emailRef.current!.value,
+    //   passwordRef.current!.value,
+    //   nameRef.current!.value
+    // );
+    // router.push("/dashboard");
   };
   return (
     <>
@@ -55,25 +73,40 @@ const RegisterPage: NextPage = () => {
               {/* <p className="pl-5">gaming your exercise!</p> */}
             </div>
             <div className="flex flex-col w-full md:w-1/2 px-5 md:px-0 pb-10 md:pb-0">
-              <form onSubmit={submitHandler}>
+              <form onSubmit={handleSubmit(submitHandler)}>
                 <p className="mt-14 md:mt-20 text-sm">Name and Last name</p>
                 <Input
+                  {...register("name")}
                   type={"text"}
                   className=" mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
-                  ref={nameRef}
                 />
-                <p className="mt-8 text-sm">Email</p>
+                {errors.name && (
+                  <p className="text-sm text-palletRed-500 mt-2">
+                    {errors.name.message}
+                  </p>
+                )}
+                <p className="pt-8 text-sm">Email</p>
                 <Input
+                  {...register("email")}
                   type={"email"}
                   className="mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
-                  ref={emailRef}
                 />
+                {errors.email && (
+                  <p className="text-sm text-palletRed-500 mt-2">
+                    {errors.email.message}
+                  </p>
+                )}
                 <p className="mt-8 text-sm">Password</p>
                 <Input
+                  {...register("password")}
                   type={"password"}
                   className=" mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
-                  ref={passwordRef}
                 />
+                {errors.password && (
+                  <p className="text-sm text-palletRed-500 mt-2">
+                    {errors.password.message}
+                  </p>
+                )}
                 <a
                   href="#"
                   className="mt-1 text-sm block hover:text-palletPurple-400"
