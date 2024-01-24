@@ -3,10 +3,10 @@ import { Input } from "@/components/ui/input";
 import { RootState } from "@/store/store";
 import { NextPage } from "next";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,7 +16,9 @@ import {
 } from "@/lib/validators/AuthValidator";
 const LoginPage: NextPage = () => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
+  const session = useSession();
   const router = useRouter();
+  useEffect(() => {}, []);
   const {
     register,
     handleSubmit,
@@ -25,16 +27,15 @@ const LoginPage: NextPage = () => {
     resolver: zodResolver(LoginValidator),
   });
   const submitHandler = async ({ email, password }: TLoginValidator) => {
-    console.log(email, password);
-    // const result = await signIn("credentials", {
-    //   redirect: false,
-    //   email,
-    //   password,
-    // });
-    // if (!result?.error) {
-    //   router.push("/dashboard");
-    // }
-    // console.log(result?.status, 1);
+    const result = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+    if (!result?.error) {
+      router.push("/dashboard");
+    }
+    console.log(result?.status, 1);
   };
   return (
     <>
@@ -117,5 +118,20 @@ const LoginPage: NextPage = () => {
     </>
   );
 };
+export async function getServerSideProps(context: any) {
+  const session = await getSession({ req: context.req });
 
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 export default LoginPage;

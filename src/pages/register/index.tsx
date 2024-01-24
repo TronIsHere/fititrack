@@ -8,6 +8,7 @@ import {
 import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";
+import { getSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -142,5 +143,20 @@ const RegisterPage: NextPage = () => {
     </>
   );
 };
+export async function getServerSideProps(context: any) {
+  const session = await getSession({ req: context.req });
 
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 export default RegisterPage;

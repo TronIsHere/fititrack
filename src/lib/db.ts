@@ -1,9 +1,7 @@
 import { MongoClient } from "mongodb";
 
 export async function ConnectToDatabase() {
-  const client = await MongoClient.connect(
-    "mongodb://localhost:27017/FitItTrackDB"
-  );
+  const client = await MongoClient.connect(process.env.MONGODB_URI!);
 
   return client;
 }
