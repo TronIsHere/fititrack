@@ -40,6 +40,7 @@ const LoginPage: NextPage = () => {
       toast({
         variant: "success",
         description: "logged in!",
+        duration: 500,
       });
       router.push("/dashboard");
     } else {
