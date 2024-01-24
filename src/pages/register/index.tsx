@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/ui/loading-button";
 import { useToast } from "@/components/ui/toasts/use-toast";
+import { hashPassword } from "@/lib/authUtils";
 import { createUser } from "@/lib/userUtils";
 import {
   RegisterValidator,
@@ -34,41 +35,42 @@ const RegisterPage: NextPage = () => {
     password,
     name,
   }: TRegisterValidator) => {
-    setLoading(true);
-    const response = await createUser(email, password, name);
+    const hashedPassword = await hashPassword(password);
+    try {
+      setLoading(true);
+      const response = await createUser(email, hashedPassword, name);
 
-    if (response.error || !response) {
+      if (response.error) {
+        throw new Error("Something went wrong.");
+      }
+
+      if (response.status === 409) {
+        toast({
+          variant: "destructive",
+          description:
+            "Email already registered. Please log in or reset your password if needed.",
+        });
+      } else if (response.status === 201) {
+        await signIn("credentials", {
+          redirect: false,
+          email,
+          password,
+        });
+        toast({
+          variant: "success",
+          description: "Register complete. Welcome!",
+          duration: 500,
+        });
+        router.push("/dashboard");
+      }
+    } catch (error) {
       toast({
         variant: "destructive",
-        description: "Something went wrong.",
+        description: "Please try again later.",
       });
-      return setLoading(false);
-    } else if (response.status == 409) {
-      toast({
-        variant: "destructive",
-        description:
-          "Email already registered. Please log in or reset your password if needed.",
-      });
-      return setLoading(false);
+    } finally {
+      setLoading(false);
     }
-    if (response.status === 201) {
-      const result = await signIn("credentials", {
-        redirect: false,
-        email,
-        password,
-      });
-
-      toast({
-        variant: "success",
-        description: "Register complete. welcome",
-      });
-      return router.push("/dashboard");
-    }
-    setLoading(false);
-    toast({
-      variant: "destructive",
-      description: "Please try again later.",
-    });
   };
   return (
     <>
