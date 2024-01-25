@@ -35,10 +35,10 @@ const RegisterPage: NextPage = () => {
     password,
     name,
   }: TRegisterValidator) => {
-    const hashedPassword = await hashPassword(password);
     try {
       setLoading(true);
-      const response = await createUser(email, hashedPassword, name);
+
+      const response = await createUser(email, password, name);
 
       if (response.error) {
         throw new Error("Something went wrong.");

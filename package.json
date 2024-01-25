@@ -40,7 +40,7 @@
     "eslint-config-next": "13.4.19",
     "lucide-react": "^0.274.0",
     "mongodb": "^6.3.0",
-    "mongoose": "^7.5.0",
+    "mongoose": "^7.6.8",
     "next": "13.4.19",
     "next-auth": "^4.24.5",
     "next-client-cookies": "^1.0.3",

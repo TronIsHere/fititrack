@@ -2,9 +2,10 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextApiHandler } from "next";
 import { MongoClient } from "mongodb";
-import { ConnectToDatabase } from "@/lib/db";
+import { ConnectToDatabase } from "@/lib/dbUtils";
 import { NextAuthOptions } from "next-auth";
 import { verifyPassword } from "@/lib/authUtils";
+import UserModel from "@/models/User";
 
 interface Credentials {
   email: string;
@@ -27,19 +28,17 @@ const nextAuthOptions: NextAuthOptions = {
         if (!credentials) {
           throw new Error("Credentials are missing!");
         }
-        const client: MongoClient = await ConnectToDatabase();
-        const userCollection = client.db().collection("users");
-        const user = await userCollection.findOne({ email: email });
+        await ConnectToDatabase();
+
+        const user = await UserModel.findOne({ email: email });
         if (!user) {
-          client.close();
           throw new Error("Wrong email or password");
         }
         const isValid = await verifyPassword(password, user.password);
         if (!isValid) {
-          client.close();
-          throw new Error("Wrong pmail or password");
+          throw new Error("Wrong email or password");
         }
-        client.close();
+
         return { id: user._id.toString(), email: user.email };
       },
     }),

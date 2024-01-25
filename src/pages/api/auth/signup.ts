@@ -1,5 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ConnectToDatabase } from "@/lib/db";
+import { ConnectToDatabase } from "@/lib/dbUtils";
+import { hashPassword } from "@/lib/authUtils";
+import UserModel from "@/models/User";
 
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
@@ -23,27 +25,25 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const client = await ConnectToDatabase();
 
   try {
-    const db = client.db();
-
-    const existingUser = await db.collection("users").findOne({ email });
-
+    // const db = client.db();
+    const existingUser = await UserModel.findOne({ email });
+    console.log(existingUser);
     if (existingUser) {
       return res.status(409).json({ message: "User already exists" });
     }
+    const hashedPassword = await hashPassword(password);
 
-    // const hashedPassword = await hashPassword(password);
-
-    await db.collection("users").insertOne({
+    await UserModel.create({
       email,
-      password,
+      age: 20,
+      password: hashedPassword,
       name,
     });
-
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Internal server error" });
   } finally {
-    client.close();
   }
 };
 
