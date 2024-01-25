@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const DashboardPage: MyPage = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   //TODO: handle default value for weight
   const [weightData, setWeightData] = useState<string>("");
   const [fromTime, setFromTime] = useState<string>("22:00");
