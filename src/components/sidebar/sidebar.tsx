@@ -11,6 +11,7 @@ import DesktopSidebar from "./desktop-sidebar";
 import MobileSidebar from "./mobile-sidebar";
 import NavLink from "../ui/navbar/navlink";
 import { signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 interface SidebarProps {
   darkMode: boolean;
@@ -19,6 +20,7 @@ interface SidebarProps {
 const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const router = useRouter();
+  const path = usePathname();
   const closeMobileMenu = useCallback(() => {
     setMobileMenu(false);
   }, []);

@@ -1,4 +1,4 @@
-import { TSleep } from "@/components/types/sleep";
+import { TSleep } from "@/components/types/DataTypes";
 
 export const calculateSleepHours = (dayData: TSleep[]) => {
   return dayData.reduce((total, current) => {

@@ -1,5 +1,5 @@
+import { TWorkout } from "@/components/types/DataTypes";
 import { getMonthDays } from "@/lib/dateUtils";
-import { TWorkout } from "@/components/types/workout";
 
 export const renderDayGrid = (
   state: TWorkout,

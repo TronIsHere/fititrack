@@ -1,4 +1,4 @@
-import { TMission } from "@/components/types/dashboardTypes";
+import { TMission } from "@/components/types/DataTypes";
 import { getWeekStartDate } from "@/lib/dateUtils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";

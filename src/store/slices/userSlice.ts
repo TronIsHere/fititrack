@@ -1,5 +1,4 @@
-import { TSleep } from "@/components/types/sleep";
-import { TWeight } from "@/components/types/weight";
+import { TSleep, TWeight } from "@/components/types/DataTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 

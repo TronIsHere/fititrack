@@ -14,7 +14,7 @@ import { newWeight } from "@/store/slices/userSlice";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { GiWeightScale } from "react-icons/gi";
-import { TWeight } from "../types/weight";
+import { TWeight } from "../types/DataTypes";
 import { useToast } from "../ui/toasts/use-toast";
 interface weightProps {
   darkModeDialog: boolean;

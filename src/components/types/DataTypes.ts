@@ -1,5 +1,12 @@
-import { TDay } from "./dashboardTypes";
-
+export type TWeight = {
+  date: string;
+  weight: number;
+};
+export type TSleep = {
+  date: string;
+  from: string;
+  to: string;
+};
 export type TWorkout = {
   id: any;
   created?: string;
@@ -16,4 +23,14 @@ export type TWorkout = {
 export type UpdateWorkoutPayload = {
   id: number;
   updatedWorkout: TWorkout;
+};
+
+export type TMission = {
+  id: any;
+  title: string;
+  done: boolean;
+};
+export type TDay = {
+  date: string;
+  done: boolean;
 };

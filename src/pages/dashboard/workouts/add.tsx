@@ -1,6 +1,6 @@
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
-import { TWorkout } from "@/components/types/workout";
+import { TWorkout } from "@/components/types/DataTypes";
 import {
   DropdownMenu,
   DropdownMenuContent,

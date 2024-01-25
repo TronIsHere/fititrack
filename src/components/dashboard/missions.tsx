@@ -7,9 +7,10 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { FaCheck, FaMedal } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
-import { TMission } from "../types/dashboardTypes";
+
 import { cn } from "@/lib/utils";
 import { addXp } from "@/store/slices/userSlice";
+import { TMission } from "../types/DataTypes";
 export const MissionsComponent = () => {
   const dispatch = useDispatch();
   const allMissions = useAppSelector((state) => state.mission.missions);

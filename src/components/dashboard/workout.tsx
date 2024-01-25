@@ -14,7 +14,8 @@ import { renderDayGrid } from "../ui/workout/render-day-grid";
 import { useAppDispatch } from "@/hooks/storeHooks";
 import { addXp } from "@/store/slices/userSlice";
 import { updateSingleWorkout } from "@/store/slices/workoutSlice";
-import { TWorkout } from "../types/workout";
+import { TWorkout } from "../types/DataTypes";
+
 interface workoutProps {
   workout: TWorkout;
   editEnabled?: boolean;

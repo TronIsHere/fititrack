@@ -1,6 +1,6 @@
 import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
-import { TWorkout } from "@/components/types/workout";
+import { TWorkout } from "@/components/types/DataTypes";
 import { MyPage } from "@/components/types/nextjs";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { updateWorkout } from "@/store/slices/workoutSlice";

@@ -19,7 +19,8 @@ import { newSleep } from "@/store/slices/userSlice";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaBedPulse } from "react-icons/fa6";
-import { TSleep } from "../types/sleep";
+import { TSleep } from "../types/DataTypes";
+
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { SleepChart } from "../ui/sleep/sleepChart";

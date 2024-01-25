@@ -1,4 +1,4 @@
-import { TWorkout, UpdateWorkoutPayload } from "@/components/types/workout";
+import { TWorkout, UpdateWorkoutPayload } from "@/components/types/DataTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 

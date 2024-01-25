@@ -52,7 +52,7 @@ export default function Home({ logged, session }: HomeProps) {
                 </div>
                 {logged ? (
                   <Link
-                    href={"/"}
+                    href={"/dashboard"}
                     className="bg-palletPurple-500 px-7 py-2 rounded-md text-white"
                   >
                     Dashboard

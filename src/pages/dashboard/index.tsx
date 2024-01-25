@@ -4,32 +4,21 @@ import SleepComponent from "@/components/dashboard/sleep";
 import WeightComponent from "@/components/dashboard/weight";
 import WorkoutComponent from "@/components/dashboard/workout";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
-import { TWorkout } from "@/components/types/workout";
+import { TSleep, TWorkout } from "@/components/types/DataTypes";
 import { MyPage } from "@/components/types/nextjs";
-import { TSleep } from "@/components/types/sleep";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import NewDayDialog from "@/components/ui/dialogs/new-day-dialog";
 import { toast } from "@/components/ui/toasts/use-toast";
 import useLastVisited from "@/hooks/lastVisited";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { isTimesValid } from "@/lib/timeUtils";
 import { newSleep, newWeight } from "@/store/slices/userSlice";
-import { useEffect, useState } from "react";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const DashboardPage: MyPage = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
+  //TODO: handle default value for weight
   const [weightData, setWeightData] = useState<string>("");
   const [fromTime, setFromTime] = useState<string>("22:00");
   const [toTime, setToTime] = useState<string>("7:00");
@@ -82,76 +71,18 @@ const DashboardPage: MyPage = () => {
 
   return (
     <>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild></DialogTrigger>
-        <DialogContent
-          className="sm:max-w-[525px] max-w-[350px]"
-          darkMode={darkModeState}
-        >
-          <DialogHeader>
-            <DialogTitle>New Day!</DialogTitle>
-            <DialogDescription>
-              how did you sleep last night? did you weight yourself today?
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4 justify-center items-center">
-            <div className="grid grid-cols-5 items-center gap-4 w-full">
-              <Label htmlFor="sleep" className="text-right col-span-2">
-                Last night Sleep
-              </Label>
-              <div className="col-span-3 flex items-center ">
-                <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
-                  <div className="flex flex-col">
-                    <span className="pb-2">from</span>
-                    <Input
-                      type={"time"}
-                      value={fromTime}
-                      onChange={(e) => setFromTime(e.target.value)}
-                      className={darkModeState ? "bg-darkPrimary" : "bg-white"}
-                    ></Input>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="pb-2">to</span>
-                    <Input
-                      type={"time"}
-                      value={toTime}
-                      onChange={(e) => setToTime(e.target.value)}
-                      className={darkModeState ? "bg-darkPrimary" : "bg-white"}
-                    ></Input>
-                  </div>
-                </div>
-                {/* <span className="pl-2 font-bold">Hour</span> */}
-              </div>
-            </div>
-            <div className="grid grid-cols-5 items-center gap-4 mt-5 md:mt-0">
-              <Label htmlFor="weight" className="text-right col-span-2">
-                Today&apos;s weight
-              </Label>
-              <div className="col-span-3 flex items-center">
-                <Input
-                  onChange={(e) => setWeightData(e.target.value)}
-                  id="weight"
-                  defaultValue="80"
-                  className={darkModeState ? "bg-darkPrimary" : "bg-white"}
-                />
-                <span className="pl-2 font-bold">KG</span>
-              </div>
-            </div>
-          </div>
-          <DialogFooter className="flex flex-row justify-end gap-2">
-            <Button type="submit" variant={"primary"} onClick={handleLogClick}>
-              Log
-            </Button>
-            <Button
-              type="submit"
-              variant={"destructive"}
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <NewDayDialog
+        openState={open}
+        OpenCallback={setOpen}
+        darkMode={darkModeState}
+        fromTime={fromTime}
+        toTime={toTime}
+        fromTimeCallback={setFromTime}
+        toTimeCallback={setToTime}
+        clickCallBack={handleLogClick}
+        OpenChangeCallBack={setOpen}
+        setWeightCallback={setWeightData}
+      />
       <div>
         <span className="mt-4 block text-lg">
           Welcome <strong>Erwin</strong>, good morning
