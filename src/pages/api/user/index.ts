@@ -1,4 +1,5 @@
 import { ConnectToDatabase } from "@/lib/dbUtils";
+import UserModel from "@/models/User";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -6,15 +7,13 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(405).end("Method Not Allowed");
   }
   const { email } = req.body;
-  const client = await ConnectToDatabase();
+  await ConnectToDatabase();
   try {
-    // const db = client.db();
-    const userData = "";
-    // await db.collection("users").findOne({ email });
-    if (!userData) {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    res.status(200).json({ data: userData });
+    res.status(200).json({ data: user });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   } finally {
