@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 // Define a type for the slice state
-interface UserState {
+export interface UserState {
   darkMode: boolean;
   weight: TWeight[];
   age: number;
@@ -43,6 +43,9 @@ export const userSlice = createSlice({
   name: "User",
   initialState,
   reducers: {
+    initData: (state, action: PayloadAction<UserState>) => {
+      return action.payload;
+    },
     changeName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
@@ -105,6 +108,7 @@ export const {
   clearCharacter,
   changeName,
   changeEmail,
+  initData,
 } = userSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

@@ -11,7 +11,12 @@ import { toast } from "@/components/ui/toasts/use-toast";
 import useLastVisited from "@/hooks/lastVisited";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { isTimesValid } from "@/lib/timeUtils";
-import { newSleep, newWeight } from "@/store/slices/userSlice";
+import {
+  initData,
+  newSleep,
+  newWeight,
+  UserState,
+} from "@/store/slices/userSlice";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -35,7 +40,39 @@ const DashboardPage: MyPage = () => {
     if (isNewDay) {
       setOpen(true); // It's a new day
     }
-  }, [isNewDay]);
+    const fetchData = async () => {
+      try {
+        // Asynchronous operation using await
+        const response = await fetch("/api/user", {
+          method: "POST",
+          body: JSON.stringify({ email: session.data!.user!.email }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        const { character, email, name, age, weight } = data.data;
+        const userData: UserState = {
+          age,
+          email,
+          maxXp: character.maxXp,
+          xp: character.xp,
+          level: character.level,
+          name,
+          weight: weight,
+          sleep: [],
+          darkMode: true,
+        };
+        console.log(userData);
+        dispatch(initData(userData));
+        // Do something with the data
+      } catch (error) {
+        // Handle any errors
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleLogClick = () => {
     // Dispatch newWeight and newSleep actions with the data

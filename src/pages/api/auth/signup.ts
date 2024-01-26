@@ -22,12 +22,12 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
   }
 
-  const client = await ConnectToDatabase();
+  await ConnectToDatabase();
 
   try {
     // const db = client.db();
     const existingUser = await UserModel.findOne({ email });
-    console.log(existingUser);
+
     if (existingUser) {
       return res.status(409).json({ message: "User already exists" });
     }

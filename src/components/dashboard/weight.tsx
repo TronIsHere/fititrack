@@ -25,9 +25,29 @@ const WeightComponent: FC<weightProps> = ({ darkModeDialog }) => {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
   const dispatch = useAppDispatch();
-  const weightHandler = (weight: number) => {
+  const weightHandler = async (weight: number) => {
     const newWeightData: TWeight = { date: new Date().toISOString(), weight };
-    dispatch(newWeight(newWeightData));
+
+    //TODO: refactor this to separate component
+    const response = await fetch("/api/user/add/weight", {
+      method: "POST",
+      body: JSON.stringify({
+        email: "erwin.aghajani@gmail.com",
+        ...newWeightData,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    if (data.message == "success") {
+      dispatch(newWeight(newWeightData));
+    } else {
+      toast({
+        variant: "destructive",
+        description: "Something went wrong, try again later.",
+      });
+    }
   };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -47,7 +67,9 @@ const WeightComponent: FC<weightProps> = ({ darkModeDialog }) => {
           </div>
           <div className="flex justify-center pt-8">
             <span className="text-3xl">
-              {weightSelector[weightSelector.length - 1].weight}
+              {weightSelector && weightSelector.length > 0
+                ? weightSelector[weightSelector.length - 1].weight
+                : 0}
               <span className="text-palletGray-200">kg</span>
             </span>
           </div>
@@ -97,7 +119,9 @@ const WeightComponent: FC<weightProps> = ({ darkModeDialog }) => {
                   }}
                   id="weight"
                   defaultValue={
-                    weightSelector[weightSelector.length - 1].weight
+                    weightSelector && weightSelector.length > 0
+                      ? weightSelector[weightSelector.length - 1].weight
+                      : 0
                   }
                   onChange={(e) => setNewWeight(parseInt(e.target.value))}
                 />

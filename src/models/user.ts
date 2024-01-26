@@ -7,9 +7,9 @@ export interface IUser extends Document {
   name: string;
   password: string;
   character: { level: number; maxXP: number; xp: number };
-  //   workouts: TWorkout[];
-  //   sleeps: TSleep[];
-  //   weights: TWeight[];
+  // workouts: TWorkout[];
+  // sleeps: TSleep[];
+  weights: TWeight[];
 }
 
 const UserSchema: Schema = new Schema<IUser>(
@@ -32,6 +32,18 @@ const UserSchema: Schema = new Schema<IUser>(
       type: String,
       required: [true, "Please provide a password"],
     },
+    weights: [
+      {
+        date: {
+          type: String,
+          required: [true, "Please provide a date"],
+        },
+        weight: {
+          type: Number,
+          required: [true, "Please provide a weight"],
+        },
+      },
+    ],
     character: {
       level: {
         type: Number,

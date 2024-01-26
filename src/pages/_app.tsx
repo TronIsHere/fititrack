@@ -25,6 +25,7 @@ export default function App({ Component, pageProps }: Props) {
     <>
       <Head>
         <title>Fitittrack</title>
+        <link rel="shortcut icon" href="#"></link>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
           name="description"
