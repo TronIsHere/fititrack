@@ -142,6 +142,7 @@ const DashboardPage: MyPage = () => {
               return (
                 <WorkoutComponent
                   opacity={workout.done}
+                  session={session}
                   key={workout.id}
                   workout={workout}
                   updateWorkout={() => console.log("clicked")}

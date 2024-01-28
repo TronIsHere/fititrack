@@ -6,20 +6,20 @@ import {
   cn,
 } from "@/lib/utils";
 
+import { useAppDispatch } from "@/hooks/storeHooks";
+import { addXPToServer } from "@/lib/userUtils";
+import { addXp } from "@/store/slices/userSlice";
+import { updateSingleWorkout } from "@/store/slices/workoutSlice";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
+import { TWorkout } from "../types/DataTypes";
 import { renderDoneIndicator } from "../ui/workout/done-indicator";
 import { renderEditButtons } from "../ui/workout/edit-button";
 import { renderDayGrid } from "../ui/workout/render-day-grid";
-import { useAppDispatch } from "@/hooks/storeHooks";
-import { addXp } from "@/store/slices/userSlice";
-import { updateSingleWorkout } from "@/store/slices/workoutSlice";
-import { TWorkout } from "../types/DataTypes";
-import { addXPToServer } from "@/lib/userUtils";
-import { getSession, useSession } from "next-auth/react";
 
 interface workoutProps {
   workout: TWorkout;
+  session: any;
   editEnabled?: boolean;
   opacity?: boolean;
   updateWorkout: (type: "edit" | "delete") => void;
@@ -27,6 +27,7 @@ interface workoutProps {
 
 const WorkoutComponent: NextPage<workoutProps> = ({
   editEnabled,
+  session,
   workout,
   opacity,
   updateWorkout,
@@ -35,7 +36,6 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   const [workoutState, setWorkoutState] = useState<TWorkout>(workout);
   const consistency = calculateConsistency(workoutState.days || []);
   const dispatch = useAppDispatch();
-  const session = useSession();
   const hasWorkout = !!workout;
 
   useEffect(() => {
