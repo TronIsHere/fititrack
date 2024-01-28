@@ -51,19 +51,20 @@ const DashboardPage: MyPage = () => {
           },
         });
         const data = await response.json();
-        const { character, email, name, age, weight } = data.data;
+        const { character, email, name, age, weights } = data.data;
+        console.log(data.data);
         const userData: UserState = {
           age,
           email,
-          maxXp: character.maxXp,
+          maxXp: character.maxXP,
           xp: character.xp,
           level: character.level,
           name,
-          weight: weight,
+          weight: weights,
           sleep: [],
           darkMode: true,
         };
-        console.log(userData);
+        console.log(userData, 1);
         dispatch(initData(userData));
         // Do something with the data
       } catch (error) {

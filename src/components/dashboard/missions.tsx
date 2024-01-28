@@ -11,15 +11,23 @@ import { useDispatch } from "react-redux";
 import { cn } from "@/lib/utils";
 import { addXp } from "@/store/slices/userSlice";
 import { TMission } from "../types/DataTypes";
+import { addXPToServer } from "@/lib/userUtils";
+import { useSession } from "next-auth/react";
 export const MissionsComponent = () => {
   const dispatch = useDispatch();
   const allMissions = useAppSelector((state) => state.mission.missions);
   const [visibleMissions, setVisibleMissions] = useState<TMission[] | null>([]);
+  const session = useSession();
   const missionDoneHandler = (id: number) => {
     dispatch(toggleMission(id));
     const mission: TMission | undefined = allMissions.find((m) => id === m.id);
     if (mission && !mission.done) {
-      dispatch(addXp(10));
+      if (session.data?.user?.email) {
+        addXPToServer(10, session.data?.user?.email);
+        dispatch(addXp(10));
+      } else {
+        console.log("error");
+      }
     }
   };
   useEffect(() => {

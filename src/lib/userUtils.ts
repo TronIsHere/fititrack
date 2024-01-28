@@ -17,3 +17,20 @@ export async function createUser(
   }
   return { data, status: response.status };
 }
+
+export async function addXPToServer(fieldData: number, email: string) {
+  const response = await fetch("/api/user/add/character", {
+    method: "POST",
+    body: JSON.stringify({ field: "xp", data: fieldData, email }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+
+  if (!response) {
+    return { error: true, message: "Something went wrong." };
+  }
+  console.log({ data, status: response.status });
+  return { data, status: response.status };
+}

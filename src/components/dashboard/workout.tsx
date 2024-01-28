@@ -15,6 +15,8 @@ import { useAppDispatch } from "@/hooks/storeHooks";
 import { addXp } from "@/store/slices/userSlice";
 import { updateSingleWorkout } from "@/store/slices/workoutSlice";
 import { TWorkout } from "../types/DataTypes";
+import { addXPToServer } from "@/lib/userUtils";
+import { getSession, useSession } from "next-auth/react";
 
 interface workoutProps {
   workout: TWorkout;
@@ -33,7 +35,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   const [workoutState, setWorkoutState] = useState<TWorkout>(workout);
   const consistency = calculateConsistency(workoutState.days || []);
   const dispatch = useAppDispatch();
-
+  const session = useSession();
   const hasWorkout = !!workout;
 
   useEffect(() => {
@@ -105,7 +107,12 @@ const WorkoutComponent: NextPage<workoutProps> = ({
 
       // Only add XP if the workout was not already done
       if (!wasDone) {
-        dispatch(addXp(20));
+        if (session.data?.user?.email) {
+          addXPToServer(20, session.data?.user?.email);
+          dispatch(addXp(20));
+        } else {
+          console.log("error");
+        }
       }
 
       // Calculate the new streak
