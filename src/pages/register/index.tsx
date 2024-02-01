@@ -2,11 +2,12 @@ import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/ui/loading-button";
 import { useToast } from "@/components/ui/toasts/use-toast";
 import { hashPassword } from "@/lib/authUtils";
-import { createUser } from "@/lib/userUtils";
+
 import {
   RegisterValidator,
   TRegisterValidator,
 } from "@/lib/validators/AuthValidator";
+import { createUser } from "@/services/user";
 import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";

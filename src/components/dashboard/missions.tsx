@@ -11,8 +11,9 @@ import { useDispatch } from "react-redux";
 import { cn } from "@/lib/utils";
 import { addXp } from "@/store/slices/userSlice";
 import { TMission } from "../types/DataTypes";
-import { addXPToServer } from "@/lib/userUtils";
+
 import { useSession } from "next-auth/react";
+import { addXPToServer } from "@/services/user";
 export const MissionsComponent = () => {
   const dispatch = useDispatch();
   const allMissions = useAppSelector((state) => state.mission.missions);

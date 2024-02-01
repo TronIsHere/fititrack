@@ -7,7 +7,7 @@ import {
 } from "@/lib/utils";
 
 import { useAppDispatch } from "@/hooks/storeHooks";
-import { addXPToServer } from "@/lib/userUtils";
+import { addXPToServer } from "@/services/user";
 import { addXp } from "@/store/slices/userSlice";
 import { updateSingleWorkout } from "@/store/slices/workoutSlice";
 import { NextPage } from "next";

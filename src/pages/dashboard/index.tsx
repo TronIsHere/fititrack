@@ -11,6 +11,7 @@ import { toast } from "@/components/ui/toasts/use-toast";
 import useLastVisited from "@/hooks/lastVisited";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { isTimesValid } from "@/lib/timeUtils";
+import { fetchUserData } from "@/services/user";
 import {
   initData,
   newSleep,
@@ -36,44 +37,27 @@ const DashboardPage: MyPage = () => {
   useEffect(() => {
     if (!session.data) {
       router.push("/");
+      return;
     }
-    if (isNewDay) {
-      setOpen(true); // It's a new day
-    }
-    const fetchData = async () => {
-      try {
-        // Asynchronous operation using await
-        const response = await fetch("/api/user", {
-          method: "POST",
-          body: JSON.stringify({ email: session.data!.user!.email }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const data = await response.json();
-        const { character, email, name, age, weights, sleeps } = data.data;
 
-        const userData: UserState = {
-          age,
-          email,
-          maxXp: character.maxXP,
-          xp: character.xp,
-          level: character.level,
-          name,
-          weight: weights,
-          sleep: sleeps,
-          darkMode: true,
-        };
-        console.log(userData, 1);
-        dispatch(initData(userData));
-        // Do something with the data
-      } catch (error) {
-        // Handle any errors
+    if (isNewDay) {
+      setOpen(true);
+    }
+
+    const initializeUserData = async () => {
+      const userEmail = session.data.user?.email;
+      if (userEmail) {
+        const userData = await fetchUserData(userEmail);
+        if (userData) {
+          console.log(userData, 1);
+          dispatch(initData(userData));
+        } else {
+        }
       }
     };
 
-    fetchData();
-  }, []);
+    initializeUserData();
+  }, [session.data, isNewDay]);
 
   const handleLogClick = () => {
     // Dispatch newWeight and newSleep actions with the data
