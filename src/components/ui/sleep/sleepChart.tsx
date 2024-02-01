@@ -7,12 +7,14 @@ import SleepBar from "../sleepBar";
 export const SleepChart: FC = () => {
   const { startOfWeek, endOfWeek } = getCurrentWeek();
   // Filter the sleep data for the current week
-  const sleepData = useAppSelector((state) =>
-    state.user.sleep.filter((sleepEntry) => {
+
+  const sleepData = useAppSelector((state) => {
+    return state.user.sleep.filter((sleepEntry) => {
       const entryDate = new Date(sleepEntry.date);
+      console.log(entryDate >= startOfWeek && entryDate <= endOfWeek, 2);
       return entryDate >= startOfWeek && entryDate <= endOfWeek;
-    })
-  );
+    });
+  });
 
   const groupedData = groupByDayOfWeek(sleepData);
   const maxSleepHour = 8;

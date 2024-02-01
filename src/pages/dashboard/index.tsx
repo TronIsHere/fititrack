@@ -51,8 +51,8 @@ const DashboardPage: MyPage = () => {
           },
         });
         const data = await response.json();
-        const { character, email, name, age, weights } = data.data;
-        console.log(data.data);
+        const { character, email, name, age, weights, sleeps } = data.data;
+
         const userData: UserState = {
           age,
           email,
@@ -61,7 +61,7 @@ const DashboardPage: MyPage = () => {
           level: character.level,
           name,
           weight: weights,
-          sleep: [],
+          sleep: sleeps,
           darkMode: true,
         };
         console.log(userData, 1);
