@@ -35,7 +35,7 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
   const [toTime, setToTime] = useState<string>();
   const dispatch = useAppDispatch();
 
-  const handleSleepData = () => {
+  const handleSleepData = async () => {
     if (fromTime && toTime) {
       if (isTimesValid(fromTime, toTime)) {
         const newSleepData: TSleep = {
@@ -43,6 +43,16 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
           from: fromTime,
           to: toTime,
         };
+        const response = await fetch("/api/user/add/sleep", {
+          method: "POST",
+          body: JSON.stringify({
+            email: "erwin.aghajani@gmail.com",
+            ...newSleepData,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         dispatch(newSleep(newSleepData));
         toast({
           variant: "success",

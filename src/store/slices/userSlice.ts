@@ -33,7 +33,7 @@ const initialState: UserState = {
       to: "05:00",
     },
   ],
-  weight: [{ date: new Date("2023/12/04").toISOString(), weight: 20 }],
+  weight: [],
   level: 1,
   maxXp: 100,
   xp: 50,
