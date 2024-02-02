@@ -1,3 +1,4 @@
+import { TSleep, TWeight } from "@/components/types/DataTypes";
 import axios from "axios";
 
 export const fetchUserData = async (userEmail: string) => {
@@ -51,3 +52,22 @@ export async function addXPToServer(fieldData: number, email: string) {
     console.log(error);
   }
 }
+export const addWeightToServer = async (
+  newWeightData: TWeight,
+  email: string
+) => {
+  const response = await axios.post("/api/user/add/weight", {
+    email,
+    ...newWeightData,
+  });
+
+  return response.data;
+};
+
+export const addSleepToServer = async (newSleepData: TSleep, email: string) => {
+  const response = await axios.post("/api/user/add/sleep", {
+    email,
+    ...newSleepData,
+  });
+  return response.data;
+};

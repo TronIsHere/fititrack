@@ -12,63 +12,70 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 import { useAppDispatch } from "@/hooks/storeHooks";
 import { isTimesValid } from "@/lib/timeUtils";
+import { addSleepToServer } from "@/services/user";
 import { newSleep } from "@/store/slices/userSlice";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaBedPulse } from "react-icons/fa6";
 import { TSleep } from "../types/DataTypes";
-
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { SleepChart } from "../ui/sleep/sleepChart";
 import { useToast } from "../ui/toasts/use-toast";
+
 interface sleepProps {
   darkModeDialog: boolean;
+  email: string;
 }
-const SleepComponent: FC<sleepProps> = ({ darkModeDialog }) => {
+const SleepComponent: FC<sleepProps> = ({ darkModeDialog, email }) => {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [fromTime, setFromTime] = useState<string>();
   const [toTime, setToTime] = useState<string>();
   const dispatch = useAppDispatch();
-
   const handleSleepData = async () => {
-    if (fromTime && toTime) {
-      if (isTimesValid(fromTime, toTime)) {
-        const newSleepData: TSleep = {
-          date: new Date().toISOString(),
-          from: fromTime,
-          to: toTime,
-        };
-        const response = await fetch("/api/user/add/sleep", {
-          method: "POST",
-          body: JSON.stringify({
-            email: "erwin.aghajani@gmail.com",
-            ...newSleepData,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        dispatch(newSleep(newSleepData));
-        toast({
-          variant: "success",
-          description: "Sleep added",
-        });
-        setOpen(false);
-      } else {
-        toast({
-          variant: "destructive",
-          description: "Times are not valid ",
-        });
-      }
-    } else {
+    // Early return if times are not set
+    if (!fromTime || !toTime) {
       toast({
         variant: "destructive",
         description: "Please insert correct time",
+      });
+      return;
+    }
+
+    // Early return if times are not valid
+    if (!isTimesValid(fromTime, toTime)) {
+      toast({
+        variant: "destructive",
+        description: "Times are not valid",
+      });
+      return;
+    }
+
+    try {
+      const newSleepData: TSleep = {
+        date: new Date().toISOString(),
+        from: fromTime,
+        to: toTime,
+      };
+
+      // Ensure the async function is awaited
+      const response = await addSleepToServer(newSleepData, email);
+
+      dispatch(newSleep(newSleepData));
+      toast({
+        variant: "success",
+        description: "Sleep added",
+      });
+      setOpen(false);
+    } catch (error) {
+      // Handle any errors that occur during the API call
+      console.error("Error adding sleep data:", error);
+      toast({
+        variant: "destructive",
+        description: "Failed to add sleep data",
       });
     }
   };

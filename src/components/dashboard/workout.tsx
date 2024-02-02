@@ -1,4 +1,4 @@
-import { isSameDay } from "@/lib/dateUtils";
+import { checkDayDone, checkDayExistence, isSameDay } from "@/lib/dateUtils";
 import {
   calculateConsistency,
   calculateStreak,
@@ -16,6 +16,8 @@ import { TWorkout } from "../types/DataTypes";
 import { renderDoneIndicator } from "../ui/workout/done-indicator";
 import { renderEditButtons } from "../ui/workout/edit-button";
 import { renderDayGrid } from "../ui/workout/render-day-grid";
+import moment from "moment";
+import { useWorkoutUpdater } from "@/hooks/workout/useWorkoutUpdater";
 
 interface workoutProps {
   workout: TWorkout;
@@ -37,24 +39,16 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   const consistency = calculateConsistency(workoutState.days || []);
   const dispatch = useAppDispatch();
   const hasWorkout = !!workout;
-
+  const updateWorkoutState = useWorkoutUpdater(workoutState);
   useEffect(() => {
-    // checking if today doesn't exist add it so user can see the correct stats
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const today = moment().startOf("day");
+    const yesterday = moment(today).subtract(1, "day");
 
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    const currentDays = workoutState.days || []; // Current days from the state
+    const currentDays = workoutState.days || [];
 
     // Check if yesterday exists in the days array and is marked as done
-    const yesterdayWasDone = currentDays.some(
-      (day) => isSameDay(new Date(day.date), yesterday) && day.done
-    );
-    const todayExists = currentDays.some((day) =>
-      isSameDay(new Date(day.date), today)
-    );
+    const yesterdayWasDone = checkDayDone(currentDays, yesterday.toDate());
+    const todayExists = checkDayExistence(currentDays, today.toDate());
 
     if (!todayExists) {
       const updatedDays = [
@@ -68,31 +62,23 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         days: updatedDays,
         streak: yesterdayWasDone ? prevState.streak : 0,
       }));
-      const updatedWorkout: TWorkout = {
-        ...workoutState,
-        done: updatedDays[updatedDays.length - 1].done,
-        days: updatedDays,
-        streak: yesterdayWasDone ? workoutState.streak : 0,
-      };
-      dispatch(updateSingleWorkout({ id: workoutState.id, updatedWorkout }));
+      updateWorkoutState(updatedDays, yesterdayWasDone);
     }
   }, [workoutState.days, hasWorkout]);
 
   const handleWorkout = () => {
     setWorkoutState((prevState) => {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
+      const today = moment().startOf("day");
 
       const currentDays = prevState.days || [];
       const existingDayIndex = currentDays.findIndex((d) =>
-        isSameDay(new Date(d.date), today)
+        isSameDay(new Date(d.date), today.toDate())
       );
 
-      let updatedDays = [...currentDays];
+      const updatedDays = [...currentDays];
       let updatedCheckIns = prevState.checkIns;
       let wasDone = false;
 
-      // Check if the workout was done today and update accordingly
       if (existingDayIndex >= 0) {
         wasDone = updatedDays[existingDayIndex].done;
         updatedDays[existingDayIndex] = {
@@ -106,16 +92,11 @@ const WorkoutComponent: NextPage<workoutProps> = ({
       }
 
       // Only add XP if the workout was not already done
-      if (!wasDone) {
-        if (session.data?.user?.email) {
-          addXPToServer(20, session.data?.user?.email);
-          dispatch(addXp(20));
-        } else {
-          console.log("error");
-        }
+      if (!wasDone && session.data?.user?.email) {
+        addXPToServer(20, session.data.user.email);
+        dispatch(addXp(20));
       }
 
-      // Calculate the new streak
       const newStreak = calculateStreak(updatedDays);
 
       const newWorkoutData = {

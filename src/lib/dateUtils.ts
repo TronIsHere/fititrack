@@ -1,3 +1,4 @@
+import { TDay } from "@/components/types/DataTypes";
 import { getDaysInMonth } from "date-fns";
 import moment from "moment";
 export const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -30,4 +31,14 @@ export const getWeekStartDate = () => {
   const startOfWeek = moment().startOf("isoWeek");
 
   return startOfWeek.format("YYYY-MM-DD");
+};
+
+export const checkDayExistence = (days: TDay[], dayToCheck: Date): boolean => {
+  return days.some((day) => isSameDay(new Date(day.date), dayToCheck));
+};
+
+export const checkDayDone = (days: TDay[], dayToCheck: Date): boolean => {
+  return days.some(
+    (day) => isSameDay(new Date(day.date), dayToCheck) && day.done
+  );
 };

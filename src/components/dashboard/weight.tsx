@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
+import { addWeightToServer } from "@/services/user";
 import { newWeight } from "@/store/slices/userSlice";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
@@ -18,8 +19,9 @@ import { TWeight } from "../types/DataTypes";
 import { useToast } from "../ui/toasts/use-toast";
 interface weightProps {
   darkModeDialog: boolean;
+  email: string;
 }
-const WeightComponent: FC<weightProps> = ({ darkModeDialog }) => {
+const WeightComponent: FC<weightProps> = ({ darkModeDialog, email }) => {
   const weightSelector = useAppSelector((state) => state.user.weight);
   const [newWeightState, setNewWeight] = useState<number>(0);
   const [open, setOpen] = useState(false);
@@ -27,19 +29,7 @@ const WeightComponent: FC<weightProps> = ({ darkModeDialog }) => {
   const dispatch = useAppDispatch();
   const weightHandler = async (weight: number) => {
     const newWeightData: TWeight = { date: new Date().toISOString(), weight };
-
-    //TODO: refactor this to separate component
-    const response = await fetch("/api/user/add/weight", {
-      method: "POST",
-      body: JSON.stringify({
-        email: "erwin.aghajani@gmail.com",
-        ...newWeightData,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
+    const data = await addWeightToServer(newWeightData, email);
     if (data.message == "success") {
       dispatch(newWeight(newWeightData));
     } else {
