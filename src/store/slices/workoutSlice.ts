@@ -20,6 +20,9 @@ export const workoutSlice = createSlice({
   name: "workouts",
   initialState,
   reducers: {
+    initWorkouts: (state, action: PayloadAction<TWorkout[]>) => {
+      return { ...state, workouts: action.payload };
+    },
     updateWorkout: (state, action: PayloadAction<TWorkout[]>) => {
       state.workouts = action.payload;
       // Implementation to update a workout
@@ -43,7 +46,7 @@ export const workoutSlice = createSlice({
   },
 });
 
-export const { updateWorkout, addWorkout, updateSingleWorkout } =
+export const { updateWorkout, initWorkouts, addWorkout, updateSingleWorkout } =
   workoutSlice.actions;
 
 // Selector

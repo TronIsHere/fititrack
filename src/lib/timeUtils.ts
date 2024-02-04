@@ -1,34 +1,31 @@
 import { TSleep } from "@/components/types/DataTypes";
+import moment from "moment";
+type DayOfWeek = "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun";
 
-export const calculateSleepHours = (dayData: TSleep[]) => {
+export const calculateSleepHours = (dayData: TSleep[]): number => {
   return dayData.reduce((total, current) => {
-    // Extract the date part from the ISO string
-    const datePart = current.date.split("T")[0];
-    // Combine the date part with the 'from' and 'to' times
-    const fromDateTime: Date = new Date(`${datePart}T${current.from}`);
-    const toDateTime: Date = new Date(`${datePart}T${current.to}`);
+    // Create moment objects for 'from' and 'to' times
+    const fromDateTime = moment(`${current.date}T${current.from}`);
+    const toDateTime = moment(`${current.date}T${current.to}`);
 
-    if (isNaN(fromDateTime.getTime()) || isNaN(toDateTime.getTime())) {
-      console.error("Invalid date format in calculateTotalSleepPerDay");
+    if (!fromDateTime.isValid() || !toDateTime.isValid()) {
+      console.error("Invalid date format in calculateSleepHours");
       return total;
     }
 
     // Check if the 'to' time is on the next day and adjust
-    if (toDateTime < fromDateTime) {
-      toDateTime.setDate(toDateTime.getDate() + 1);
+    if (toDateTime.isBefore(fromDateTime)) {
+      toDateTime.add(1, "day");
     }
 
     // Calculate the duration in hours and add it to the total
-    const durationHours =
-      (toDateTime.getTime() - fromDateTime.getTime()) / (1000 * 60 * 60);
+    const durationHours = toDateTime.diff(fromDateTime, "hours", true);
     return total + durationHours;
   }, 0);
 };
 
-type DayOfWeek = "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun";
-
 export const groupByDayOfWeek = (sleepData: TSleep[]) => {
-  const dayOfWeekData: { [key in DayOfWeek]: typeof sleepData } = {
+  const dayOfWeekData: { [key in DayOfWeek]: TSleep[] } = {
     Mon: [],
     Tue: [],
     Wed: [],
@@ -39,9 +36,7 @@ export const groupByDayOfWeek = (sleepData: TSleep[]) => {
   };
 
   sleepData.forEach((entry) => {
-    const dayOfWeek = new Date(entry.date).toLocaleString("en-US", {
-      weekday: "short",
-    }) as DayOfWeek;
+    const dayOfWeek = moment(entry.date).format("ddd") as DayOfWeek;
     if (dayOfWeek in dayOfWeekData) {
       dayOfWeekData[dayOfWeek].push(entry);
     }
@@ -69,32 +64,20 @@ export const calculateTotalSleepPerDay = (dayData: TSleep[]) => {
     return total + durationHours;
   }, 0);
 };
-export const isTimesValid = (time1: string, time2: string) => {
-  const date = new Date(); // Replace this with your actual date state
 
-  // Create Date objects for comparison
-  const fromDateTime = new Date(date);
-  const [fromHours, fromMinutes] = time1.split(":");
-  fromDateTime.setHours(parseInt(fromHours, 10), parseInt(fromMinutes, 10));
-
-  const toDateTime = new Date(date);
-  const [toHours, toMinutes] = time2.split(":");
-  toDateTime.setHours(parseInt(toHours, 10), parseInt(toMinutes, 10));
+export const isTimesValid = (time1: string, time2: string): boolean => {
+  // Create moment objects for comparison
+  const fromTime = moment(time1, "HH:mm");
+  const toTime = moment(time2, "HH:mm");
 
   // Check if the 'from' time is after the 'to' time, indicating an overnight span
-  if (fromDateTime > toDateTime) {
-    // Adjust 'toDateTime' to the next day
-    toDateTime.setDate(toDateTime.getDate() + 1);
+  if (fromTime.isAfter(toTime)) {
+    // Adjust 'toTime' to the next day
+    toTime.add(1, "day");
   }
 
   // Check if the 'from' time is before the 'to' time
-  if (fromDateTime < toDateTime) {
-    // Proceed with valid time range
-    return true;
-    // Here you can add further logic to handle the valid time range
-  } else {
-    // Handle invalid time range
-    return false;
-    // Here you can add logic to notify the user about the invalid time range
-  }
+  return fromTime.isBefore(toTime);
 };
+
+

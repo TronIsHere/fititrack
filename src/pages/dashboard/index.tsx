@@ -18,6 +18,7 @@ import {
   newWeight,
   UserState,
 } from "@/store/slices/userSlice";
+import { initWorkouts } from "@/store/slices/workoutSlice";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -30,6 +31,7 @@ const DashboardPage: MyPage = () => {
   const [toTime, setToTime] = useState<string>("7:00");
   const darkModeState = useAppSelector((state) => state.user.darkMode);
   const workoutsState = useAppSelector((state) => state.workout.workouts);
+
   const dispatch = useAppDispatch();
   const isNewDay = useLastVisited();
   const session = useSession();
@@ -48,10 +50,26 @@ const DashboardPage: MyPage = () => {
       const userEmail = session.data.user?.email;
       if (userEmail) {
         const userData = await fetchUserData(userEmail);
+
         if (userData) {
           console.log(userData, 1);
-          dispatch(initData(userData));
+          dispatch(
+            initData({
+              darkMode: userData.darkMode,
+              weight: userData.weight,
+              age: userData.age,
+              email: userData.email,
+              sleep: userData.sleep,
+              level: userData.level,
+              maxXp: userData.maxXp,
+              xp: userData.xp,
+              name: userData.name,
+            })
+          );
+
+          dispatch(initWorkouts(userData.workouts));
         } else {
+          // Handle case where userData is null
         }
       }
     };
@@ -128,17 +146,18 @@ const DashboardPage: MyPage = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-7 mt-6 gap-6">
           <div className="col-span-5">
-            {workoutsState.map((workout: TWorkout) => {
-              return (
-                <WorkoutComponent
-                  opacity={workout.done}
-                  session={session}
-                  key={workout.id}
-                  workout={workout}
-                  updateWorkout={() => console.log("clicked")}
-                />
-              );
-            })}
+            {workoutsState &&
+              workoutsState.map((workout: TWorkout) => {
+                return (
+                  <WorkoutComponent
+                    opacity={workout.done}
+                    session={session}
+                    key={workout.id}
+                    workout={workout}
+                    updateWorkout={() => console.log("clicked")}
+                  />
+                );
+              })}
             {/* <MyChart /> */}
           </div>
           <div className="col-span-5 md:col-span-2">
