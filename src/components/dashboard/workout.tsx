@@ -109,7 +109,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
 
       dispatch(
         updateSingleWorkout({
-          id: prevState.id,
+          id: prevState._id,
           updatedWorkout: newWorkoutData,
         })
       );

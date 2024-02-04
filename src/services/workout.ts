@@ -11,3 +11,13 @@ export const addWorkoutToServer = async (
   });
   return response.data;
 };
+export const deleteWorkoutFromServer = async (
+  workoutId: number,
+  email: string
+) => {
+  const response = await axios.post("/api/user/delete/workout", {
+    email,
+    workoutId,
+  });
+  return response.data;
+};

@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { TWorkout } from "@/components/types/DataTypes";
 import { MyPage } from "@/components/types/nextjs";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
+import { deleteWorkoutFromServer } from "@/services/workout";
 import { updateWorkout } from "@/store/slices/workoutSlice";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -14,12 +15,22 @@ const WorkoutsPage: MyPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const session = useSession();
-  const handleUpdateWorkout = (type: "edit" | "delete", workoutId: number) => {
+  const handleUpdateWorkout = async (
+    type: "edit" | "delete",
+    workoutId: number
+  ) => {
     if (type == "delete") {
-      const updatedWorkouts: TWorkout[] = workoutsState.filter(
-        (workout) => workout.id !== workoutId
+      console.log(workoutId);
+      const response = await deleteWorkoutFromServer(
+        workoutId,
+        session.data?.user?.email!
       );
-      dispatch(updateWorkout(updatedWorkouts));
+      if (response.message == "success") {
+        const updatedWorkouts: TWorkout[] = workoutsState.filter(
+          (workout) => workout._id !== workoutId
+        );
+        dispatch(updateWorkout(updatedWorkouts));
+      }
     } else {
       router.push(`/dashboard/workouts/edit/${workoutId}`);
     }
@@ -40,10 +51,10 @@ const WorkoutsPage: MyPage = () => {
           return (
             <WorkoutComponent
               session={session}
-              key={workout.id}
+              key={workout._id}
               editEnabled={true}
               workout={workout}
-              updateWorkout={(type) => handleUpdateWorkout(type, workout.id)}
+              updateWorkout={(type) => handleUpdateWorkout(type, workout._id)}
             />
           );
         })}

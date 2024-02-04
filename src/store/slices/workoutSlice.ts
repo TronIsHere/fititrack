@@ -32,7 +32,7 @@ export const workoutSlice = createSlice({
       action: PayloadAction<UpdateWorkoutPayload>
     ) => {
       const { id, updatedWorkout } = action.payload;
-      const index = state.workouts.findIndex((workout) => workout.id === id);
+      const index = state.workouts.findIndex((workout) => workout._id === id);
       if (index !== -1) {
         state.workouts[index] = updatedWorkout;
       }
@@ -40,7 +40,7 @@ export const workoutSlice = createSlice({
     },
     addWorkout: (state, action: PayloadAction<IAddWorkout>) => {
       const { workout, id } = action.payload;
-      workout.id = id;
+      workout._id = id;
       state.workouts.push(workout);
     },
   },

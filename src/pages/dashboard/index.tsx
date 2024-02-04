@@ -152,7 +152,7 @@ const DashboardPage: MyPage = () => {
                   <WorkoutComponent
                     opacity={workout.done}
                     session={session}
-                    key={workout.id}
+                    key={workout._id}
                     workout={workout}
                     updateWorkout={() => console.log("clicked")}
                   />
