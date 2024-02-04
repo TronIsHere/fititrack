@@ -4,6 +4,7 @@ import { TWorkout } from "@/components/types/DataTypes";
 import { MyPage } from "@/components/types/nextjs";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { updateWorkout } from "@/store/slices/workoutSlice";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Router } from "next/router";
@@ -12,6 +13,7 @@ const WorkoutsPage: MyPage = () => {
   const workoutsState = useAppSelector((state) => state.workout.workouts);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const session = useSession();
   const handleUpdateWorkout = (type: "edit" | "delete", workoutId: number) => {
     if (type == "delete") {
       const updatedWorkouts: TWorkout[] = workoutsState.filter(
@@ -37,6 +39,7 @@ const WorkoutsPage: MyPage = () => {
         {workoutsState.map((workout: TWorkout) => {
           return (
             <WorkoutComponent
+              session={session}
               key={workout.id}
               editEnabled={true}
               workout={workout}

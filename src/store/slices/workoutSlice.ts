@@ -11,6 +11,10 @@ interface WorkoutState {
 const initialState: WorkoutState = {
   workouts: [],
 };
+interface IAddWorkout {
+  workout: TWorkout;
+  id: string;
+}
 
 export const workoutSlice = createSlice({
   name: "workouts",
@@ -31,8 +35,10 @@ export const workoutSlice = createSlice({
       }
       // Implementation to update a single workout
     },
-    addWorkout: (state, action: PayloadAction<TWorkout>) => {
-      state.workouts.push(action.payload);
+    addWorkout: (state, action: PayloadAction<IAddWorkout>) => {
+      const { workout, id } = action.payload;
+      workout.id = id;
+      state.workouts.push(workout);
     },
   },
 });

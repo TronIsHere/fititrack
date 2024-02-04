@@ -113,13 +113,13 @@ const DashboardPage: MyPage = () => {
           <div className="flex mt-10">
             <WeightComponent
               darkModeDialog={darkModeState}
-              email={session.data!.user?.email!}
+              email={session.data!.user?.email! || ""}
             ></WeightComponent>
           </div>
           <div className="flex mt-10 ml-0 md:ml-6">
             <SleepComponent
               darkModeDialog={darkModeState}
-              email={session.data!.user?.email!}
+              email={session.data!.user?.email! || ""}
             />
           </div>
           <div className="flex mt-10 w-full ml-0 md:ml-6 ">

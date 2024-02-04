@@ -7,7 +7,7 @@ export interface IUser extends Document {
   name: string;
   password: string;
   character: { level: number; maxXP: number; xp: number };
-  // workouts: TWorkout[];
+  workouts: TWorkout[];
   sleeps: TSleep[];
   weights: TWeight[];
 }
@@ -24,6 +24,7 @@ const UserSchema: Schema = new Schema<IUser>(
       type: String,
       required: [true, "Please provide an name"],
     },
+
     age: {
       type: Number,
       required: false,
@@ -42,6 +43,55 @@ const UserSchema: Schema = new Schema<IUser>(
           type: Number,
           required: [true, "Please provide a weight"],
         },
+      },
+    ],
+    workouts: [
+      {
+        title: {
+          type: String,
+          required: [true, "Please provide a title"],
+        },
+        streak: {
+          type: Number,
+          required: [true, "Please provide a streak value"],
+        },
+        checkIns: {
+          type: Number,
+          required: [true, "Please provide a check-ins count"],
+        },
+        done: {
+          type: Boolean,
+          required: [true, "Please specify if the workout is done"],
+        },
+        muscles: {
+          type: [String],
+          required: false,
+        },
+        type: {
+          type: String,
+          required: [true, "Please provide a workout type"],
+          enum: ["Strength", "Cardio"],
+        },
+        duration: {
+          type: Number,
+          required: false,
+        },
+        color: {
+          type: String,
+          required: false,
+        },
+        days: [
+          {
+            date: {
+              type: String,
+              required: [true, "Please provide a date"],
+            },
+            done: {
+              type: Boolean,
+              required: [true, "Please specify if the day is marked as done"],
+            },
+          },
+        ],
       },
     ],
     sleeps: [

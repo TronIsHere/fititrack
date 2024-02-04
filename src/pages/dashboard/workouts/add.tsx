@@ -20,8 +20,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
+import { addWorkoutToServer } from "@/services/workout";
+import { useSession } from "next-auth/react";
 
 const AddWorkout: MyPage = () => {
+  const session = useSession();
   const { nameWorkout, selectedColor, handleNameChange, handleColorSelect } =
     useWorkoutDetails();
   const {
@@ -49,9 +52,8 @@ const AddWorkout: MyPage = () => {
   };
 
   const workoutsState = useAppSelector((state) => state.workout.workouts);
-  const addHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const addHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const newWorkout: TWorkout = {
-      id: workoutsState.length + 1, // Modify according to your ID generation logic
       title: nameWorkout,
       checkIns: 0,
       created: new Date().toISOString(),
@@ -66,12 +68,22 @@ const AddWorkout: MyPage = () => {
           ? parseInt(workoutDuration) * 60
           : parseInt(workoutDuration),
     };
-    dispatch(addWorkout(newWorkout));
-    toast({
-      variant: "success",
-      description: "Workout added ",
-    });
-    router.push("/dashboard/workouts");
+    const email = session.data?.user?.email;
+    const response = await addWorkoutToServer(newWorkout, email!);
+    console.log(response);
+    if (response.message == "success") {
+      dispatch(addWorkout({ workout: newWorkout, id: response.newWorkoutId }));
+      toast({
+        variant: "success",
+        description: "Workout added ",
+      });
+      router.push("/dashboard/workouts");
+    } else {
+      toast({
+        variant: "destructive",
+        description: "Something went wrong please try again later.",
+      });
+    }
   };
 
   return (

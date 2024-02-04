@@ -8,7 +8,7 @@ export type TSleep = {
   to: string;
 };
 export type TWorkout = {
-  id: any;
+  id?: any;
   created?: string;
   title: string;
   streak: number;
