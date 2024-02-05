@@ -1,29 +1,36 @@
 import { useAppSelector } from "@/hooks/storeHooks";
 import { getCurrentWeek } from "@/lib/dateUtils";
 import { calculateTotalSleepPerDay, groupByDayOfWeek } from "@/lib/timeUtils";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import SleepBar from "../sleepBar";
 
 export const SleepChart: FC = () => {
   const { startOfWeek, endOfWeek } = getCurrentWeek();
-  // Filter the sleep data for the current week
 
-  const sleepData = useAppSelector((state) => {
-    return state.user.sleep.filter((sleepEntry) => {
+  const sleepData = useAppSelector((state) => state.user.sleep);
+
+  const filteredSleepData = useMemo(() => {
+    return sleepData.filter((sleepEntry) => {
       const entryDate = new Date(sleepEntry.date);
-
       return entryDate >= startOfWeek && entryDate <= endOfWeek;
     });
-  });
+  }, [sleepData, startOfWeek, endOfWeek]); // Dependencies
 
-  const groupedData = groupByDayOfWeek(sleepData);
+  const groupedData = useMemo(
+    () => groupByDayOfWeek(filteredSleepData),
+    [filteredSleepData]
+  );
+
   const maxSleepHour = 8;
   type DayOfWeek = keyof typeof groupedData;
-  const sleepHoursByDay = (Object.keys(groupedData) as DayOfWeek[]).map(
-    (day) => ({
-      day,
-      sleepHours: calculateTotalSleepPerDay(groupedData[day]),
-    })
+
+  const sleepHoursByDay = useMemo(
+    () =>
+      (Object.keys(groupedData) as DayOfWeek[]).map((day) => ({
+        day,
+        sleepHours: calculateTotalSleepPerDay(groupedData[day]),
+      })),
+    [groupedData]
   );
 
   // const maxSleep = Math.max(

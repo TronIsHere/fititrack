@@ -26,6 +26,7 @@ const DashboardPage: MyPage = () => {
   const [toTime, setToTime] = useState<string>("7:00");
   const darkModeState = useAppSelector((state) => state.user.darkMode);
   const workoutsState = useAppSelector((state) => state.workout.workouts);
+  const userState = useAppSelector((state) => state.user);
 
   const dispatch = useAppDispatch();
   const isNewDay = useLastVisited();
@@ -40,36 +41,44 @@ const DashboardPage: MyPage = () => {
     if (isNewDay) {
       setOpen(true);
     }
-
+  }, [session.data, isNewDay]);
+  useEffect(() => {
+    if (!session.data) {
+      router.push("/");
+      return;
+    }
     const initializeUserData = async () => {
-      const userEmail = session.data.user?.email;
-      if (userEmail) {
-        const userData = await fetchUserData(userEmail);
+      if (!userState || !workoutsState) {
+        console.log("first");
+        const userEmail = session.data.user?.email;
+        if (userEmail) {
+          const userData = await fetchUserData(userEmail);
 
-        if (userData) {
-          dispatch(
-            initData({
-              darkMode: userData.darkMode,
-              weight: userData.weight,
-              age: userData.age,
-              email: userData.email,
-              sleep: userData.sleep,
-              level: userData.level,
-              maxXp: userData.maxXp,
-              xp: userData.xp,
-              name: userData.name,
-            })
-          );
+          if (userData) {
+            dispatch(
+              initData({
+                darkMode: userData.darkMode,
+                weight: userData.weight,
+                age: userData.age,
+                email: userData.email,
+                sleep: userData.sleep,
+                level: userData.level,
+                maxXp: userData.maxXp,
+                xp: userData.xp,
+                name: userData.name,
+              })
+            );
 
-          dispatch(initWorkouts(userData.workouts));
-        } else {
-          // Handle case where userData is null
+            dispatch(initWorkouts(userData.workouts));
+          } else {
+            // Handle case where userData is null
+          }
         }
       }
     };
 
     initializeUserData();
-  }, [session.data, isNewDay]);
+  }, []);
 
   const handleLogClick = () => {
     //TODO: THIS IS NOT CONNECTED TO DATABASE
