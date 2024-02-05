@@ -1,6 +1,5 @@
 import { useAppSelector } from "@/hooks/storeHooks";
 import Image from "next/image";
-import React, { useState } from "react";
 import { AiFillBuild } from "react-icons/ai";
 import { Progress } from "../ui/progress";
 const CharacterComponent = () => {

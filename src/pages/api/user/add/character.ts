@@ -12,23 +12,43 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await ConnectToDatabase();
 
   try {
-    const updateResult = await UserModel.findOneAndUpdate(
-      { email: email },
-      field === "xp"
-        ? { $inc: { "character.xp": data } } // Increment the xp by the data amount
-        : { $set: { [`character.${field}`]: data } }, // Otherwise, set the specified field
-      { new: true }
-    );
+    const user = await UserModel.findOne({ email: email });
 
-    if (!updateResult) {
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
+    if (field === "xp") {
+      user.character.xp += data;
+
+      if (user.character.xp >= user.character.maxXP) {
+        // Level up
+        user.character.level += 1;
+        user.character.xp -= user.character.maxXP;
+
+        // Update maxXP with growth factor and randomness
+        const increaseFactor = 2; // Adjust this factor to control the growth rate
+        const randomness = 0.3; // Maximum percentage of randomness
+        const randomAdjustment =
+          1 + Math.random() * randomness - randomness / 2;
+        user.character.maxXP = Math.floor(
+          user.character.maxXP * increaseFactor * randomAdjustment
+        );
+      }
+    } else {
+      // Handle other fields
+      user.set(`character.${field}`, data);
+    }
+
+    const updateResult = await user.save();
 
     res
       .status(200)
       .json({ message: "Character updated successfully", data: updateResult });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 export default Handler;

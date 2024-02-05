@@ -66,29 +66,6 @@ const WorkoutComponent: NextPage<workoutProps> = ({
       updateWorkoutState(updatedDays, yesterdayWasDone);
     }
   }, [workoutState.days, hasWorkout]);
-  // useEffect(() => {
-  //   const performAsyncOperation = async () => {
-  //     if (workoutState && session.data?.user?.email) {
-  //       try {
-  //         await updateWorkoutOnServer(
-  //           workoutState._id,
-  //           session.data.user.email,
-  //           workoutState
-  //         );
-
-  //         dispatch(
-  //           updateSingleWorkout({
-  //             id: workoutState._id,
-  //             updatedWorkout: workoutState,
-  //           })
-  //         );
-  //       } catch (error) {
-  //         console.error("Error updating workout:", error);
-  //       }
-  //     }
-  //   };
-  //   performAsyncOperation();
-  // }, [workoutState, session.data?.user?.email, dispatch]);
   const handleWorkout = async () => {
     let newWorkoutData;
     setWorkoutState((prevState) => {
@@ -136,12 +113,11 @@ const WorkoutComponent: NextPage<workoutProps> = ({
     if (newWorkoutData && session.data?.user?.email) {
       try {
         await updateWorkoutOnServer(
-          newWorkoutData!._id, // make sure this is the correct ID
+          newWorkoutData!._id,
           session.data.user.email,
-          newWorkoutData // Assuming this is the updated state you want to send
+          newWorkoutData
         );
 
-        // Optional: Dispatch an action if needed
         dispatch(
           updateSingleWorkout({
             id: newWorkoutData!._id,
@@ -150,7 +126,6 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         );
       } catch (error) {
         console.error("Error updating workout:", error);
-        // Handle the error appropriately
       }
     }
   };
