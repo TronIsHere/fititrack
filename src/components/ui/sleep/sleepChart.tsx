@@ -11,7 +11,7 @@ export const SleepChart: FC = () => {
   const sleepData = useAppSelector((state) => {
     return state.user.sleep.filter((sleepEntry) => {
       const entryDate = new Date(sleepEntry.date);
-      console.log(entryDate >= startOfWeek && entryDate <= endOfWeek, 2);
+
       return entryDate >= startOfWeek && entryDate <= endOfWeek;
     });
   });

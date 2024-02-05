@@ -20,7 +20,6 @@ const WorkoutsPage: MyPage = () => {
     workoutId: number
   ) => {
     if (type == "delete") {
-      console.log(workoutId);
       const response = await deleteWorkoutFromServer(
         workoutId,
         session.data?.user?.email!

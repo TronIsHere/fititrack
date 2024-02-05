@@ -12,12 +12,7 @@ import useLastVisited from "@/hooks/lastVisited";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { isTimesValid } from "@/lib/timeUtils";
 import { fetchUserData } from "@/services/user";
-import {
-  initData,
-  newSleep,
-  newWeight,
-  UserState,
-} from "@/store/slices/userSlice";
+import { initData, newSleep, newWeight } from "@/store/slices/userSlice";
 import { initWorkouts } from "@/store/slices/workoutSlice";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -52,7 +47,6 @@ const DashboardPage: MyPage = () => {
         const userData = await fetchUserData(userEmail);
 
         if (userData) {
-          console.log(userData, 1);
           dispatch(
             initData({
               darkMode: userData.darkMode,
@@ -78,6 +72,7 @@ const DashboardPage: MyPage = () => {
   }, [session.data, isNewDay]);
 
   const handleLogClick = () => {
+    //TODO: THIS IS NOT CONNECTED TO DATABASE
     // Dispatch newWeight and newSleep actions with the data
     if (weightData !== "") {
       const weightEntry = {

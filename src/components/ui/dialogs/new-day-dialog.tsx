@@ -11,7 +11,6 @@ import { FC } from "react";
 import { Button } from "../button";
 import { Input } from "../input";
 import { Label } from "../label";
-
 interface DialogProps {
   openState: boolean;
   OpenCallback: (value: boolean) => void;

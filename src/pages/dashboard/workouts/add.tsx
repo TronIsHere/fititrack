@@ -70,7 +70,7 @@ const AddWorkout: MyPage = () => {
     };
     const email = session.data?.user?.email;
     const response = await addWorkoutToServer(newWorkout, email!);
-    console.log(response);
+
     if (response.message == "success") {
       dispatch(addWorkout({ workout: newWorkout, id: response.newWorkoutId }));
       toast({

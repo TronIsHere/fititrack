@@ -18,6 +18,7 @@ import { renderEditButtons } from "../ui/workout/edit-button";
 import { renderDayGrid } from "../ui/workout/render-day-grid";
 import moment from "moment";
 import { useWorkoutUpdater } from "@/hooks/workout/useWorkoutUpdater";
+import { updateWorkoutOnServer } from "@/services/workout";
 
 interface workoutProps {
   workout: TWorkout;
@@ -65,8 +66,30 @@ const WorkoutComponent: NextPage<workoutProps> = ({
       updateWorkoutState(updatedDays, yesterdayWasDone);
     }
   }, [workoutState.days, hasWorkout]);
+  // useEffect(() => {
+  //   const performAsyncOperation = async () => {
+  //     if (workoutState && session.data?.user?.email) {
+  //       try {
+  //         await updateWorkoutOnServer(
+  //           workoutState._id,
+  //           session.data.user.email,
+  //           workoutState
+  //         );
 
-  const handleWorkout = () => {
+  //         dispatch(
+  //           updateSingleWorkout({
+  //             id: workoutState._id,
+  //             updatedWorkout: workoutState,
+  //           })
+  //         );
+  //       } catch (error) {
+  //         console.error("Error updating workout:", error);
+  //       }
+  //     }
+  //   };
+  //   performAsyncOperation();
+  // }, [workoutState, session.data?.user?.email, dispatch]);
+  const handleWorkout = async () => {
     setWorkoutState((prevState) => {
       const today = moment().startOf("day");
 
@@ -107,15 +130,28 @@ const WorkoutComponent: NextPage<workoutProps> = ({
         streak: newStreak,
       };
 
-      dispatch(
-        updateSingleWorkout({
-          id: prevState._id,
-          updatedWorkout: newWorkoutData,
-        })
-      );
-
       return newWorkoutData;
     });
+    if (workoutState && session.data?.user?.email) {
+      try {
+        await updateWorkoutOnServer(
+          workoutState._id, // make sure this is the correct ID
+          session.data.user.email,
+          workoutState // Assuming this is the updated state you want to send
+        );
+
+        // Optional: Dispatch an action if needed
+        dispatch(
+          updateSingleWorkout({
+            id: workoutState._id,
+            updatedWorkout: workoutState,
+          })
+        );
+      } catch (error) {
+        console.error("Error updating workout:", error);
+        // Handle the error appropriately
+      }
+    }
   };
 
   return (
