@@ -90,6 +90,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
   //   performAsyncOperation();
   // }, [workoutState, session.data?.user?.email, dispatch]);
   const handleWorkout = async () => {
+    let newWorkoutData;
     setWorkoutState((prevState) => {
       const today = moment().startOf("day");
 
@@ -122,7 +123,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
 
       const newStreak = calculateStreak(updatedDays);
 
-      const newWorkoutData = {
+      newWorkoutData = {
         ...prevState,
         days: updatedDays,
         checkIns: updatedCheckIns,
@@ -132,19 +133,19 @@ const WorkoutComponent: NextPage<workoutProps> = ({
 
       return newWorkoutData;
     });
-    if (workoutState && session.data?.user?.email) {
+    if (newWorkoutData && session.data?.user?.email) {
       try {
         await updateWorkoutOnServer(
-          workoutState._id, // make sure this is the correct ID
+          newWorkoutData!._id, // make sure this is the correct ID
           session.data.user.email,
-          workoutState // Assuming this is the updated state you want to send
+          newWorkoutData // Assuming this is the updated state you want to send
         );
 
         // Optional: Dispatch an action if needed
         dispatch(
           updateSingleWorkout({
-            id: workoutState._id,
-            updatedWorkout: workoutState,
+            id: newWorkoutData!._id,
+            updatedWorkout: newWorkoutData,
           })
         );
       } catch (error) {
