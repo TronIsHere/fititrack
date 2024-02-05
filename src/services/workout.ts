@@ -21,3 +21,20 @@ export const deleteWorkoutFromServer = async (
   });
   return response.data;
 };
+export const updateWorkoutOnServer = async (
+  id: number,
+  email: string,
+  updatedWorkout: any
+) => {
+  try {
+    const response = await axios.patch("/api/user/update/workout", {
+      workoutId: id,
+      email, // assuming email is available in session
+      updatedWorkout,
+    });
+
+    console.log("Workout updated:", response.data);
+  } catch (error) {
+    console.error("Error updating workout:", error);
+  }
+};
