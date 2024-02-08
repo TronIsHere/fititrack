@@ -1,6 +1,6 @@
 import DashboardLayout from "@/components/layouts/dashboardLayout";
-import { MyPage } from "@/components/types/nextjs";
 import { TWorkout } from "@/components/types/DataTypes";
+import { MyPage } from "@/components/types/nextjs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +15,9 @@ import useMusclesSelect from "@/hooks/workout/useMuscleSelect";
 import useWorkoutDetails from "@/hooks/workout/useWorkoutDetails";
 import useWorkoutFrequency from "@/hooks/workout/useWorkoutFrequency";
 import useWorkoutType from "@/hooks/workout/useWorkoutType";
+import { updateWorkoutOnServer } from "@/services/workout";
 import { updateSingleWorkout } from "@/store/slices/workoutSlice";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -42,6 +44,7 @@ const EditWorkout: MyPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { toast } = useToast();
+  const session = useSession();
   const [workoutDuration, setWorkoutDuration] = useState<string>("");
   const [durationUnit, setDurationUnit] = useState<"Minutes" | "Hours">(
     "Minutes"
@@ -59,9 +62,12 @@ const EditWorkout: MyPage = () => {
   const workoutsState = useAppSelector((state) => state.workout.workouts);
   useEffect(() => {
     // Find the workout with the given ID
-
+    // console.log(workoutID, 1);
     const workoutToEdit: TWorkout | undefined = workoutsState.find(
-      (workout) => workout.id === parseInt(workoutID!)
+      (workout) => {
+        console.log(typeof workout._id);
+        return workout._id === workoutID!;
+      }
     );
 
     if (workoutToEdit) {
@@ -74,9 +80,9 @@ const EditWorkout: MyPage = () => {
       router.push("/dashboard/workouts");
     }
   }, [workoutID]);
-  const EditHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const EditHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const workoutToEdit: TWorkout | undefined = workoutsState.find(
-      (workout) => workout.id === parseInt(workoutID!)
+      (workout) => workout._id === workoutID!
     );
     if (workoutToEdit) {
       const updatedWorkout: TWorkout = {
@@ -90,13 +96,26 @@ const EditWorkout: MyPage = () => {
             ? parseInt(workoutDuration) * 60
             : parseInt(workoutDuration),
       };
-
-      dispatch(updateSingleWorkout({ id: updatedWorkout.id, updatedWorkout }));
-      toast({
-        variant: "success",
-        description: "Workout updated",
-      });
-      router.push("/dashboard/workouts");
+      if (session.data?.user?.email) {
+        await updateWorkoutOnServer(
+          workoutToEdit._id,
+          session.data.user.email,
+          updatedWorkout
+        );
+        dispatch(
+          updateSingleWorkout({ id: updatedWorkout._id, updatedWorkout })
+        );
+        toast({
+          variant: "success",
+          description: "Workout updated",
+        });
+        router.push("/dashboard/workouts");
+      } else {
+        toast({
+          variant: "destructive",
+          description: "Something went wrong",
+        });
+      }
     } else {
       // Handle the case where no workout is found
       toast({

@@ -11,6 +11,7 @@ import { toast } from "@/components/ui/toasts/use-toast";
 import useLastVisited from "@/hooks/lastVisited";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { isTimesValid } from "@/lib/timeUtils";
+import { capitalizeFirstLetter } from "@/lib/utils";
 import { fetchUserData } from "@/services/user";
 import { initData, newSleep, newWeight } from "@/store/slices/userSlice";
 import { initWorkouts } from "@/store/slices/workoutSlice";
@@ -49,7 +50,6 @@ const DashboardPage: MyPage = () => {
     }
     const initializeUserData = async () => {
       if (!userState || !workoutsState) {
-        console.log("first");
         const userEmail = session.data.user?.email;
         if (userEmail) {
           const userData = await fetchUserData(userEmail);
@@ -129,19 +129,20 @@ const DashboardPage: MyPage = () => {
       />
       <div>
         <span className="mt-4 block text-lg">
-          Welcome <strong>Erwin</strong>, good morning
+          Welcome <strong>{capitalizeFirstLetter(userState.name)}</strong>, good
+          morning
         </span>
         <div className="flex flex-col md:flex-row">
           <div className="flex mt-10">
             <WeightComponent
               darkModeDialog={darkModeState}
-              email={session.data!.user?.email! || ""}
+              email={session.data?.user?.email! || ""}
             ></WeightComponent>
           </div>
           <div className="flex mt-10 ml-0 md:ml-6">
             <SleepComponent
               darkModeDialog={darkModeState}
-              email={session.data!.user?.email! || ""}
+              email={session.data?.user?.email! || ""}
             />
           </div>
           <div className="flex mt-10 w-full ml-0 md:ml-6 ">
