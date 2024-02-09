@@ -10,6 +10,7 @@ export interface IUser extends Document {
   workouts: TWorkout[];
   sleeps: TSleep[];
   weights: TWeight[];
+  isVerified: boolean;
 }
 
 const UserSchema: Schema = new Schema<IUser>(
@@ -123,6 +124,11 @@ const UserSchema: Schema = new Schema<IUser>(
         type: Number,
         default: 0,
       },
+    },
+    isVerified: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   {

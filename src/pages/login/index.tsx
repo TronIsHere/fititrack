@@ -1,8 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/ui/loading-button";
 import { useToast } from "@/components/ui/toasts/use-toast";
-import { hashPassword } from "@/lib/authUtils";
 import {
   LoginValidator,
   TLoginValidator,
@@ -38,6 +36,7 @@ const LoginPage: NextPage = () => {
       email,
       password,
     });
+
     if (!result?.error) {
       toast({
         variant: "success",

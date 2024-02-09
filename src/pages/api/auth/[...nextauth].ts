@@ -25,6 +25,7 @@ const nextAuthOptions: NextAuthOptions = {
           email: string;
           password: string;
         };
+
         if (!credentials) {
           throw new Error("Credentials are missing!");
         }

@@ -52,17 +52,17 @@ const RegisterPage: NextPage = () => {
             "Email already registered. Please log in or reset your password if needed.",
         });
       } else if (response.status === 201) {
-        await signIn("credentials", {
-          redirect: false,
-          email,
-          password,
-        });
+        // await signIn("credentials", {
+        //   redirect: false,
+        //   email,
+        //   password,
+        // });
         toast({
           variant: "success",
-          description: "Register complete. Welcome!",
+          description: "Register complete. Please Verify!",
           duration: 500,
         });
-        router.push("/dashboard");
+        // router.push("/dashboard");
       }
     } catch (error) {
       toast({

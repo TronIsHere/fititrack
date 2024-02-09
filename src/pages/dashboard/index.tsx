@@ -49,9 +49,11 @@ const DashboardPage: MyPage = () => {
       return;
     }
     const initializeUserData = async () => {
-      if (!userState || !workoutsState) {
+      // if (!userState || !workoutsState) { //TODO: Returns previous data
+      if (true) {
         const userEmail = session.data.user?.email;
         if (userEmail) {
+          console.log(userEmail, 1);
           const userData = await fetchUserData(userEmail);
 
           if (userData) {

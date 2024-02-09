@@ -4,6 +4,8 @@ import { hashPassword } from "@/lib/authUtils";
 import UserModel from "@/models/User";
 import { Resend } from "resend";
 import EmailTemplate from "@/components/email/emailTemplate";
+import { generateVerificationToken } from "@/lib/tokenUtils";
+import TokenModel from "@/models/token";
 
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
@@ -27,33 +29,37 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await ConnectToDatabase();
 
   try {
-    // const db = client.db();
-    // const existingUser = await UserModel.findOne({ email });
+    const { token } = await generateVerificationToken(email);
 
-    // if (existingUser) {
-    //   return res.status(409).json({ message: "User already exists" });
-    // }
+    const existingUser = await UserModel.findOne({ email });
+
+    if (existingUser) {
+      return res.status(409).json({ message: "User already exists" });
+    }
+    await TokenModel.create({
+      email,
+      token,
+    });
     const resend = new Resend(process.env.RESEND_API_TOKEN);
-    const confirmLink = `http://localhost:3000/auth/verification?${"token"}`;
+    const confirmLink = `http://localhost:3000/verification?token=${token}`;
     await resend.emails.send({
       from: "onboarding@resend.dev",
       to: email,
       subject: "Confirm your email",
-      // html: `<p>it works! <a href="${confirmLink}">here</a></p>`,
-      react: EmailTemplate({ userFirstname: "erwin" }),
+      react: EmailTemplate({ userFirstname: name, verifyLink: confirmLink }),
     });
-    // const hashedPassword = await hashPassword(password);
+    const hashedPassword = await hashPassword(password);
 
-    // await UserModel.create({
-    //   email,
-    //   age: 20,
-    //   password: hashedPassword,
-    //   name,
-    // });
-    res.status(409).json({ message: "User created successfully" });
+    await UserModel.create({
+      email,
+      age: 20,
+      password: hashedPassword,
+      name,
+    });
+    res.status(201).json({ message: "User created successfully" });
   } catch (error) {
+    console.error("Error in token lookup:", error);
     res.status(500).json({ message: "Internal server error" });
-  } finally {
   }
 };
 

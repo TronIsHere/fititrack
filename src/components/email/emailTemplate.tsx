@@ -14,14 +14,16 @@ import * as React from "react";
 
 interface KoalaWelcomeEmailProps {
   userFirstname: string;
+  verifyLink: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "";
 
-export const KoalaWelcomeEmail = ({
+export const EmailTemplate = ({
   userFirstname,
+  verifyLink,
 }: KoalaWelcomeEmailProps) => (
   <Html>
     <Head />
@@ -45,7 +47,7 @@ export const KoalaWelcomeEmail = ({
           with engaging and rewarding experiences
         </Text>
         <Section style={btnContainer}>
-          <Button style={button} href="https://getkoala.com">
+          <Button style={button} href={verifyLink}>
             Verify Email
           </Button>
         </Section>
@@ -63,11 +65,7 @@ export const KoalaWelcomeEmail = ({
   </Html>
 );
 
-KoalaWelcomeEmail.PreviewProps = {
-  userFirstname: "Alan",
-} as KoalaWelcomeEmailProps;
-
-export default KoalaWelcomeEmail;
+export default EmailTemplate;
 
 const main = {
   backgroundColor: "#ffffff",
