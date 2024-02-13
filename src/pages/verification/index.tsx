@@ -11,7 +11,6 @@ const VerificationPage = ({}) => {
   const { toast } = useToast();
   useEffect(() => {
     const verifyAndSignIn = async () => {
-      console.log(token);
       if (!token) {
         // Show error
         toast({
