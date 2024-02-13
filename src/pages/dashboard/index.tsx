@@ -12,7 +12,11 @@ import useLastVisited from "@/hooks/lastVisited";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { isTimesValid } from "@/lib/timeUtils";
 import { capitalizeFirstLetter } from "@/lib/utils";
-import { fetchUserData } from "@/services/user";
+import {
+  addSleepToServer,
+  addWeightToServer,
+  fetchUserData,
+} from "@/services/user";
 import { initData, newSleep, newWeight } from "@/store/slices/userSlice";
 import { initWorkouts } from "@/store/slices/workoutSlice";
 import { getSession, useSession } from "next-auth/react";
@@ -82,14 +86,15 @@ const DashboardPage: MyPage = () => {
     initializeUserData();
   }, []);
 
-  const handleLogClick = () => {
-    //TODO: THIS IS NOT CONNECTED TO DATABASE
+  const handleLogClick = async () => {
+    const email = session.data!.user?.email;
     // Dispatch newWeight and newSleep actions with the data
     if (weightData !== "") {
       const weightEntry = {
         date: new Date().toISOString(),
         weight: parseFloat(weightData), // Convert string to a number
       };
+      await addWeightToServer(weightEntry, email!);
       dispatch(newWeight(weightEntry));
     }
 
@@ -100,6 +105,8 @@ const DashboardPage: MyPage = () => {
           from: fromTime,
           to: toTime,
         };
+
+        await addSleepToServer(sleepEntry, email!);
         dispatch(newSleep(sleepEntry));
         setOpen(false);
       } else {
