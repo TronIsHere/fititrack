@@ -4,11 +4,11 @@ import axios from "axios";
 export const fetchUserData = async (userEmail: string) => {
   try {
     const response = await axios.post("/api/user", { email: userEmail });
-    const { character, email, name, age, weights, sleeps, workouts } =
+    const { character, email, name, dob, weights, sleeps, workouts } =
       response.data.data;
 
     return {
-      age,
+      dob,
       email,
       maxXp: character.maxXP,
       xp: character.xp,

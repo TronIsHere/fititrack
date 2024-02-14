@@ -9,7 +9,9 @@ export const LoginValidator = z.object({
 export const RegisterValidator = z
   .object({
     email: z.string().email(),
-    dob: z.date(),
+    dob: z.string().refine((data) => new Date(data) <= new Date(), {
+      message: "Date of birth cannot be in the future",
+    }),
     name: z
       .string()
       .min(4, { message: "Your Name and Last name is too short" }),

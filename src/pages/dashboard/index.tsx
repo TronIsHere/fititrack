@@ -65,7 +65,7 @@ const DashboardPage: MyPage = () => {
               initData({
                 darkMode: userData.darkMode,
                 weight: userData.weight,
-                age: userData.age,
+                dob: userData.dob,
                 email: userData.email,
                 sleep: userData.sleep,
                 level: userData.level,

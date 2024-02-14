@@ -1,12 +1,13 @@
 import { TSleep, TWeight } from "@/components/types/DataTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import moment from "moment";
 import { RootState } from "../store";
 
 // Define a type for the slice state
 export interface UserState {
   darkMode: boolean;
   weight: TWeight[];
-  age: number;
+  dob: Date;
   email: string;
   sleep: TSleep[];
   level: number;
@@ -19,7 +20,7 @@ export interface UserState {
 const initialState: UserState = {
   name: "erwin aghajani",
   darkMode: false,
-  age: 20,
+  dob: moment("2000-02-20").toDate(),
   email: "erwin.aghajani@gmail.com",
   sleep: [
     {

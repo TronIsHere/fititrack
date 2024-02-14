@@ -6,6 +6,7 @@ import { Resend } from "resend";
 import EmailTemplate from "@/components/email/emailTemplate";
 import { generateVerificationToken } from "@/lib/tokenUtils";
 import TokenModel from "@/models/token";
+import moment from "moment";
 
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
@@ -49,10 +50,10 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
       react: EmailTemplate({ userFirstname: name, verifyLink: confirmLink }),
     });
     const hashedPassword = await hashPassword(password);
-
+    const dob = moment("2000-02-20").toDate();
     await UserModel.create({
       email,
-      age: 20,
+      dob,
       password: hashedPassword,
       name,
     });
