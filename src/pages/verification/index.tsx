@@ -1,5 +1,5 @@
 import { useToast } from "@/components/ui/toasts/use-toast";
-import { getTokenVerificationOnServer } from "@/services/token";
+import { getTokenVerificationOnServer } from "@/services/tokenServices";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";

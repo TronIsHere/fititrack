@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useAppDispatch } from "@/hooks/storeHooks";
 import { isTimesValid } from "@/lib/timeUtils";
-import { addSleepToServer } from "@/services/user";
+import { addSleepToServer } from "@/services/userServices";
 import { newSleep } from "@/store/slices/userSlice";
 import { FC, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";

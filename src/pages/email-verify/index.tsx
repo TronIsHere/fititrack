@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toasts/use-toast";
 import { useAppSelector } from "@/hooks/storeHooks";
-import { ResendTokenOnServer } from "@/services/token";
+import { ResendTokenOnServer } from "@/services/tokenServices";
 import { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";

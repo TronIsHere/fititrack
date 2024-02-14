@@ -15,7 +15,7 @@ import useMusclesSelect from "@/hooks/workout/useMuscleSelect";
 import useWorkoutDetails from "@/hooks/workout/useWorkoutDetails";
 import useWorkoutFrequency from "@/hooks/workout/useWorkoutFrequency";
 import useWorkoutType from "@/hooks/workout/useWorkoutType";
-import { updateWorkoutOnServer } from "@/services/workout";
+import { updateWorkoutOnServer } from "@/services/workoutServices";
 import { updateSingleWorkout } from "@/store/slices/workoutSlice";
 import { useSession } from "next-auth/react";
 import Link from "next/link";

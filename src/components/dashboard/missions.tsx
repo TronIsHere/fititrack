@@ -13,7 +13,7 @@ import { addXp } from "@/store/slices/userSlice";
 import { TMission } from "../types/DataTypes";
 
 import { useSession } from "next-auth/react";
-import { addXPToServer } from "@/services/user";
+import { addXPToServer } from "@/services/userServices";
 export const MissionsComponent = () => {
   const dispatch = useDispatch();
   const allMissions = useAppSelector((state) => state.mission.missions);

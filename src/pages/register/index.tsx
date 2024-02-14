@@ -6,7 +6,7 @@ import {
   RegisterValidator,
   TRegisterValidator,
 } from "@/lib/validators/AuthValidator";
-import { createUser } from "@/services/user";
+import { createUser } from "@/services/userServices";
 import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NextPage } from "next";

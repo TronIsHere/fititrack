@@ -16,7 +16,7 @@ import {
   addSleepToServer,
   addWeightToServer,
   fetchUserData,
-} from "@/services/user";
+} from "@/services/userServices";
 import { initData, newSleep, newWeight } from "@/store/slices/userSlice";
 import { initWorkouts } from "@/store/slices/workoutSlice";
 import { getSession, useSession } from "next-auth/react";

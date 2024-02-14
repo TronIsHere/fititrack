@@ -3,7 +3,7 @@ import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { TWorkout } from "@/components/types/DataTypes";
 import { MyPage } from "@/components/types/nextjs";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
-import { deleteWorkoutFromServer } from "@/services/workout";
+import { deleteWorkoutFromServer } from "@/services/workoutServices";
 import { updateWorkout } from "@/store/slices/workoutSlice";
 import { useSession } from "next-auth/react";
 import Link from "next/link";

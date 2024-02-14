@@ -7,7 +7,7 @@ import {
 } from "@/lib/utils";
 
 import { useAppDispatch } from "@/hooks/storeHooks";
-import { addXPToServer } from "@/services/user";
+import { addXPToServer } from "@/services/userServices";
 import { addXp } from "@/store/slices/userSlice";
 import { updateSingleWorkout } from "@/store/slices/workoutSlice";
 import { NextPage } from "next";
@@ -18,7 +18,7 @@ import { renderEditButtons } from "../ui/workout/edit-button";
 import { renderDayGrid } from "../ui/workout/render-day-grid";
 import moment from "moment";
 import { useWorkoutUpdater } from "@/hooks/workout/useWorkoutUpdater";
-import { updateWorkoutOnServer } from "@/services/workout";
+import { updateWorkoutOnServer } from "@/services/workoutServices";
 
 interface workoutProps {
   workout: TWorkout;

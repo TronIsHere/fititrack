@@ -20,7 +20,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
-import { addWorkoutToServer } from "@/services/workout";
+import { addWorkoutToServer } from "@/services/workoutServices";
 import { useSession } from "next-auth/react";
 
 const AddWorkout: MyPage = () => {
