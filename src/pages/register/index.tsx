@@ -31,10 +31,12 @@ const RegisterPage: NextPage = () => {
   } = useForm<TRegisterValidator>({
     resolver: zodResolver(RegisterValidator),
   });
+
   const submitHandler = async ({
     email,
     password,
     name,
+    confirmPassword,
   }: TRegisterValidator) => {
     try {
       setLoading(true);
@@ -114,12 +116,25 @@ const RegisterPage: NextPage = () => {
                 <p className="mt-8 text-sm">Password</p>
                 <Input
                   {...register("password")}
+                  isPassword={true}
                   type={"password"}
                   className=" mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
                 />
                 {errors.password && (
                   <p className="text-sm text-palletRed-500 mt-2">
                     {errors.password.message}
+                  </p>
+                )}
+                <p className="mt-8 text-sm">Confirm Password</p>
+                <Input
+                  isPassword={true}
+                  {...register("confirmPassword")}
+                  type={"password"}
+                  className=" mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                />
+                {errors.confirmPassword && (
+                  <p className="text-sm text-palletRed-500 mt-2">
+                    {errors.confirmPassword.message}
                   </p>
                 )}
                 <a

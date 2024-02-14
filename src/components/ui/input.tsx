@@ -31,7 +31,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {isPassword ? (
-          <div className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 pt-2 text-gray-400">
+          <div className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-gray-400">
             {showPassword ? (
               <IoEyeOff
                 className="h-4 w-4"
