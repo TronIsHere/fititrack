@@ -45,9 +45,9 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const confirmLink = `http://localhost:3000/verification?token=${token}`;
     try {
       await resend.emails.send({
-        from: "onboarding@resend.dev",
+        from: "noreply@fitittrack.com",
         to: email,
-        subject: "Confirm your email",
+        subject: "Fitittrack Email Confirmation",
         react: EmailTemplate({ userFirstname: name, verifyLink: confirmLink }),
       });
     } catch (resendError) {
