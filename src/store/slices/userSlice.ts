@@ -7,7 +7,7 @@ import { RootState } from "../store";
 export interface UserState {
   darkMode: boolean;
   weight: TWeight[];
-  dob: Date;
+  dob: string;
   email: string;
   sleep: TSleep[];
   level: number;
@@ -20,7 +20,7 @@ export interface UserState {
 const initialState: UserState = {
   name: "erwin aghajani",
   darkMode: false,
-  dob: moment("2000-02-20").toDate(),
+  dob: "2000-02-20",
   email: "erwin.aghajani@gmail.com",
   sleep: [
     {

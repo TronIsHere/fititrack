@@ -43,14 +43,22 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
     const resend = new Resend(process.env.RESEND_API_TOKEN);
     const confirmLink = `http://localhost:3000/verification?token=${token}`;
-    await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: email,
-      subject: "Confirm your email",
-      react: EmailTemplate({ userFirstname: name, verifyLink: confirmLink }),
-    });
+    try {
+      await resend.emails.send({
+        from: "onboarding@resend.dev",
+        to: email,
+        subject: "Confirm your email",
+        react: EmailTemplate({ userFirstname: name, verifyLink: confirmLink }),
+      });
+    } catch (resendError) {
+      console.error("Error sending email:", resendError);
+      // Optionally, handle the error more gracefully, e.g., rollback user creation or queue the email for a retry.
+      return res
+        .status(500)
+        .json({ message: "Failed to send verification email" });
+    }
     const hashedPassword = await hashPassword(password);
-    const dob = moment("2000-02-20").toDate();
+    const dob = "2000-02-20";
     await UserModel.create({
       email,
       dob,
