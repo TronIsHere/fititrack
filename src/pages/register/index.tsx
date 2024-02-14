@@ -1,15 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/ui/loading-button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { useToast } from "@/components/ui/toasts/use-toast";
-import { hashPassword } from "@/lib/authUtils";
-import { cn } from "@/lib/utils";
 
 import {
   RegisterValidator,
@@ -18,10 +9,8 @@ import {
 import { createUser } from "@/services/user";
 import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns/format";
-import { CalendarIcon } from "lucide-react";
 import { NextPage } from "next";
-import { getSession, signIn } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -32,7 +21,7 @@ import { useSelector } from "react-redux";
 const RegisterPage: NextPage = () => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
   const [loading, setLoading] = useState<boolean>(false);
-  const [date, setDate] = useState<Date>();
+
   const router = useRouter();
   const { toast } = useToast();
   const {
@@ -149,31 +138,17 @@ const RegisterPage: NextPage = () => {
                   </p>
                 )}
                 <p className="mt-8 text-sm">Date of Birth</p>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-full justify-start text-left font-normal mt-2",
-                        !date && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {date ? format(date, "PPP") : <span>Pick a date</span>}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    className="w-auto p-0"
-                    darkMode={darkModeState}
-                  >
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={setDate}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
+
+                <Input
+                  {...register("dob")}
+                  type="date"
+                  className=" mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
+                />
+                {errors.dob && (
+                  <p className="text-sm text-palletRed-500 mt-2">
+                    {errors.dob.message}
+                  </p>
+                )}
                 <a
                   href="#"
                   className="mt-1 text-sm block hover:text-palletPurple-400"
