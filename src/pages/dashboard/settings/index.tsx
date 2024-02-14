@@ -10,22 +10,33 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/toasts/use-toast";
 import { useAppSelector } from "@/hooks/storeHooks";
 import { capitalizeFirstLetter } from "@/lib/utils";
+import {
+  LoginValidator,
+  SettingsGeneralValidator,
+  TLoginValidator,
+  TSettingsGeneralValidator,
+} from "@/lib/validators/AuthValidator";
 import { changeDarkMode, changeName } from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ChangeEvent, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
 const SettingsPage: MyPage = () => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
   const dispatch = useDispatch();
   const [theme, setTheme] = useState<Theme>(darkModeState ? "Dark" : "Light");
-  const [nameState, setNameState] = useState<string>("");
-  const [newPasswordState, setNewPasswordState] = useState<string>("");
-  const [reEnterPasswordState, setReEnterPasswordState] = useState<string>("");
   const name = useAppSelector((state) => state.user.name);
   const email = useAppSelector((state) => state.user.email);
   const { toast } = useToast();
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TSettingsGeneralValidator>({
+    resolver: zodResolver(SettingsGeneralValidator),
+  });
   useEffect(() => {
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
     let isDarkMode =
@@ -36,7 +47,7 @@ const SettingsPage: MyPage = () => {
     }
   }, [theme, darkModeState, dispatch]);
   const saveHandler = () => {
-    dispatch(changeName(nameState));
+    // dispatch(changeName(nameState));
 
     toast({
       variant: "success",
@@ -49,6 +60,9 @@ const SettingsPage: MyPage = () => {
       console.log(file);
       // Handle the file
     }
+  };
+  const handleChangePassword = () => {
+    console.log("first");
   };
   return (
     <>
@@ -67,54 +81,12 @@ const SettingsPage: MyPage = () => {
                   Profile
                 </TabsTrigger>
                 <TabsTrigger
-                  value="password"
-                  className="rounded-none tab-trigger dark:tab-trigger2"
-                >
-                  Password
-                </TabsTrigger>
-                <TabsTrigger
                   value="billing"
                   className="rounded-none tab-trigger dark:tab-trigger2"
                 >
                   Billing
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="password">
-                <div className="flex flex-col w-full md:w-1/2">
-                  <div className="flex flex-col pl-2 pt-3 w-full">
-                    <span className="pl-0.5 ">Current password</span>
-                    <Input
-                      className="border mt-2  text-sm border-palletGray-100 dark:bg-darkPrimary"
-                      isPassword={true}
-                      // onChange={(e) => setNewPasswordState(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex flex-col pl-2 pt-8 w-full">
-                    <span className="pl-0.5 ">New password</span>
-                    <Input
-                      isPassword={true}
-                      className="border mt-2  text-sm border-palletGray-100 dark:bg-darkPrimary"
-                      onChange={(e) => setNewPasswordState(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex flex-col pl-2 pt-8 w-full">
-                    <span className="pl-0.5 ">Confirm new password</span>
-                    <Input
-                      isPassword={true}
-                      className="border mt-2  text-sm border-palletGray-100 dark:bg-darkPrimary"
-                      onChange={(e) => setReEnterPasswordState(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-end mt-10 mb-4 pr-2">
-                  <Button
-                    className={buttonVariants({ variant: "primary" })}
-                    onClick={() => saveHandler()}
-                  >
-                    Change Password
-                  </Button>
-                </div>
-              </TabsContent>
               <TabsContent value="general">
                 <form action="">
                   <div className="pl-2 pt-4 flex flex-col md:flex-row justify-between items-center pr-2">
@@ -141,22 +113,21 @@ const SettingsPage: MyPage = () => {
                         className="hidden"
                         onChange={handleFileChange}
                       />
-                      <label
+                      {/* <label
                         htmlFor="fileInput"
                         className="text-sm mt-5 md:mt-0 w-full md:w-auto bg-palletPurple-300 text-white h-10 rounded-lg px-4 flex justify-center items-center cursor-pointer"
                       >
                         Change avatar
-                      </label>
+                      </label> */}
                     </div>
                   </div>
                   <div className="flex flex-col w-full md:w-1/2">
                     <div className="flex flex-col pl-2 pt-10 w-full">
                       <span className="pl-0.5 ">Name</span>
                       <Input
+                        {...register("name")}
                         defaultValue={name}
-                        type="text"
                         className="border mt-2  text-sm border-palletGray-100 dark:bg-darkPrimary"
-                        onChange={(e) => setNameState(e.target.value)}
                       />
                     </div>
                     <div className="flex flex-col pl-2 pt-8 w-full">
@@ -167,6 +138,31 @@ const SettingsPage: MyPage = () => {
                         className="border border-palletGray-100 mt-2 dark:bg-darkPrimary cursor-not-allowed"
                         disabled
                       />
+                    </div>
+
+                    <div className="flex flex-col pl-2 pt-8 ">
+                      <span className="pl-0.5 ">Date of Birth</span>
+                      <Input
+                        {...register("birth")}
+                        type={"date"}
+                        className="border border-palletGray-100 mt-2 dark:bg-darkPrimary "
+                      />
+                    </div>
+                    <div className="flex flex-col pl-2 pt-8 ">
+                      <span className="pl-0.5 ">Password</span>
+                      <Input
+                        defaultValue={"erwin2525"}
+                        type="password"
+                        className="border border-palletGray-100 mt-2 dark:bg-darkPrimary "
+                        disabled
+                      />
+                      <Button
+                        variant={"trinary"}
+                        className="mt-2"
+                        onClick={handleChangePassword}
+                      >
+                        Change Password
+                      </Button>
                     </div>
 
                     <div className="pl-2 pt-8">
