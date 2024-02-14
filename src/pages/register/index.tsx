@@ -1,7 +1,15 @@
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/ui/loading-button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useToast } from "@/components/ui/toasts/use-toast";
 import { hashPassword } from "@/lib/authUtils";
+import { cn } from "@/lib/utils";
 
 import {
   RegisterValidator,
@@ -10,6 +18,8 @@ import {
 import { createUser } from "@/services/user";
 import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns/format";
+import { CalendarIcon } from "lucide-react";
 import { NextPage } from "next";
 import { getSession, signIn } from "next-auth/react";
 import Image from "next/image";
@@ -22,6 +32,7 @@ import { useSelector } from "react-redux";
 const RegisterPage: NextPage = () => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
   const [loading, setLoading] = useState<boolean>(false);
+  const [date, setDate] = useState<Date>();
   const router = useRouter();
   const { toast } = useToast();
   const {
@@ -36,7 +47,7 @@ const RegisterPage: NextPage = () => {
     email,
     password,
     name,
-    confirmPassword,
+    dob,
   }: TRegisterValidator) => {
     try {
       setLoading(true);
@@ -74,7 +85,7 @@ const RegisterPage: NextPage = () => {
   return (
     <>
       <div className={darkModeState ? "dark" : ""}>
-        <div className="grid grid-cols-1 md:grid-cols-2 h-screen dark:text-white dark:bg-darkPrimary">
+        <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen max-h-full dark:text-white dark:bg-darkPrimary">
           <div className="flex items-center justify-center flex-col ">
             <div className="flex flex-row items-center pt-10 md:pt-0">
               <Link href={"/"}>
@@ -137,6 +148,32 @@ const RegisterPage: NextPage = () => {
                     {errors.confirmPassword.message}
                   </p>
                 )}
+                <p className="mt-8 text-sm">Date of Birth</p>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-full justify-start text-left font-normal mt-2",
+                        !date && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {date ? format(date, "PPP") : <span>Pick a date</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className="w-auto p-0"
+                    darkMode={darkModeState}
+                  >
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={setDate}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
                 <a
                   href="#"
                   className="mt-1 text-sm block hover:text-palletPurple-400"
