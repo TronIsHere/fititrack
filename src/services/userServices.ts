@@ -28,12 +28,14 @@ export const fetchUserData = async (userEmail: string) => {
 export async function createUser(
   email: string,
   password: string,
-  name: string
+  name: string,
+  dob: string
 ) {
   const response = await axios.post("/api/auth/signup", {
     email,
     password,
     name,
+    dob,
   });
   if (!response) {
     return { error: true, message: "Something went wrong." };

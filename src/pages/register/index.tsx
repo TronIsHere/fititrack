@@ -38,7 +38,7 @@ const RegisterPage: MyPage = () => {
     try {
       setLoading(true);
 
-      const response = await createUser(email, password, name);
+      const response = await createUser(email, password, name, dob);
 
       if (response.error) {
         throw new Error("Something went wrong.");

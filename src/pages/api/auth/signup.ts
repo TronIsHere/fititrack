@@ -13,7 +13,7 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(405).end("Method Not Allowed");
   }
 
-  const { email, password, name } = req.body;
+  const { email, password, name, dob } = req.body;
 
   if (
     !email ||
@@ -58,7 +58,6 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
         .json({ message: "Failed to send verification email" });
     }
     const hashedPassword = await hashPassword(password);
-    const dob = "2000-02-20";
     await UserModel.create({
       email,
       dob,
