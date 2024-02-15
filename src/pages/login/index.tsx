@@ -43,6 +43,13 @@ const LoginPage: MyPage = () => {
       });
       router.push("/dashboard");
     } else {
+      if (
+        result.error ===
+        "User account is not verified. Please verify your account."
+      ) {
+        sessionStorage.setItem("emailForVerification", email);
+        router.push("/email-verify");
+      }
       toast({
         variant: "destructive",
         description: result?.error,

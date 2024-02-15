@@ -60,7 +60,6 @@ const RegisterPage: MyPage = () => {
         router.push("/email-verify");
       }
     } catch (error) {
-      console.log(error);
       toast({
         variant: "destructive",
         description: "Please try again later.",

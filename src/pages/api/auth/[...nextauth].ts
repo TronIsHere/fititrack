@@ -35,12 +35,20 @@ const nextAuthOptions: NextAuthOptions = {
         if (!user) {
           throw new Error("Wrong email or password");
         }
+        if (!user.isVerified) {
+          throw new Error(
+            "User account is not verified. Please verify your account."
+          );
+        }
         const isValid = await verifyPassword(password, user.password);
         if (!isValid) {
           throw new Error("Wrong email or password");
         }
 
-        return { id: user._id.toString(), email: user.email };
+        return {
+          id: user._id.toString(),
+          email: user.email,
+        };
       },
     }),
   ],

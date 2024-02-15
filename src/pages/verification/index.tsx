@@ -28,6 +28,7 @@ const VerificationPage = ({}) => {
           description: "Verification complete. Please log in.",
           duration: 5000,
         });
+        sessionStorage.removeItem("emailForVerification");
         router.replace("/login");
       } catch (error) {
         // Handle errors appropriately
