@@ -1,22 +1,21 @@
-import RegistrationForm from "@/components/forms/registrationForm";
+import RegistrationForm from "@/components/forms/auth/registrationForm";
 import AuthLayout from "@/components/layouts/authLayout";
 import { MyPage } from "@/components/types/nextjs";
 import { useToast } from "@/components/ui/toasts/use-toast";
+import { useAppSelector } from "@/hooks/storeHooks";
 import {
   RegisterValidator,
   TRegisterValidator,
 } from "@/lib/validators/AuthValidator";
 import { createUser } from "@/services/userServices";
-import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 
 const RegisterPage: MyPage = () => {
-  const darkModeState = useSelector((state: RootState) => state.user.darkMode);
+  const darkModeState = useAppSelector((state) => state.user.darkMode);
   const [loading, setLoading] = useState<boolean>(false);
 
   const router = useRouter();

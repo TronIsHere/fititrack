@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
-import { Input } from "../ui/input";
-import LoadingButton from "../ui/loading-button";
+import { Input } from "../../ui/input";
+import LoadingButton from "../../ui/loading-button";
 interface LoginFormProps {
   onSubmit: () => void;
   register: any;

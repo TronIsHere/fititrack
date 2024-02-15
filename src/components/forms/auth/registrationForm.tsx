@@ -1,8 +1,9 @@
+import { Input } from "@/components/ui/input";
+import LoadingButton from "@/components/ui/loading-button";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
-import { Input } from "../ui/input";
-import LoadingButton from "../ui/loading-button";
+
 interface RegistrationFormProps {
   onSubmit: () => void;
   register: any; // use the correct type for register

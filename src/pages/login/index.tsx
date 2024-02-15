@@ -1,7 +1,8 @@
-import LoginForm from "@/components/forms/loginForm";
+import LoginForm from "@/components/forms/auth/loginForm";
 import AuthLayout from "@/components/layouts/authLayout";
 import { MyPage } from "@/components/types/nextjs";
 import { useToast } from "@/components/ui/toasts/use-toast";
+import { useAppSelector } from "@/hooks/storeHooks";
 import {
   LoginValidator,
   TLoginValidator,
@@ -12,10 +13,9 @@ import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 
 const LoginPage: MyPage = () => {
-  const darkModeState = useSelector((state: RootState) => state.user.darkMode);
+  const darkModeState = useAppSelector((state) => state.user.darkMode);
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
