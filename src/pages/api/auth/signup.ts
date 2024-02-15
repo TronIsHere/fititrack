@@ -33,8 +33,13 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { token } = await generateVerificationToken(email);
 
     const existingUser = await UserModel.findOne({ email });
+    const existingToken = await TokenModel.findOne({ email });
 
     if (existingUser) {
+      return res.status(409).json({ message: "User already exists" });
+    }
+    console.log(existingToken, 1);
+    if (existingUser === existingToken.email) {
       return res.status(409).json({ message: "User already exists" });
     }
     await TokenModel.create({

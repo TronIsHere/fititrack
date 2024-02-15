@@ -59,11 +59,20 @@ const RegisterPage: MyPage = () => {
         });
         router.push("/email-verify");
       }
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        description: "Please try again later.",
-      });
+    } catch (error: any) {
+      console.log(error.response.status, 1);
+      if (error.response.status == 409) {
+        toast({
+          variant: "destructive",
+          description:
+            "Email already registered. Please log in or reset your password if needed.",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          description: "Please try again later.",
+        });
+      }
     } finally {
       setLoading(false);
     }
