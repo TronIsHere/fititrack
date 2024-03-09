@@ -51,12 +51,12 @@ const LoginForm: FC<LoginFormProps> = ({
             className=" mt-2 rounded-md p-1.5 pl-2 text-sm border-palletGray-100 w-full"
           />
 
-          <a
-            href="#"
+          <Link
+            href="/forgot-password"
             className="mt-1.5 text-sm block hover:text-palletPurple-400"
           >
-            forget your password?
-          </a>
+            forgot your password?
+          </Link>
           {errors.password && (
             <p className="text-sm text-palletRed-500 mt-2">
               {errors.password.message}

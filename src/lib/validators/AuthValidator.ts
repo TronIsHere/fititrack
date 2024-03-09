@@ -6,6 +6,9 @@ export const LoginValidator = z.object({
     .string()
     .min(8, { message: "Password must be at least 8 characters long" }),
 });
+export const ForgotPasswordValidator = z.object({
+  email: z.string().email(),
+});
 export const RegisterValidator = z
   .object({
     email: z.string().email(),
@@ -31,6 +34,7 @@ export const SettingsGeneralValidator = z.object({
   birth: z.date(),
 });
 export type TLoginValidator = z.infer<typeof LoginValidator>;
+export type TForgotPasswordValidator = z.infer<typeof ForgotPasswordValidator>;
 export type TSettingsGeneralValidator = z.infer<
   typeof SettingsGeneralValidator
 >;

@@ -7,7 +7,6 @@ import {
   LoginValidator,
   TLoginValidator,
 } from "@/lib/validators/AuthValidator";
-import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
