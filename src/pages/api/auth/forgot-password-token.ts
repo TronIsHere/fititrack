@@ -20,7 +20,7 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const existingToken = await TokenModel.findOne({ email });
     if (existingUser) {
       const resend = new Resend(process.env.RESEND_API_TOKEN);
-      const confirmLink = `http://localhost:3000/forgotpassword/verify?token=${token}`;
+      const confirmLink = `http://localhost:3000/forgot-password/verify?token=${token}`;
       try {
         await resend.emails.send({
           from: "noreply@fitittrack.com",

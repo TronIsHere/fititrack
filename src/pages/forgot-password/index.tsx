@@ -1,10 +1,8 @@
 import AuthLayout from "@/components/layouts/authLayout";
 import { MyPage } from "@/components/types/nextjs";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/ui/loading-button";
 import { useToast } from "@/components/ui/toasts/use-toast";
-import { useAppSelector } from "@/hooks/storeHooks";
 import {
   ForgotPasswordValidator,
   TForgotPasswordValidator,
