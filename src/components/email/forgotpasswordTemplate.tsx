@@ -12,8 +12,7 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-interface KoalaWelcomeEmailProps {
-  userFirstname: string;
+interface ForgotPasswordEmailProps {
   verifyLink: string;
 }
 
@@ -21,15 +20,12 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "";
 
-export const EmailTemplate = ({
-  userFirstname,
+export const ForgotPasswordEmailTemplate = ({
   verifyLink,
-}: KoalaWelcomeEmailProps) => (
+}: ForgotPasswordEmailProps) => (
   <Html>
     <Head />
-    <Preview>
-      Have fun on your fitness journey with gamification of Fitittrack
-    </Preview>
+    <Preview>Forgot password link for fitittrack</Preview>
     <Body style={main}>
       <Container style={container}>
         <Img
@@ -39,33 +35,32 @@ export const EmailTemplate = ({
           alt="Fitittrack"
           style={logo}
         />
-        <Text style={paragraph}>Hi {userFirstname},</Text>
+        <Text style={paragraph}>Hi,</Text>
         <Text style={paragraph}>
-          Welcome to FititTrack, the gamification fitness habit tracker that
-          motivates you to stay active and healthy. Discover a fun way to build
-          and maintain your fitness routines, helping you achieve your goals
-          with engaging and rewarding experiences
+          our password reset link is ready! Click to update your password and
+          jump right back into FititTrack. Continue your adventure towards
+          better health and fitness with ease. We’re here to support your
+          journey every step of the way. Stay active, stay motivated, and let’s
+          keep moving forward with FititTrack!
         </Text>
         <Section style={btnContainer}>
           <Button style={button} href={verifyLink}>
-            Verify Email
+            Forgot Password Link
           </Button>
         </Section>
         <Text style={paragraph}>
-          Best,
-          <br />
-          Erwin
+          If you didn't request this action please ignore it!
         </Text>
         <Hr style={hr} />
         {/* <Text style={footer}>
-          470 Noor Ave STE B #1148, South San Francisco, CA 94080
-        </Text> */}
+            470 Noor Ave STE B #1148, South San Francisco, CA 94080
+          </Text> */}
       </Container>
     </Body>
   </Html>
 );
 
-export default EmailTemplate;
+export default ForgotPasswordEmailTemplate;
 
 const main = {
   backgroundColor: "#ffffff",
