@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 export const generateVerificationToken = async (email: string) => {
-  console.log(process.env.JWT_SECRET);
   const expiresIn = "1h"; // Token will expire in 1 hour
   const secretKey = process.env.JWT_SECRET;
 

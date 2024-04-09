@@ -6,7 +6,6 @@ import { Resend } from "resend";
 import EmailTemplate from "@/components/email/emailTemplate";
 import { generateVerificationToken } from "@/lib/tokenUtils";
 import TokenModel from "@/models/token";
-import moment from "moment";
 
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
@@ -38,7 +37,6 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (existingUser) {
       return res.status(409).json({ message: "User already exists" });
     }
-    console.log(existingToken, 1);
     if (existingUser === existingToken.email) {
       return res.status(409).json({ message: "User already exists" });
     }

@@ -2,19 +2,43 @@ import AuthLayout from "@/components/layouts/authLayout";
 import { MyPage } from "@/components/types/nextjs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import LoadingButton from "@/components/ui/loading-button";
+import { useToast } from "@/components/ui/toasts/use-toast";
 import { useAppSelector } from "@/hooks/storeHooks";
 import {
   ForgotPasswordValidator,
   TForgotPasswordValidator,
 } from "@/lib/validators/AuthValidator";
+import { SendForgotPasswordEmail } from "@/services/userServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const ForgotPassword: MyPage = () => {
-  const submitHandler = ({ email }: TForgotPasswordValidator) => {
-    console.log(email);
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const { toast } = useToast();
+  const submitHandler = async ({ email }: TForgotPasswordValidator) => {
+    try {
+      setLoading(true);
+
+      const response = await SendForgotPasswordEmail(email);
+      if (response.success == true) {
+        toast({
+          variant: "success",
+          description: "Link sent, please check your email",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          description: "Something went wrong, please try again later",
+        });
+      }
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+    }
   };
   const {
     register,
@@ -57,9 +81,7 @@ const ForgotPassword: MyPage = () => {
               {errors.email.message}
             </p>
           )}
-          <Button variant={"primary"} className="w-full mt-5">
-            Reset Password
-          </Button>
+          <LoadingButton loadingState={isLoading} label="Reset Password" />
         </form>
       </div>
     </>

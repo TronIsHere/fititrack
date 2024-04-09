@@ -1,5 +1,7 @@
 import { TSleep, TWeight } from "@/components/types/DataTypes";
+import { generateVerificationToken } from "@/lib/tokenUtils";
 import axios from "axios";
+import { Resend } from "resend";
 
 export const fetchUserData = async (userEmail: string) => {
   try {
@@ -72,6 +74,12 @@ export const addSleepToServer = async (newSleepData: TSleep, email: string) => {
   const response = await axios.post("/api/user/add/sleep", {
     email,
     ...newSleepData,
+  });
+  return response.data;
+};
+export const SendForgotPasswordEmail = async (email: string) => {
+  const response = await axios.post("/api/auth/forgot-password-token", {
+    email,
   });
   return response.data;
 };
