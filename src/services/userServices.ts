@@ -83,3 +83,15 @@ export const SendForgotPasswordEmail = async (email: string) => {
   });
   return response.data;
 };
+export const VerifyForgotPassword = async (
+  password: string,
+  confirmPassword: string,
+  token: any
+) => {
+  const response = await axios.post("/api/auth/change-password", {
+    password,
+    confirmPassword,
+    token,
+  });
+  return response.data;
+};
