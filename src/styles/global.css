@@ -70,9 +70,11 @@
 @layer base {
   * {
     @apply border-border;
+    
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground  text-palletPurple-900;
+    font-family: 'Inter';
   }
 }
 
@@ -112,3 +114,13 @@
     75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
     100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
 }
+input[type="time"]::-webkit-calendar-picker-indicator{
+  background-color:white;
+  border-radius: 5px;
+}
+.custom-pattern-bar {
+    background-color: #db3b3b;
+    background-size: auto;
+   
+}
+  

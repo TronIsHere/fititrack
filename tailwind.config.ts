@@ -4,8 +4,20 @@ export default module.exports = {
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
+
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
+  ],
+  safelist: [
+    "border-red-500",
+    "bg-red-500",
+    "border-yellow-500",
+    "bg-yellow-500",
+    "border-blue-500",
+    "bg-blue-500",
+    "border-palletPurple-400",
+    "bg-palletPurple-400",
+    // Add more classes as needed
   ],
   theme: {
     container: {
@@ -17,23 +29,41 @@ export default module.exports = {
     },
     extend: {
       colors: {
+        darkPrimary: "#242933",
+        darkSecondary: "#333a48",
+        whitePrimary: "#f5f4f4",
         palletGray: {
           100: "#D5DBED",
-          300: "#737B95",
           200: "#ADB5CE",
+          250: "#ACB5CE",
+          300: "#737B95",
         },
         palletYellow: {
           200: "#E9D5AF",
+          400: "#F4C05B",
+          500: "#F1AD27",
           700: "#B8821B",
         },
         palletGreen: {
           200: "#92EBAB",
-          800: "#0E6F29",
+          300: "#67E289",
+          600: "#23B24B",
+          700: "#0E6F29",
+          800: "#084D1B",
+        },
+        palletRed: {
+          400: "#DA4F4F",
+          500: "#DB3B3B",
+          600: "#BC1D1D",
         },
         palletPurple: {
           200: "#B7B6EB",
-          800: "#070475",
+          300: "#7B78EB",
+          400: "#5955ED",
           500: "#3E3ADB",
+          600: "#1D19B9",
+          800: "#070475",
+          900: "#02003D",
         },
 
         border: "hsl(var(--border))",
