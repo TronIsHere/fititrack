@@ -33,12 +33,13 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const existingUser = await UserModel.findOne({ email });
     const existingToken = await TokenModel.findOne({ email });
-
     if (existingUser) {
       return res.status(409).json({ message: "User already exists" });
     }
-    if (existingUser === existingToken.email) {
-      return res.status(409).json({ message: "User already exists" });
+    if (existingToken) {
+      if (existingUser === existingToken.email) {
+        return res.status(409).json({ message: "User already exists" });
+      }
     }
     await TokenModel.create({
       email,
