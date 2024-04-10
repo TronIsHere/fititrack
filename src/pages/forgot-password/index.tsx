@@ -1,5 +1,6 @@
 import AuthLayout from "@/components/layouts/authLayout";
 import { MyPage } from "@/components/types/nextjs";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/ui/loading-button";
 import { useToast } from "@/components/ui/toasts/use-toast";
@@ -11,12 +12,17 @@ import { SendForgotPasswordEmail } from "@/services/userServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const ForgotPassword: MyPage = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
+  const router = useRouter();
+  const redirectAuth = () => {
+    router.replace("/login");
+  };
   const submitHandler = async ({ email }: TForgotPasswordValidator) => {
     try {
       setLoading(true);
@@ -79,7 +85,17 @@ const ForgotPassword: MyPage = () => {
               {errors.email.message}
             </p>
           )}
-          <LoadingButton loadingState={isLoading} label="Reset Password" />
+          <div className="grid grid-cols-2 gap-10">
+            <Button
+              type="button"
+              variant={"destructive"}
+              className=" mt-8 p-3 rounded-lg flex justify-center text-sm w-full bg-cancelRed"
+              onClick={() => redirectAuth()}
+            >
+              Cancel
+            </Button>
+            <LoadingButton loadingState={isLoading} label="Reset Password" />
+          </div>
         </form>
       </div>
     </>
