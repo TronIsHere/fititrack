@@ -14,6 +14,7 @@ import {
   SettingsGeneralValidator,
   TSettingsGeneralValidator,
 } from "@/lib/validators/AuthValidator";
+import { updateUserData } from "@/services/userServices";
 import {
   changeDarkMode,
   changeDob,
@@ -55,7 +56,13 @@ const SettingsPage: MyPage = () => {
   const saveHandler = async ({ name, dob }: TSettingsGeneralValidator) => {
     dispatch(changeName(name));
     dispatch(changeDob(dob));
-
+    const response = await updateUserData(dob, name, email);
+    if (!response) {
+      return toast({
+        variant: "destructive",
+        description: "Something went wrong, please try again later",
+      });
+    }
     toast({
       variant: "success",
       description: "Saved Successfully",

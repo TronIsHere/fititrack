@@ -95,3 +95,17 @@ export const VerifyForgotPassword = async (
   });
   return response.data;
 };
+
+export const updateUserData = async (
+  dob: string,
+  name: string,
+  email: string
+) => {
+  // Update user data
+  const response = await axios.patch("/api/user/update", {
+    dob,
+    name,
+    email,
+  });
+  return response.data;
+};
