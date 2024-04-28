@@ -49,7 +49,7 @@ export const ForgotPasswordEmailTemplate = ({
           </Button>
         </Section>
         <Text style={paragraph}>
-          If you didn't request this action please ignore it!
+          If you didn&apos;t request this action please ignore it!
         </Text>
         <Hr style={hr} />
         {/* <Text style={footer}>
