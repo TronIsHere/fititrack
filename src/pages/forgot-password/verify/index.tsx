@@ -79,7 +79,7 @@ const ForgotPasswordVerify: MyPage = () => {
       <div className="flex flex-col items-center px-5 md:px-0 pb-10 md:pb-0">
         <p className="w-3/6 inline-block mt-10">
           We will guide you through creating a new password. Please select it
-          carefully and ensure it's strong for enhanced security.
+          carefully and ensure it&apos;s strong for enhanced security.
         </p>
         <form
           action=""

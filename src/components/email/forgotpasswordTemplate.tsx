@@ -39,9 +39,9 @@ export const ForgotPasswordEmailTemplate = ({
         <Text style={paragraph}>
           our password reset link is ready! Click to update your password and
           jump right back into FititTrack. Continue your adventure towards
-          better health and fitness with ease. We’re here to support your
-          journey every step of the way. Stay active, stay motivated, and let’s
-          keep moving forward with FititTrack!
+          better health and fitness with ease. We&apos;re here to support your
+          journey every step of the way. Stay active, stay motivated, and
+          let&apos;s keep moving forward with FititTrack!
         </Text>
         <Section style={btnContainer}>
           <Button style={button} href={verifyLink}>
