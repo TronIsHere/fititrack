@@ -17,7 +17,8 @@ export const useWorkoutUpdater = (workoutState: TWorkout) => {
       streak: yesterdayWasDone ? workoutState.streak : 0,
     };
 
-    dispatch(updateSingleWorkout({ id: workoutState.id, updatedWorkout }));
+    dispatch(updateSingleWorkout({ id: workoutState._id, updatedWorkout }));
+    //TODO: check if valid
   };
 
   return updateWorkoutState;
