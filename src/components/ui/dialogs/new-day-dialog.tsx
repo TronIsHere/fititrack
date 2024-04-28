@@ -11,7 +11,7 @@ import { FC } from "react";
 import { Button } from "../button";
 import { Input } from "../input";
 import { Label } from "../label";
-interface DialogProps {
+interface NewDayDialogProps {
   openState: boolean;
   OpenCallback: (value: boolean) => void;
   darkMode: boolean;
@@ -23,7 +23,7 @@ interface DialogProps {
   clickCallBack: () => void;
   OpenChangeCallBack: (value: boolean) => void;
 }
-const NewDayDialog: FC<DialogProps> = ({
+const NewDayDialog: FC<NewDayDialogProps> = ({
   openState,
   OpenCallback,
   darkMode,

@@ -28,7 +28,10 @@ const SettingsPage: MyPage = () => {
   const dispatch = useDispatch();
   const [theme, setTheme] = useState<Theme>(darkModeState ? "Dark" : "Light");
   const name = useAppSelector((state) => state.user.name);
+
   const email = useAppSelector((state) => state.user.email);
+  const dob = useAppSelector((state) => state.user.dob);
+
   const { toast } = useToast();
   const {
     register,
@@ -143,6 +146,7 @@ const SettingsPage: MyPage = () => {
                     <div className="flex flex-col pl-2 pt-8 ">
                       <span className="pl-0.5 ">Date of Birth</span>
                       <Input
+                        defaultValue={dob}
                         {...register("birth")}
                         type={"date"}
                         className="border border-palletGray-100 mt-2 dark:bg-darkPrimary "

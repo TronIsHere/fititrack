@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ConnectToDatabase } from "@/lib/dbUtils";
 import { hashPassword } from "@/lib/authUtils";
-import UserModel from "@/models/User";
+import UserModel from "@/models/user";
 import { Resend } from "resend";
 import EmailTemplate from "@/components/email/emailTemplate";
 import { generateVerificationToken } from "@/lib/tokenUtils";
