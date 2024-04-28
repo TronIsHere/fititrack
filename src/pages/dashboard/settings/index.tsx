@@ -19,6 +19,7 @@ import {
 import { changeDarkMode, changeName } from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +29,7 @@ const SettingsPage: MyPage = () => {
   const dispatch = useDispatch();
   const [theme, setTheme] = useState<Theme>(darkModeState ? "Dark" : "Light");
   const name = useAppSelector((state) => state.user.name);
-
+  const router = useRouter();
   const email = useAppSelector((state) => state.user.email);
   const dob = useAppSelector((state) => state.user.dob);
 
@@ -64,8 +65,9 @@ const SettingsPage: MyPage = () => {
       // Handle the file
     }
   };
-  const handleChangePassword = () => {
-    console.log("first");
+  const handleChangePassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    router.push("/forgot-password");
   };
   return (
     <>
