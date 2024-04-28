@@ -67,7 +67,7 @@ const WorkoutComponent: NextPage<workoutProps> = ({
     }
   }, [workoutState.days, hasWorkout]);
   const handleWorkout = async () => {
-    let newWorkoutData;
+    let newWorkoutData: TWorkout | null = null;
     setWorkoutState((prevState) => {
       const today = moment().startOf("day");
 
@@ -113,14 +113,14 @@ const WorkoutComponent: NextPage<workoutProps> = ({
     if (newWorkoutData && session.data?.user?.email) {
       try {
         await updateWorkoutOnServer(
-          newWorkoutData!._id,
+          (newWorkoutData! as TWorkout)._id,
           session.data.user.email,
           newWorkoutData
         );
 
         dispatch(
           updateSingleWorkout({
-            id: newWorkoutData!._id,
+            id: (newWorkoutData! as TWorkout)._id,
             updatedWorkout: newWorkoutData,
           })
         );

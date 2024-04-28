@@ -1,5 +1,5 @@
 import { ConnectToDatabase } from "@/lib/dbUtils";
-import UserModel from "@/models/User";
+import UserModel from "@/models/user";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Types } from "mongoose";
 
@@ -43,12 +43,10 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
     };
     await user.save();
 
-    res
-      .status(200)
-      .json({
-        message: "Workout updated successfully",
-        data: user.workouts[workoutIndex],
-      });
+    res.status(200).json({
+      message: "Workout updated successfully",
+      data: user.workouts[workoutIndex],
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

@@ -5,7 +5,7 @@ import { MongoClient } from "mongodb";
 import { ConnectToDatabase } from "@/lib/dbUtils";
 import { NextAuthOptions } from "next-auth";
 import { verifyPassword } from "@/lib/authUtils";
-import UserModel from "@/models/User";
+import UserModel from "@/models/user";
 
 interface Credentials {
   email: string;

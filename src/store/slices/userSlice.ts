@@ -50,6 +50,9 @@ export const userSlice = createSlice({
     changeName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
+    changeDob: (state, action: PayloadAction<string>) => {
+      state.dob = action.payload;
+    },
     changeEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
     },
@@ -108,6 +111,7 @@ export const {
   newSleep,
   clearCharacter,
   changeName,
+  changeDob,
   changeEmail,
   initData,
 } = userSlice.actions;

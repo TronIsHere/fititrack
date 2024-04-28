@@ -6,7 +6,10 @@ const MuscleTrainedHistoryBox = () => {
 
       <div className="flex flex-col mt-5 space-y-3">
         {trained.map((item, index) => (
-          <div className="flex justify-between bg-whitePrimary dark:bg-darkSecondary p-3 rounded-md">
+          <div
+            key={index}
+            className="flex justify-between bg-whitePrimary dark:bg-darkSecondary p-3 rounded-md"
+          >
             <span>
               {index + 1}. {item}
             </span>

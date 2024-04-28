@@ -1,5 +1,5 @@
 import { ConnectToDatabase } from "@/lib/dbUtils";
-import UserModel from "@/models/User";
+import UserModel from "@/models/user";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Types } from "mongoose"; // Import Types from mongoose
 

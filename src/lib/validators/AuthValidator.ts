@@ -39,7 +39,7 @@ export const RegisterValidator = z
   });
 export const SettingsGeneralValidator = z.object({
   name: z.string().min(4, { message: "Your Name and Last name is too short" }),
-  birth: z.date(),
+  dob: z.string(),
 });
 export type TLoginValidator = z.infer<typeof LoginValidator>;
 export type TForgotPasswordValidator = z.infer<typeof ForgotPasswordValidator>;

@@ -11,14 +11,18 @@ import { useToast } from "@/components/ui/toasts/use-toast";
 import { useAppSelector } from "@/hooks/storeHooks";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import {
-  LoginValidator,
   SettingsGeneralValidator,
-  TLoginValidator,
   TSettingsGeneralValidator,
 } from "@/lib/validators/AuthValidator";
-import { changeDarkMode, changeName } from "@/store/slices/userSlice";
+import { updateUserData } from "@/services/userServices";
+import {
+  changeDarkMode,
+  changeDob,
+  changeName,
+} from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +32,10 @@ const SettingsPage: MyPage = () => {
   const dispatch = useDispatch();
   const [theme, setTheme] = useState<Theme>(darkModeState ? "Dark" : "Light");
   const name = useAppSelector((state) => state.user.name);
+  const router = useRouter();
   const email = useAppSelector((state) => state.user.email);
+  const dob = useAppSelector((state) => state.user.dob);
+
   const { toast } = useToast();
   const {
     register,
@@ -46,9 +53,16 @@ const SettingsPage: MyPage = () => {
       dispatch(changeDarkMode(isDarkMode));
     }
   }, [theme, darkModeState, dispatch]);
-  const saveHandler = () => {
-    // dispatch(changeName(nameState));
-
+  const saveHandler = async ({ name, dob }: TSettingsGeneralValidator) => {
+    dispatch(changeName(name));
+    dispatch(changeDob(dob));
+    const response = await updateUserData(dob, name, email);
+    if (!response) {
+      return toast({
+        variant: "destructive",
+        description: "Something went wrong, please try again later",
+      });
+    }
     toast({
       variant: "success",
       description: "Saved Successfully",
@@ -61,8 +75,9 @@ const SettingsPage: MyPage = () => {
       // Handle the file
     }
   };
-  const handleChangePassword = () => {
-    console.log("first");
+  const handleChangePassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    router.push("/forgot-password");
   };
   return (
     <>
@@ -143,7 +158,8 @@ const SettingsPage: MyPage = () => {
                     <div className="flex flex-col pl-2 pt-8 ">
                       <span className="pl-0.5 ">Date of Birth</span>
                       <Input
-                        {...register("birth")}
+                        defaultValue={dob}
+                        {...register("dob")}
                         type={"date"}
                         className="border border-palletGray-100 mt-2 dark:bg-darkPrimary "
                       />
@@ -176,7 +192,7 @@ const SettingsPage: MyPage = () => {
                   <div className="flex justify-end mt-10 mb-4 pr-2">
                     <Button
                       className={buttonVariants({ variant: "primary" })}
-                      onClick={() => saveHandler()}
+                      onClick={handleSubmit(saveHandler)}
                     >
                       Save Profile
                     </Button>

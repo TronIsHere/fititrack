@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ConnectToDatabase } from "@/lib/dbUtils";
 import { hashPassword } from "@/lib/authUtils";
-import UserModel from "@/models/User";
+import UserModel from "@/models/user";
 import { Resend } from "resend";
 import EmailTemplate from "@/components/email/emailTemplate";
 import { generateVerificationToken } from "@/lib/tokenUtils";
@@ -33,12 +33,13 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const existingUser = await UserModel.findOne({ email });
     const existingToken = await TokenModel.findOne({ email });
-
     if (existingUser) {
       return res.status(409).json({ message: "User already exists" });
     }
-    if (existingUser === existingToken.email) {
-      return res.status(409).json({ message: "User already exists" });
+    if (existingToken) {
+      if (existingUser === existingToken.email) {
+        return res.status(409).json({ message: "User already exists" });
+      }
     }
     await TokenModel.create({
       email,

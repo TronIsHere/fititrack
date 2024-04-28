@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ConnectToDatabase } from "@/lib/dbUtils";
-import UserModel from "@/models/User";
+import UserModel from "@/models/user";
 import TokenModel from "@/models/token";
 import { Resend } from "resend";
 import EmailTemplate from "@/components/email/emailTemplate";

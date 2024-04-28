@@ -83,3 +83,29 @@ export const SendForgotPasswordEmail = async (email: string) => {
   });
   return response.data;
 };
+export const VerifyForgotPassword = async (
+  password: string,
+  confirmPassword: string,
+  token: any
+) => {
+  const response = await axios.post("/api/auth/change-password", {
+    password,
+    confirmPassword,
+    token,
+  });
+  return response.data;
+};
+
+export const updateUserData = async (
+  dob: string,
+  name: string,
+  email: string
+) => {
+  // Update user data
+  const response = await axios.patch("/api/user/update", {
+    dob,
+    name,
+    email,
+  });
+  return response.data;
+};

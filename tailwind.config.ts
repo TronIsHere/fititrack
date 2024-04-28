@@ -32,6 +32,7 @@ export default module.exports = {
         darkPrimary: "#242933",
         darkSecondary: "#333a48",
         whitePrimary: "#f5f4f4",
+        cancelRed: "#ed4343",
         palletGray: {
           100: "#D5DBED",
           200: "#ADB5CE",
