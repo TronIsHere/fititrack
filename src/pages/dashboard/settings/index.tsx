@@ -11,12 +11,14 @@ import { useToast } from "@/components/ui/toasts/use-toast";
 import { useAppSelector } from "@/hooks/storeHooks";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import {
-  LoginValidator,
   SettingsGeneralValidator,
-  TLoginValidator,
   TSettingsGeneralValidator,
 } from "@/lib/validators/AuthValidator";
-import { changeDarkMode, changeName } from "@/store/slices/userSlice";
+import {
+  changeDarkMode,
+  changeDob,
+  changeName,
+} from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
@@ -50,8 +52,9 @@ const SettingsPage: MyPage = () => {
       dispatch(changeDarkMode(isDarkMode));
     }
   }, [theme, darkModeState, dispatch]);
-  const saveHandler = () => {
-    // dispatch(changeName(nameState));
+  const saveHandler = async ({ name, dob }: TSettingsGeneralValidator) => {
+    dispatch(changeName(name));
+    dispatch(changeDob(dob));
 
     toast({
       variant: "success",
@@ -149,7 +152,7 @@ const SettingsPage: MyPage = () => {
                       <span className="pl-0.5 ">Date of Birth</span>
                       <Input
                         defaultValue={dob}
-                        {...register("birth")}
+                        {...register("dob")}
                         type={"date"}
                         className="border border-palletGray-100 mt-2 dark:bg-darkPrimary "
                       />
@@ -182,7 +185,7 @@ const SettingsPage: MyPage = () => {
                   <div className="flex justify-end mt-10 mb-4 pr-2">
                     <Button
                       className={buttonVariants({ variant: "primary" })}
-                      onClick={() => saveHandler()}
+                      onClick={handleSubmit(saveHandler)}
                     >
                       Save Profile
                     </Button>
