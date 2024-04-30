@@ -141,7 +141,7 @@ const SleepHistoryChart: FC<SleepHistoryChartProps> = ({ sleepData }) => {
     <>
       <div className="flex mb-4 justify-between">
         <h2 className=" font-bold text-xl my-2">Sleep</h2>
-        <Select>
+        {/* <Select>
           <SelectTrigger
             darkMode={darkModeState}
             className="w-[100px] flex justify-around border-2 border-palletGray-300 text-palletGray-300"
@@ -153,7 +153,7 @@ const SleepHistoryChart: FC<SleepHistoryChartProps> = ({ sleepData }) => {
             <SelectItem value="Year">Year</SelectItem>
             <SelectItem value="Week">Week</SelectItem>
           </SelectContent>
-        </Select>
+        </Select> */}
       </div>
       <div className="h-[300px] custom-pattern-container">
         {/* 

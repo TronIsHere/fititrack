@@ -1,7 +1,8 @@
-import { TDay } from "@/components/types/DataTypes";
+import { TDay, TSleep } from "@/components/types/DataTypes";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { isSameDay } from "./dateUtils";
+import { calculateTotalSleepPerDay } from "./timeUtils";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -62,4 +63,42 @@ export const isLastDoneDateToday = (days: TDay[]) => {
     .find((day) => day.done && isSameDay(new Date(day.date), today));
 
   return Boolean(lastDoneDay);
+};
+export const calculateSleepPercentages = (userSleep: TSleep[]) => {
+  const totalSleepTime = userSleep.reduce((total, sleepEntry) => {
+    return total + calculateTotalSleepPerDay([sleepEntry]);
+  }, 0);
+
+  const days = userSleep.length;
+  const averageSleepTimePerDay = totalSleepTime / days;
+
+  // Calculate deep sleep and light sleep percentages
+  const deepSleepTime =
+    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 105 / 60 : 0; // Convert minutes to hours
+  const lightSleepTime =
+    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 240 / 60 : 0; // Convert minutes to hours
+
+  const deepSleepPercentage = (deepSleepTime / averageSleepTimePerDay) * 100;
+  const lightSleepPercentage = (lightSleepTime / averageSleepTimePerDay) * 100;
+
+  return { deepSleepPercentage, lightSleepPercentage };
+};
+export const calculateSleepHoursDeep = (userSleep: TSleep[]) => {
+  const totalSleepTime = userSleep.reduce((total, sleepEntry) => {
+    return total + calculateTotalSleepPerDay([sleepEntry]);
+  }, 0);
+
+  const days = userSleep.length;
+  const averageSleepTimePerDay = totalSleepTime / days;
+
+  // Calculate deep sleep and light sleep times
+  const deepSleepTime =
+    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 105 / 60 : 0; // Convert minutes to hours
+  const lightSleepTime =
+    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 240 / 60 : 0; // Convert minutes to hours
+
+  // Calculate average sleep duration as a percentage of 8 hours
+  const sleepDurationPercentage = (averageSleepTimePerDay / 8) * 100;
+
+  return { deepSleepTime, lightSleepTime, sleepDurationPercentage };
 };
