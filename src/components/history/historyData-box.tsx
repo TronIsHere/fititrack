@@ -21,7 +21,6 @@ interface SleepBoxProps {
 const HistoryDataBox: FC<SleepBoxProps> = ({
   title,
   description,
-
   circularProgressValue,
   circularProgressColor,
   noLeftText,

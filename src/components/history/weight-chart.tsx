@@ -9,7 +9,7 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import { useRef } from "react";
+import { FC, useRef } from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Select,
@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { TWeight } from "../types/DataTypes";
 
 ChartJS.register(
   CategoryScale,
@@ -33,36 +34,55 @@ ChartJS.register(
 //   patternomaly.draw("cross", "#1f77b4"),
 //   // ... other patterns
 // ];
-const data = {
-  labels: [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ],
-  datasets: [
-    {
-      label: "This month",
-      data: [50, 60, 68, 70, 78, 74, 62, 80, 78, 65, 75, 240],
-      backgroundColor: "#5955ED",
-      borderColor: "transparent",
-      borderWidth: 1,
-      barPercentage: 0.6,
-      borderRadius: 10,
-      borderDash: [10, 5],
-    },
-  ],
-};
 
-const WeightHistoryChart = () => {
+interface WeightHistoryChartProps {
+  weightData: TWeight[];
+}
+
+const WeightHistoryChart: FC<WeightHistoryChartProps> = ({ weightData }) => {
+  const currentYear = new Date().getFullYear();
+  const weightByMonth = Array(12).fill(0);
+  const entriesByMonth = Array(12).fill(0);
+  weightData.forEach((weightEntry) => {
+    const weightDate = new Date(weightEntry.date);
+    if (weightDate.getFullYear() === currentYear) {
+      weightByMonth[weightDate.getMonth()] += weightEntry.weight;
+      entriesByMonth[weightDate.getMonth()]++;
+    }
+  });
+
+  // Calculate average weight for each month
+  const averageWeightByMonth = weightByMonth.map((totalWeight, index) => {
+    return entriesByMonth[index] ? totalWeight / entriesByMonth[index] : 0;
+  });
+  const data = {
+    labels: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+    datasets: [
+      {
+        label: "This month",
+        data: averageWeightByMonth,
+        backgroundColor: "#5955ED",
+        borderColor: "transparent",
+        borderWidth: 1,
+        barPercentage: 0.6,
+        borderRadius: 10,
+        borderDash: [10, 5],
+      },
+    ],
+  };
   const darkModeState = useAppSelector((state) => state.user.darkMode);
   const chartRef = useRef<ChartJS<"bar"> | null>(null);
   const options = {
@@ -129,7 +149,7 @@ const WeightHistoryChart = () => {
     <>
       <div className="flex mb-4 justify-between">
         <h2 className=" font-bold text-xl my-2">Weight</h2>
-        <Select>
+        {/* <Select>
           <SelectTrigger
             darkMode={darkModeState}
             className="w-[100px] flex justify-around border-2 border-palletGray-300 text-palletGray-300"
@@ -141,7 +161,7 @@ const WeightHistoryChart = () => {
             <SelectItem value="Year">Year</SelectItem>
             <SelectItem value="Week">Week</SelectItem>
           </SelectContent>
-        </Select>
+        </Select> */}
       </div>
       <div className="h-[300px] custom-pattern-container">
         {/* 

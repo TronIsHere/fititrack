@@ -36,7 +36,7 @@ export const MissionsComponent = () => {
   }, [allMissions]);
 
   return (
-    <div className="bg-white w-full rounded-xl p-5 dark:bg-darkPrimary">
+    <div className="bg-white w-full rounded-xl p-5 dark:bg-darkPrimary relative">
       <div className="flex">
         <FaMedal color="#5955ED" size={28} />
         <span className="pl-4 pt-1 font-medium">Missions</span>
@@ -70,6 +70,10 @@ export const MissionsComponent = () => {
           </div>
         );
       })}
+
+      <div className="absolute inset-0 backdrop-blur-sm bg-darkPrimary/30 flex items-center justify-center rounded-xl">
+        <span className="text-white text-2xl">Coming Soon</span>
+      </div>
     </div>
   );
 };

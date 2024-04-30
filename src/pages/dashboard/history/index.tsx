@@ -1,13 +1,25 @@
 import HistoryDataBox from "@/components/history/historyData-box";
 import JeffProgressBox from "@/components/history/jeffProgress-box";
+import MuscleTrainedHistoryBox from "@/components/history/muscleTrained-box";
 import SleepHistoryChart from "@/components/history/sleep-chart";
 import SleepyDays from "@/components/history/sleepyDays-chart";
 import WeightHistoryChart from "@/components/history/weight-chart";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
-import MuscleTrainedHistoryBox from "@/components/history/muscleTrained-box";
+import { useAppSelector } from "@/hooks/storeHooks";
+import {
+  calculateSleepHoursDeep,
+  calculateSleepPercentages,
+} from "@/lib/utils";
 
 const HistoryPage: MyPage = () => {
+  const userSleep = useAppSelector((state) => state.user.sleep);
+  const userWeight = useAppSelector((state) => state.user.weight);
+  const { deepSleepPercentage, lightSleepPercentage } =
+    calculateSleepPercentages(userSleep);
+  const { deepSleepTime, lightSleepTime, sleepDurationPercentage } =
+    calculateSleepHoursDeep(userSleep);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
       <div className="col-span-7">
@@ -15,21 +27,27 @@ const HistoryPage: MyPage = () => {
           <span className="mt-4 block text-2xl font-bold">History</span>
         </div>
         <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-5">
-          <SleepHistoryChart />
+          <SleepHistoryChart sleepData={userSleep} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           <HistoryDataBox
             title="Sleep Quality overall"
             description="how well did you sleep"
-            circularProgressValue={20}
+            circularProgressValue={
+              Math.round(deepSleepPercentage + lightSleepPercentage) * 0.5
+            }
           >
             <div className="flex flex-col">
               <span className="text-sm text-muted-foreground">Deep Sleep</span>
-              <span className="text-lg text-bold">{71}%</span>
+              <span className="text-lg text-bold">
+                {Math.round(deepSleepPercentage)}%
+              </span>
             </div>
             <div className="flex flex-col mt-3">
               <span className="text-sm text-muted-foreground">Light Sleep</span>
-              <span className="text-lg text-bold">{29}%</span>
+              <span className="text-lg text-bold">
+                {Math.round(lightSleepPercentage)}%
+              </span>
             </div>
           </HistoryDataBox>
           <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary ">
@@ -38,26 +56,26 @@ const HistoryPage: MyPage = () => {
               days you sleep the most
             </p>
 
-            <SleepyDays />
+            <SleepyDays sleepData={userSleep} />
           </div>
           <HistoryDataBox
             title="Average Sleep Duration"
             description="On average how much did you sleep"
-            circularProgressValue={80}
+            circularProgressValue={Math.round(sleepDurationPercentage)}
           >
             {" "}
             <div className="flex flex-col">
               <span className="text-sm text-muted-foreground">Deep Sleep</span>
-              <span className="text-lg text-bold">{71}%</span>
+              <span className="text-lg text-bold">{deepSleepTime}hrs</span>
             </div>
             <div className="flex flex-col mt-3">
               <span className="text-sm text-muted-foreground">Light Sleep</span>
-              <span className="text-lg text-bold">{29}%</span>
+              <span className="text-lg text-bold">{lightSleepTime}hrs</span>
             </div>
           </HistoryDataBox>
         </div>
         <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-6 ">
-          <WeightHistoryChart />
+          <WeightHistoryChart weightData={userWeight} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           <HistoryDataBox
