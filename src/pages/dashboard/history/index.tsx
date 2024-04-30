@@ -41,7 +41,7 @@ const HistoryPage: MyPage = () => {
               days you sleep the most
             </p>
 
-            <SleepyDays />
+            <SleepyDays sleepData={userSleep} />
           </div>
           <HistoryDataBox
             title="Average Sleep Duration"
