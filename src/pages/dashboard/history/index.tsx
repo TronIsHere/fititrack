@@ -6,8 +6,11 @@ import WeightHistoryChart from "@/components/history/weight-chart";
 import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
 import MuscleTrainedHistoryBox from "@/components/history/muscleTrained-box";
+import { use } from "react";
+import { useAppSelector } from "@/hooks/storeHooks";
 
 const HistoryPage: MyPage = () => {
+  const userSleep = useAppSelector((state) => state.user.sleep);
   return (
     <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
       <div className="col-span-7">
@@ -15,7 +18,7 @@ const HistoryPage: MyPage = () => {
           <span className="mt-4 block text-2xl font-bold">History</span>
         </div>
         <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-5">
-          <SleepHistoryChart />
+          <SleepHistoryChart sleepData={userSleep} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           <HistoryDataBox

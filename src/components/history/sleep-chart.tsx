@@ -1,4 +1,5 @@
 import { useAppSelector } from "@/hooks/storeHooks";
+import { calculateTotalSleepPerDay } from "@/lib/timeUtils";
 import {
   BarElement,
   CategoryScale,
@@ -9,8 +10,9 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import { useRef } from "react";
+import { FC, useRef } from "react";
 import { Bar } from "react-chartjs-2";
+import { TSleep } from "../types/DataTypes";
 import {
   Select,
   SelectContent,
@@ -29,36 +31,50 @@ ChartJS.register(
   BarElement // Register the BarController
 );
 
-const data = {
-  labels: [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ],
-  datasets: [
-    {
-      label: "This month",
-      data: [50, 60, 68, 70, 78, 74, 62, 80, 78, 65, 75, 240],
-      backgroundColor: "#5955ED",
-      borderColor: "transparent",
-      borderWidth: 1,
-      barPercentage: 0.6,
-      borderRadius: 10,
-      borderDash: [10, 5],
-    },
-  ],
-};
+interface SleepHistoryChartProps {
+  sleepData: TSleep[];
+}
+const SleepHistoryChart: FC<SleepHistoryChartProps> = ({ sleepData }) => {
+  const currentYear = new Date().getFullYear();
+  const sleepHoursByMonth = Array(12).fill(0);
+  sleepData.forEach((sleepEntry) => {
+    const sleepDate = new Date(sleepEntry.date);
+    // console.log(object);
+    if (sleepDate.getFullYear() === currentYear) {
+      const sleepDuration = calculateTotalSleepPerDay([sleepEntry]); // Pass the sleepEntry as an array
+      sleepHoursByMonth[sleepDate.getMonth()] += Math.round(sleepDuration);
+    }
+  });
+  console.log(sleepHoursByMonth, 1);
+  const data = {
+    labels: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+    datasets: [
+      {
+        label: "This month",
+        data: sleepHoursByMonth,
 
-const SleepHistoryChart = () => {
+        backgroundColor: "#5955ED",
+        borderColor: "transparent",
+        borderWidth: 1,
+        barPercentage: 0.6,
+        borderRadius: 10,
+        borderDash: [10, 5],
+      },
+    ],
+  };
   const chartRef = useRef<ChartJS<"bar"> | null>(null);
   const darkModeState = useAppSelector((state) => state.user.darkMode);
   const options = {
