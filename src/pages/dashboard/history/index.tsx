@@ -14,6 +14,7 @@ import {
 
 const HistoryPage: MyPage = () => {
   const userSleep = useAppSelector((state) => state.user.sleep);
+  const userWeight = useAppSelector((state) => state.user.weight);
   const { deepSleepPercentage, lightSleepPercentage } =
     calculateSleepPercentages(userSleep);
   const { deepSleepTime, lightSleepTime, sleepDurationPercentage } =
@@ -74,7 +75,7 @@ const HistoryPage: MyPage = () => {
           </HistoryDataBox>
         </div>
         <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-6 ">
-          <WeightHistoryChart />
+          <WeightHistoryChart weightData={userWeight} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           <HistoryDataBox
