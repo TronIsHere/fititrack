@@ -162,3 +162,14 @@ export const calculateMostFrequentMuscleGroups = (workouts: TWorkout[]) => {
 
   return sortedMuscleGroups.slice(0, 4).map(([muscleGroup]) => muscleGroup);
 };
+export const calculateTotalWorkoutDuration = (workouts: TWorkout[]) => {
+  let totalDuration = 0;
+
+  workouts.forEach((workout) => {
+    if (workout.duration && workout.checkIns) {
+      totalDuration += workout.duration * workout.checkIns;
+    }
+  });
+
+  return totalDuration;
+};

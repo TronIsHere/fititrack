@@ -13,10 +13,12 @@ import {
   calculateMostFrequentWorkout,
   calculateSleepHoursDeep,
   calculateSleepPercentages,
+  calculateTotalWorkoutDuration,
 } from "@/lib/utils";
 
 const HistoryPage: MyPage = () => {
   const userSleep = useAppSelector((state) => state.user.sleep);
+  const userLevel = useAppSelector((state) => state.user.level);
   const userWeight = useAppSelector((state) => state.user.weight);
   const userWorkouts = useAppSelector((state) => state.workout.workouts);
   const { deepSleepPercentage, lightSleepPercentage } =
@@ -28,6 +30,7 @@ const HistoryPage: MyPage = () => {
     calculateAverageWeeklyWeightChange(userWeight);
   const mostFrequentMuscleGroups =
     calculateMostFrequentMuscleGroups(userWorkouts);
+  const totalWorkoutDuration = calculateTotalWorkoutDuration(userWorkouts);
   return (
     <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
       <div className="col-span-7">
@@ -141,7 +144,10 @@ const HistoryPage: MyPage = () => {
           </HistoryDataBox>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-          <JeffProgressBox />
+          <JeffProgressBox
+            level={userLevel}
+            totalWorkoutDuration={totalWorkoutDuration}
+          />
           <MuscleTrainedHistoryBox trainedMuscles={mostFrequentMuscleGroups} />
         </div>
       </div>
