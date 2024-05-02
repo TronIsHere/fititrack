@@ -119,7 +119,8 @@ export const calculateMostFrequentWorkout = (workouts: TWorkout[]) => {
 };
 export const calculateAverageWeeklyWeightChange = (weightData: TWeight[]) => {
   // Sort the weight data by date in ascending order
-  weightData.sort(
+  const weightDataCopy = [...weightData];
+  weightDataCopy.sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
@@ -127,12 +128,12 @@ export const calculateAverageWeeklyWeightChange = (weightData: TWeight[]) => {
   let totalWeightChange = 0;
 
   for (
-    let i = Math.min(7, weightData.length - 1);
-    i < weightData.length;
+    let i = Math.min(7, weightDataCopy.length - 1);
+    i < weightDataCopy.length;
     i += 7
   ) {
     const weightChange =
-      weightData[i].weight - weightData[i - Math.min(7, i)].weight;
+      weightDataCopy[i].weight - weightDataCopy[i - Math.min(7, i)].weight;
     totalWeightChange += weightChange;
     totalWeeks++;
   }
