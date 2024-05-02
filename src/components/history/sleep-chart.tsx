@@ -45,7 +45,7 @@ const SleepHistoryChart: FC<SleepHistoryChartProps> = ({ sleepData }) => {
       sleepHoursByMonth[sleepDate.getMonth()] += Math.round(sleepDuration);
     }
   });
-  console.log(sleepHoursByMonth, 1);
+
   const data = {
     labels: [
       "January",
