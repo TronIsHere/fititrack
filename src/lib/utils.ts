@@ -146,3 +146,19 @@ export const calculateAverageWeeklyWeightChange = (weightData: TWeight[]) => {
     gained: averageWeeklyWeightChange > 0,
   };
 };
+export const calculateMostFrequentMuscleGroups = (workouts: TWorkout[]) => {
+  const muscleCounts = workouts.reduce((counts, workout) => {
+    if (workout.muscles) {
+      workout.muscles.forEach((muscle) => {
+        counts[muscle] = (counts[muscle] || 0) + 1;
+      });
+    }
+    return counts;
+  }, {} as Record<string, number>);
+
+  const sortedMuscleGroups = Object.entries(muscleCounts).sort(
+    (a, b) => b[1] - a[1]
+  );
+
+  return sortedMuscleGroups.slice(0, 4).map(([muscleGroup]) => muscleGroup);
+};
