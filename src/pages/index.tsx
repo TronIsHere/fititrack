@@ -1,3 +1,4 @@
+import PriceCards from "@/components/ui/priceCards";
 import { toggleDarkMode } from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
 import { GetServerSideProps } from "next";
@@ -124,11 +125,14 @@ export default function Home({ logged, session }: HomeProps) {
                   Jeff is your fitness companion.. as you grow jeff grows as
                   well
                 </p>
-                <button className=" mt-5 md:mt-32 bg-palletGreen-200 py-2 rounded-md text-palletGreen-600">
+                <button className=" mt-5 md:mt-32 bg-palletGreen-200 py-3 rounded-md text-palletGreen-800">
                   Grow Jeff
                 </button>
               </div>
             </div>
+          </section>
+          <section className="mt-40 px-5">
+            <PriceCards />
           </section>
           <section className="mt-40 px-5">
             <div className="bg-palletPurple-400 flex justify-center flex-col items-center px-5 md:px-0 py-8 rounded-md">
