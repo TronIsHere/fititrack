@@ -1,15 +1,16 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { IoCloseSharp } from "react-icons/io5";
-import { FaCheck } from "react-icons/fa6";
-import axios from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/components/ui/toasts/use-toast";
 import { useAppSelector } from "@/hooks/storeHooks";
-import { set } from "mongoose";
 import { validateCheckoutSessionId } from "@/services/checkoutServices";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { FaCheck } from "react-icons/fa";
+import { BsExclamationDiamond } from "react-icons/bs";
+import { IoClose } from "react-icons/io5";
+import Confetti from "@/components/confetti";
+import { Button } from "@/components/ui/button";
 const CheckoutPage = ({ sessionId }: { sessionId: string }) => {
   const userEmail = useAppSelector((state) => state.user.email);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -27,9 +28,9 @@ const CheckoutPage = ({ sessionId }: { sessionId: string }) => {
       );
       if (checkoutValidated) {
         setIsSuccess(true);
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 2000);
+        // setTimeout(() => {
+        //   router.push("/dashboard");
+        // }, 3000);
       } else {
         setIsSuccess(false);
       }
@@ -40,48 +41,94 @@ const CheckoutPage = ({ sessionId }: { sessionId: string }) => {
   }, [sessionId, userEmail, router, toast]);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-darkPrimary text-white">
-      <div className="  z-50 justify-center items-center">
-        {isLoading ? (
-          <div className="flex items-center justify-center">
-            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
-          </div>
-        ) : (
-          <div className="relative p-10 w-full max-w-md h-full md:h-auto">
-            {isSuccess ? (
-              <div className="relative  text-center bg-white rounded-lg shadow dark:bg-gray-800 p-10">
-                <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 p-2 flex items-center justify-center mx-auto mb-3.5">
-                  <FaCheck
-                    className="text-green-500 dark:text-green-400"
-                    size={20}
-                  />
-                  <span className="sr-only">Success</span>
-                </div>
-                <p className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
-                  Payment was successful
-                </p>
-                <Button type="button">Redirecting</Button>
-              </div>
-            ) : (
-              <div className="relative  text-center bg-white rounded-lg shadow dark:bg-gray-800 p-10">
-                <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900 p-2 flex items-center justify-center mx-auto mb-3.5">
-                  <IoCloseSharp
-                    className="text-red-500 dark:text-red-400"
-                    size={20}
-                  />
-                  <span className="sr-only">Failed</span>
-                </div>
-                <p className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
-                  Payment didn&apos;t go through!
-                </p>
-                <Button type="button" className="bg-darkSecondary">
-                  Redirecting
-                </Button>
-              </div>
-            )}
-          </div>
-        )}
+    <div className="bg-darkPrimary h-screen">
+      <div className="flex p-5">
+        <Image
+          src={"/images/logoDark.svg"}
+          width={200}
+          height={100}
+          alt="logo"
+        />
       </div>
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="big-donut"></div>
+        </div>
+      ) : isSuccess ? (
+        <div>
+          <Confetti />
+
+          <div className="flex flex-col justify-center items-center text-white mt-20">
+            <div className="bg-palletGreen-600 p-4 rounded-full">
+              <FaCheck className="text-2xl text-white" />
+            </div>
+            <p className="text-2xl mt-10">Payment Successful</p>
+            <p className=" text-sm mt-3">Your Gym Journey Has Begun 🥳</p>
+            <div className="grid grid-cols-5 w-1/2  mt-10 gap-10">
+              <div className="col-span-3 bg-palletPurple-400 rounded-lg  p-3">
+                <div className="flex items-center border-b border-palletPurple-500 pb-3">
+                  <Image
+                    src={"/images/smallLogo.jpg"}
+                    width={40}
+                    height={40}
+                    alt="logo"
+                    className="rounded-full p-2 bg-white "
+                  />
+                  <p className=" ml-2 text-sm">Fitittrack Membership</p>
+                </div>
+                <div className="flex justify-between text-sm mt-4">
+                  <span>Mega Gym 🏋️‍♂️</span>
+                  <span>10.99 USD</span>
+                </div>
+                <ul className="flex flex-col text-sm mt-4 ml-4">
+                  <li className="list-disc">Access to everything forever</li>
+                  <li className="list-disc pt-1">Vote on future features</li>
+                </ul>
+                <div className="flex items-center text-palletYellow-500 space-x-2 mt-4">
+                  <BsExclamationDiamond />
+                  <span>Access forever</span>
+                </div>
+              </div>
+              <div className="col-span-2 rounded-lg overflow-hidden">
+                <div className="w-full h-full ">
+                  <Image
+                    src={"/images/goodjob.jpg"}
+                    alt="goodjob"
+                    width={300}
+                    height={200}
+                    className="h-full object-cover"
+                  ></Image>
+                </div>
+              </div>
+            </div>
+            <Button
+              variant={"primary"}
+              className="mt-10"
+              onClick={() => router.push("/dashboard")}
+            >
+              Back to dashboard
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="flex flex-col justify-center items-center text-white mt-20">
+            <div className="bg-palletRed-500 p-4 rounded-full">
+              <IoClose className="text-2xl text-white" />
+            </div>
+            <p className="text-2xl mt-10">Payment Failed</p>
+            <p className=" text-sm mt-3">Oh no! you have to try again 🥲</p>
+
+            <Button
+              variant={"primary"}
+              className="mt-10"
+              onClick={() => router.push("/dashboard")}
+            >
+              Back to dashboard
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

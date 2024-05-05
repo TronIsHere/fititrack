@@ -63,6 +63,16 @@ input::placeholder {
   -webkit-animation: 1.5s spin infinite linear;
           animation: 1.5s spin infinite linear;
 }
+.big-donut {
+  width: 3.5rem;
+  height: 3.5rem;
+  /* margin: 2rem; */
+  border-radius: 50%;
+  border: 0.3rem solid rgba(151, 159, 208, 0.3);
+  border-top-color: #fcfcfc;
+  -webkit-animation: 1.5s spin infinite linear;
+          animation: 1.5s spin infinite linear;
+}
 
 @keyframes spin {
   to {
