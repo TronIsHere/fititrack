@@ -8,7 +8,6 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
   const { workout, email } = req.body;
   await ConnectToDatabase();
-  console.log(workout, 1);
   try {
     const updateResult = await UserModel.findOneAndUpdate(
       { email: email },

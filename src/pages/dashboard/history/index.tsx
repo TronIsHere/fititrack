@@ -8,18 +8,30 @@ import DashboardLayout from "@/components/layouts/dashboardLayout";
 import { MyPage } from "@/components/types/nextjs";
 import { useAppSelector } from "@/hooks/storeHooks";
 import {
+  calculateAverageWeeklyWeightChange,
+  calculateMostFrequentMuscleGroups,
+  calculateMostFrequentWorkout,
   calculateSleepHoursDeep,
   calculateSleepPercentages,
+  calculateTotalWorkoutDuration,
 } from "@/lib/utils";
 
 const HistoryPage: MyPage = () => {
   const userSleep = useAppSelector((state) => state.user.sleep);
+  const userLevel = useAppSelector((state) => state.user.level);
+
   const userWeight = useAppSelector((state) => state.user.weight);
+  const userWorkouts = useAppSelector((state) => state.workout.workouts);
   const { deepSleepPercentage, lightSleepPercentage } =
     calculateSleepPercentages(userSleep);
   const { deepSleepTime, lightSleepTime, sleepDurationPercentage } =
     calculateSleepHoursDeep(userSleep);
-
+  const mostFrequentWorkout = calculateMostFrequentWorkout(userWorkouts);
+  const averageWeeklyWeightChange =
+    calculateAverageWeeklyWeightChange(userWeight);
+  const mostFrequentMuscleGroups =
+    calculateMostFrequentMuscleGroups(userWorkouts);
+  const totalWorkoutDuration = calculateTotalWorkoutDuration(userWorkouts);
   return (
     <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
       <div className="col-span-7">
@@ -86,7 +98,7 @@ const HistoryPage: MyPage = () => {
             staticProgress={{
               enable: true,
               textColor: "#7B78EB",
-              text: "Cardio",
+              text: mostFrequentWorkout,
             }}
           />
           <HistoryDataBox
@@ -113,23 +125,31 @@ const HistoryPage: MyPage = () => {
             staticProgress={{
               enable: true,
               textColor: "#23B24B",
-              text: "5kg +",
+              text: `${averageWeeklyWeightChange.averageChange} kg ${
+                averageWeeklyWeightChange.gained ? "+" : "-"
+              }`,
             }}
           >
             <div className="flex flex-col">
               <span className="text-muted-foreground text-sm ">
-                Weight loss
+                Weight {averageWeeklyWeightChange.gained ? "gained" : "lost"}
               </span>
               <p className="text-2xl tracking-normal mt-2">
-                5 kg+{" "}
-                <span className="text-sm text-muted-foreground">(per day)</span>
+                {averageWeeklyWeightChange.averageChange} kg
+                {averageWeeklyWeightChange.gained ? "+" : "-"}
+                <span className="text-sm text-muted-foreground">
+                  (per week)
+                </span>
               </p>
             </div>
           </HistoryDataBox>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-          <JeffProgressBox />
-          <MuscleTrainedHistoryBox />
+          <JeffProgressBox
+            level={userLevel}
+            totalWorkoutDuration={totalWorkoutDuration}
+          />
+          <MuscleTrainedHistoryBox trainedMuscles={mostFrequentMuscleGroups} />
         </div>
       </div>
     </div>

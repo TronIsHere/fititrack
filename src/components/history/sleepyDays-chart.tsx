@@ -52,7 +52,6 @@ const SleepyDays: FC<SleepyDaysProps> = ({ sleepData }) => {
     const sleepDuration = calculateTotalSleepPerDay([sleepEntry]); // Pass the sleepEntry as an array
     sleepHoursByDay[sleepDate.getDay()] += Math.round(sleepDuration);
   });
-  console.log(sleepHoursByDay, 1);
 
   const data = {
     labels: [

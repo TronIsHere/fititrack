@@ -205,38 +205,23 @@ const SettingsPage: MyPage = () => {
                     Current plan
                   </p>
                   <p className="text-3xl mt-5 font-bold">Free Trial</p>
-                  <button className="bg-palletPurple-300 text-white px-3 py-2 text-sm rounded-lg font-light mt-5 mb-8">
+                  <a
+                    href="https://buy.stripe.com/test_00g8zY6hBgsk8IU000"
+                    className="bg-palletPurple-300 text-white px-3 py-2 text-sm rounded-lg font-light mt-5 mb-8"
+                  >
                     Upgrade plan
-                  </button>
+                  </a>
                 </div>
                 <hr />
                 <p className="font-semibold mt-8 pl-2">Billing History</p>
 
                 <div className="divide-palletPurple-200 divide-dashed divide-y">
-                  <BillHistoryComponent
+                  {/* <BillHistoryComponent
                     date="2019.8.10 11:06 UTC"
                     type="Pro subscription (1 year)"
                     transactionID="LASH_FLI124SD8CNZ2"
                     price="72.82"
-                  />
-                  <BillHistoryComponent
-                    date="2019.8.10 11:06 UTC"
-                    type="Pro subscription (1 year)"
-                    transactionID="LASH_FLI124SD8CNZ2"
-                    price="72.82"
-                  />
-                  <BillHistoryComponent
-                    date="2019.8.10 11:06 UTC"
-                    type="Pro subscription (1 year)"
-                    transactionID="LASH_FLI124SD8CNZ2"
-                    price="72.82"
-                  />
-                  <BillHistoryComponent
-                    date="2019.8.10 11:06 UTC"
-                    type="Pro subscription (1 year)"
-                    transactionID="LASH_FLI124SD8CNZ2"
-                    price="72.82"
-                  />
+                  /> */}
                 </div>
               </TabsContent>
             </Tabs>

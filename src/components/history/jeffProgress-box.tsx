@@ -1,7 +1,20 @@
 import Image from "next/image";
 import { Progress } from "../ui/progress";
+type JeffProgressBoxProps = {
+  level: number;
+  totalWorkoutDuration: number;
+};
 
-const JeffProgressBox = () => {
+const JeffProgressBox: React.FC<JeffProgressBoxProps> = ({
+  level = 1,
+  totalWorkoutDuration,
+}) => {
+  const levelMessages = [
+    "Jeff is now Level 1. He's just getting started on his fitness journey.",
+    "Jeff is now Level 2 and he is starting to see some progress.",
+    "Jeff is now Level 3 and he started to get compliments from his mom.",
+    "Jeff is now Level 4 and he is feeling stronger than ever.",
+  ];
   return (
     <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary col-span-1 md:col-span-2 divide-y divide-whitePrimary dark:divide-slate-600 order-2">
       <div className="flex flex-col md:flex-row items-center md:items-start justify-center">
@@ -14,9 +27,9 @@ const JeffProgressBox = () => {
         />
         <div className="flex flex-col px-6">
           <span className="text-xl md:text-2xl font-semibold ">
-            Jeff is now Level 3 and he started to get compliments from his mom
+            {levelMessages[level - 1]}
           </span>
-          <span className="mt-5 text-palletYellow-500">Level 3</span>
+          <span className="mt-5 text-palletYellow-500">Level {level}</span>
         </div>
       </div>
       <div className="mt-8 pt-8">
@@ -28,12 +41,12 @@ const JeffProgressBox = () => {
                 {" "}
                 you have worked out for{" "}
                 <span className="text-palletYellow-500 font-bold">
-                  689
+                  {totalWorkoutDuration}
                 </span>{" "}
                 hours!
               </p>
               <div className="flex justify-center items-center">
-                <Progress
+                {/* <Progress
                   value={20}
                   indicatorColor={"#5955ED"}
                   className={
@@ -42,7 +55,7 @@ const JeffProgressBox = () => {
                 />
                 <span className="text-xs pl-4 mt-6">
                   70% Complete of your goal
-                </span>
+                </span> */}
               </div>
             </div>
             <Image

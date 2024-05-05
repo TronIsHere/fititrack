@@ -1,4 +1,4 @@
-import { TDay, TSleep } from "@/components/types/DataTypes";
+import { TDay, TSleep, TWeight, TWorkout } from "@/components/types/DataTypes";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { isSameDay } from "./dateUtils";
@@ -101,4 +101,76 @@ export const calculateSleepHoursDeep = (userSleep: TSleep[]) => {
   const sleepDurationPercentage = (averageSleepTimePerDay / 8) * 100;
 
   return { deepSleepTime, lightSleepTime, sleepDurationPercentage };
+};
+export const calculateMostFrequentWorkout = (workouts: TWorkout[]) => {
+  const workoutCounts = workouts.reduce((counts, workout) => {
+    counts[workout.type] = (counts[workout.type] || 0) + 1;
+    return counts;
+  }, {} as Record<string, number>);
+
+  let mostFrequentWorkout = Object.keys(workoutCounts)[0];
+  for (const workoutType in workoutCounts) {
+    if (workoutCounts[workoutType] > workoutCounts[mostFrequentWorkout]) {
+      mostFrequentWorkout = workoutType;
+    }
+  }
+
+  return mostFrequentWorkout;
+};
+export const calculateAverageWeeklyWeightChange = (weightData: TWeight[]) => {
+  // Sort the weight data by date in ascending order
+  const weightDataCopy = [...weightData];
+  weightDataCopy.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+
+  let totalWeeks = 0;
+  let totalWeightChange = 0;
+
+  for (
+    let i = Math.min(7, weightDataCopy.length - 1);
+    i < weightDataCopy.length;
+    i += 7
+  ) {
+    const weightChange =
+      weightDataCopy[i].weight - weightDataCopy[i - Math.min(7, i)].weight;
+    totalWeightChange += weightChange;
+    totalWeeks++;
+  }
+
+  const averageWeeklyWeightChange = totalWeeks
+    ? totalWeightChange / totalWeeks
+    : 0;
+
+  return {
+    averageChange: Math.abs(averageWeeklyWeightChange),
+    gained: averageWeeklyWeightChange > 0,
+  };
+};
+export const calculateMostFrequentMuscleGroups = (workouts: TWorkout[]) => {
+  const muscleCounts = workouts.reduce((counts, workout) => {
+    if (workout.muscles) {
+      workout.muscles.forEach((muscle) => {
+        counts[muscle] = (counts[muscle] || 0) + 1;
+      });
+    }
+    return counts;
+  }, {} as Record<string, number>);
+
+  const sortedMuscleGroups = Object.entries(muscleCounts).sort(
+    (a, b) => b[1] - a[1]
+  );
+
+  return sortedMuscleGroups.slice(0, 4).map(([muscleGroup]) => muscleGroup);
+};
+export const calculateTotalWorkoutDuration = (workouts: TWorkout[]) => {
+  let totalDuration = 0;
+
+  workouts.forEach((workout) => {
+    if (workout.duration && workout.checkIns) {
+      totalDuration += workout.duration * workout.checkIns;
+    }
+  });
+
+  return totalDuration;
 };
