@@ -19,6 +19,7 @@ import {
 const HistoryPage: MyPage = () => {
   const userSleep = useAppSelector((state) => state.user.sleep);
   const userLevel = useAppSelector((state) => state.user.level);
+
   const userWeight = useAppSelector((state) => state.user.weight);
   const userWorkouts = useAppSelector((state) => state.workout.workouts);
   const { deepSleepPercentage, lightSleepPercentage } =

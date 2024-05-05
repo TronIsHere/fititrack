@@ -6,10 +6,9 @@ type JeffProgressBoxProps = {
 };
 
 const JeffProgressBox: React.FC<JeffProgressBoxProps> = ({
-  level,
+  level = 1,
   totalWorkoutDuration,
 }) => {
-  level = 1;
   const levelMessages = [
     "Jeff is now Level 1. He's just getting started on his fitness journey.",
     "Jeff is now Level 2 and he is starting to see some progress.",

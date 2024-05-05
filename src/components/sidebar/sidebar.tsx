@@ -1,17 +1,16 @@
 // path/filename: /components/SidebarComponent.tsx
 
 import { NextPage } from "next";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { BiSolidDashboard } from "react-icons/bi";
 import { FaChartLine } from "react-icons/fa6";
 import { FiActivity, FiLogOut } from "react-icons/fi";
 import { IoSettings } from "react-icons/io5";
+import NavLink from "../ui/navbar/navlink";
 import DesktopSidebar from "./desktop-sidebar";
 import MobileSidebar from "./mobile-sidebar";
-import NavLink from "../ui/navbar/navlink";
-import { signOut } from "next-auth/react";
-import { usePathname } from "next/navigation";
 
 interface SidebarProps {
   darkMode: boolean;
@@ -20,7 +19,6 @@ interface SidebarProps {
 const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const router = useRouter();
-  const path = usePathname();
   const closeMobileMenu = useCallback(() => {
     setMobileMenu(false);
   }, []);
