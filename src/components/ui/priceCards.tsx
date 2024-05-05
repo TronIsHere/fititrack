@@ -12,8 +12,8 @@ const PriceCards = () => {
             </h3>
             <p className="mt-6 text-base text-gray-50 sm:text-lg">
               We believe that Users should have access to the tools they need to
-              track their fitness and health. That's why we offer a lifetime
-              access to our app.
+              track their fitness and health. That&apos;s why we offer a
+              lifetime access to our app.
             </p>
             <div className="mt-8">
               <div className="flex items-center">
