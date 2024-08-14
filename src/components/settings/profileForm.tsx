@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import ThemeSelector from "@/components/ui/settings/themeSelector";
 import { TSettingsGeneralValidator } from "@/lib/validators/AuthValidator";
 import { capitalizeFirstLetter } from "@/lib/utils";
+import { Theme } from "../types/dashboardTypes";
 
 interface ProfileFormProps {
   register: UseFormRegister<TSettingsGeneralValidator>;
@@ -14,6 +15,8 @@ interface ProfileFormProps {
   name: string;
   email: string;
   dob: string;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
 }
 
 const ProfileForm: FC<ProfileFormProps> = ({
@@ -24,6 +27,8 @@ const ProfileForm: FC<ProfileFormProps> = ({
   name,
   email,
   dob,
+  theme,
+  setTheme,
 }) => {
   return (
     <form onSubmit={handleSubmit(handleSave)}>
@@ -100,7 +105,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
 
         <div className="pl-2 pt-8">
           <span className="pl-0.5">Theme</span>
-          <ThemeSelector currentTheme="Light" onSelectTheme={() => {}} />
+          <ThemeSelector currentTheme={theme} onSelectTheme={setTheme} />
         </div>
       </div>
 

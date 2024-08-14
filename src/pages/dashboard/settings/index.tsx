@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -24,13 +24,14 @@ import BillingSection from "@/components/settings/billingSection";
 import ProfileForm from "@/components/settings/profileForm";
 import SettingsHeader from "@/components/settings/settingsHeader";
 import SettingsTabs from "@/components/settings/settingsTabs";
+import { Theme } from "@/components/types/dashboardTypes";
 
 const SettingsPage: MyPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { toast } = useToast();
-
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
+  const [theme, setTheme] = useState<Theme>(darkModeState ? "Dark" : "Light");
   const { name, email, dob } = useAppSelector((state) => state.user);
 
   const {
@@ -43,12 +44,13 @@ const SettingsPage: MyPage = () => {
 
   useEffect(() => {
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-    const isDarkMode = darkThemeMq.matches;
+    let isDarkMode =
+      theme === "Dark" || (theme === "Auto" && darkThemeMq.matches);
 
     if (isDarkMode !== darkModeState) {
       dispatch(changeDarkMode(isDarkMode));
     }
-  }, [darkModeState, dispatch]);
+  }, [theme, darkModeState, dispatch]);
 
   const handleSave = async ({ name, dob }: TSettingsGeneralValidator) => {
     dispatch(changeName(name));
@@ -87,6 +89,8 @@ const SettingsPage: MyPage = () => {
                   name={name}
                   email={email}
                   dob={dob}
+                  theme={theme}
+                  setTheme={setTheme}
                 />
               }
               billingContent={<BillingSection />}
