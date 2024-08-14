@@ -28,9 +28,9 @@ const CheckoutPage = ({ sessionId }: { sessionId: string }) => {
       );
       if (checkoutValidated) {
         setIsSuccess(true);
-        // setTimeout(() => {
-        //   router.push("/dashboard");
-        // }, 3000);
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 3000);
       } else {
         setIsSuccess(false);
       }
