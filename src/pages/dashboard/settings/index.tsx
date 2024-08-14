@@ -55,7 +55,7 @@ const SettingsPage: MyPage = () => {
   const handleSave = async ({ name, dob }: TSettingsGeneralValidator) => {
     dispatch(changeName(name));
     dispatch(changeDob(dob));
-    const response = await updateUserData(dob, name, email);
+    const response = await updateUserData(dob, name, email!);
 
     if (!response) {
       return toast({
@@ -86,9 +86,9 @@ const SettingsPage: MyPage = () => {
                   handleSubmit={handleSubmit}
                   handleSave={handleSave}
                   handleChangePassword={handleChangePassword}
-                  name={name}
-                  email={email}
-                  dob={dob}
+                  name={name!}
+                  email={email!}
+                  dob={dob!}
                   theme={theme}
                   setTheme={setTheme}
                 />

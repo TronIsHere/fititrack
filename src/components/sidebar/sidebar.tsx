@@ -11,6 +11,9 @@ import { IoSettings } from "react-icons/io5";
 import NavLink from "../ui/navbar/navlink";
 import DesktopSidebar from "./desktop-sidebar";
 import MobileSidebar from "./mobile-sidebar";
+import { persistor } from "@/store/store";
+import { useAppDispatch } from "@/hooks/storeHooks";
+import { logout } from "@/store/slices/userSlice";
 
 interface SidebarProps {
   darkMode: boolean;
@@ -19,12 +22,15 @@ interface SidebarProps {
 const SidebarComponent: NextPage<SidebarProps> = ({ darkMode }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const closeMobileMenu = useCallback(() => {
     setMobileMenu(false);
   }, []);
   const handleLogout = async () => {
     await signOut({ redirect: false });
-    router.replace("/");
+    await persistor.purge();
+    dispatch(logout()); // reset Redux state
+    router.push("/");
   };
   const links = [
     {

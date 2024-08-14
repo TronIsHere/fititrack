@@ -42,7 +42,6 @@ const DashboardPage: MyPage = () => {
       router.push("/");
       return;
     }
-
     if (isNewDay) {
       setOpen(true);
     }
@@ -53,8 +52,10 @@ const DashboardPage: MyPage = () => {
       return;
     }
     const initializeUserData = async () => {
-      if (!userState || !workoutsState) {
+      console.log(workoutsState, 20);
+      if (!userState.initialized || !workoutsState) {
         const userEmail = session.data.user?.email;
+        console.log(userEmail, 1);
         if (userEmail) {
           const userData = await fetchUserData(userEmail);
 
@@ -70,11 +71,13 @@ const DashboardPage: MyPage = () => {
                 maxXp: userData.maxXp,
                 xp: userData.xp,
                 name: userData.name,
+                initialized: true,
               })
             );
 
             dispatch(initWorkouts(userData.workouts));
           } else {
+            console.log("userEmail", 1);
             // Handle case where userData is null
           }
         }
@@ -135,8 +138,8 @@ const DashboardPage: MyPage = () => {
       />
       <div>
         <span className="mt-4 block text-lg">
-          Welcome <strong>{capitalizeFirstLetter(userState.name)}</strong>, good
-          morning
+          Welcome <strong>{capitalizeFirstLetter(userState.name!)}</strong>,
+          good morning
         </span>
         <div className="flex flex-col md:flex-row">
           <div className="flex mt-10">

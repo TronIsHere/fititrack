@@ -33,7 +33,7 @@ const LoginPage: MyPage = () => {
       email,
       password,
     });
-
+    console.log(result);
     if (!result?.error) {
       toast({
         variant: "success",
