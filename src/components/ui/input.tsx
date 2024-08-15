@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 
 export interface InputProps

@@ -119,8 +119,8 @@ export const calculateMostFrequentWorkout = (workouts: TWorkout[]) => {
   return mostFrequentWorkout;
 };
 export const calculateAverageWeeklyWeightChange = (weightData: TWeight[]) => {
-  if (weightData.length <= 1) {
-    return 0;
+  if (weightData.length <= 1 || weightData == undefined || weightData == null) {
+    return { averageChange: 0, gained: false };
   }
   // Sort the weight data by date in ascending order
   const weightDataCopy = [...weightData];

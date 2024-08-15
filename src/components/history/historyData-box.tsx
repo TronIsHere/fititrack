@@ -27,8 +27,9 @@ const HistoryDataBox: FC<SleepBoxProps> = ({
   staticProgress,
   children,
 }) => {
+  console.log(title, circularProgressValue);
   return (
-    <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary">
+    <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary relative">
       <h3 className="font-bold text-lg">{title}</h3>
       <p className="text-sm text-muted-foreground pt-2">{description}</p>
       <div
@@ -56,6 +57,17 @@ const HistoryDataBox: FC<SleepBoxProps> = ({
           />
         )}
       </div>
+      {staticProgress?.enable &&
+      (staticProgress.text === "" || staticProgress.text == undefined) ? (
+        <div className="absolute inset-0 backdrop-blur-sm bg-darkPrimary/30 flex items-center justify-center rounded-xl">
+          <span className="text-white text-2xl">No data yet</span>
+        </div>
+      ) : null}
+      {!circularProgressValue ? (
+        <div className="absolute inset-0 backdrop-blur-sm bg-darkPrimary/30 flex items-center justify-center rounded-xl">
+          <span className="text-white text-2xl">No data yet</span>
+        </div>
+      ) : null}
     </div>
   );
 };
