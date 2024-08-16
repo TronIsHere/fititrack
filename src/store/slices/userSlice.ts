@@ -59,7 +59,7 @@ const initialState: UserState = {
   maxXp: 100, // Initial max XP value
   xp: 0, // Start with 0 XP
   initialized: false,
-  trial: "2024-08-20",
+  trial: "2024-08-23",
   paid: false,
 };
 export const userSlice = createSlice({
@@ -77,6 +77,9 @@ export const userSlice = createSlice({
     },
     changeEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
+    },
+    changePaid: (state, action: PayloadAction<boolean>) => {
+      state.paid = action.payload;
     },
     clearCharacter: (state) => {
       //TODO: for debug
@@ -140,6 +143,7 @@ export const {
   changeEmail,
   initData,
   logout,
+  changePaid,
 } = userSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

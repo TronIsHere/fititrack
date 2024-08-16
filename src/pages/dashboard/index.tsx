@@ -12,6 +12,7 @@ import useLastVisited from "@/hooks/lastVisited";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { isTimesValid } from "@/lib/timeUtils";
 import { capitalizeFirstLetter } from "@/lib/utils";
+import { FaTimes } from "react-icons/fa";
 import {
   addSleepToServer,
   addWeightToServer,
@@ -22,6 +23,8 @@ import { initWorkouts } from "@/store/slices/workoutSlice";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { differenceInDays, parseISO } from "date-fns";
+import Link from "next/link";
 
 const DashboardPage: MyPage = () => {
   const [open, setOpen] = useState(false);
@@ -29,9 +32,15 @@ const DashboardPage: MyPage = () => {
   const [weightData, setWeightData] = useState<string>("");
   const [fromTime, setFromTime] = useState<string>("22:00");
   const [toTime, setToTime] = useState<string>("7:00");
-  const darkModeState = useAppSelector((state) => state.user.darkMode);
+  const [showBanner, setShowBanner] = useState(false);
+  const {
+    darkMode: darkModeState,
+    name,
+    initialized,
+    trial,
+    paid,
+  } = useAppSelector((state) => state.user);
   const workoutsState = useAppSelector((state) => state.workout.workouts);
-  const userState = useAppSelector((state) => state.user);
 
   const dispatch = useAppDispatch();
   const isNewDay = useLastVisited();
@@ -52,8 +61,7 @@ const DashboardPage: MyPage = () => {
       return;
     }
     const initializeUserData = async () => {
-      console.log(workoutsState, 20);
-      if (!userState.initialized || !workoutsState) {
+      if (!initialized || !workoutsState) {
         const userEmail = session.data.user?.email;
         console.log(userEmail, 1);
         if (userEmail) {
@@ -72,10 +80,19 @@ const DashboardPage: MyPage = () => {
                 xp: userData.xp,
                 name: userData.name,
                 initialized: true,
+                trial: userData.trial,
+                paid: userData.paid,
               })
             );
 
             dispatch(initWorkouts(userData.workouts));
+            console.log(userData.trial, 1);
+            const trialEndDate = parseISO(userData.trial); // Parse the date string
+            const currentDate = new Date();
+            const daysLeft = differenceInDays(trialEndDate, currentDate);
+            if (daysLeft <= 3 && !userData.paid) {
+              setShowBanner(true);
+            }
           } else {
             console.log("userEmail", 1);
             // Handle case where userData is null
@@ -85,7 +102,21 @@ const DashboardPage: MyPage = () => {
     };
     initializeUserData();
   }, []);
+  useEffect(() => {
+    if (trial && !paid) {
+      const trialEndDate = parseISO(trial);
+      const currentDate = new Date();
+      const daysLeft = differenceInDays(trialEndDate, currentDate);
 
+      if (daysLeft <= 3) {
+        setShowBanner(true);
+      } else {
+        setShowBanner(false);
+      }
+    } else {
+      setShowBanner(false);
+    }
+  }, [trial, paid]);
   const handleLogClick = async () => {
     const email = session.data!.user?.email;
     // Dispatch newWeight and newSleep actions with the data
@@ -124,6 +155,27 @@ const DashboardPage: MyPage = () => {
 
   return (
     <>
+      {showBanner && (
+        <div className="fixed top-0 left-0 w-full bg-[#FB773C] text-white py-2 z-50">
+          <div className="container mx-auto px-4 flex justify-between items-center">
+            <div className="flex-grow text-center">
+              Less than 3 days left on your trial,{" "}
+              <Link
+                href={"/dashboard/settings"}
+                className="text-palletPurple-600 cursor-pointer ml-2"
+              >
+                upgrade now
+              </Link>
+            </div>
+            <button
+              className="text-white hover:text-gray-200 transition-colors"
+              onClick={() => setShowBanner(false)}
+            >
+              <FaTimes />
+            </button>
+          </div>
+        </div>
+      )}
       <NewDayDialog
         openState={open}
         OpenCallback={setOpen}
@@ -138,8 +190,7 @@ const DashboardPage: MyPage = () => {
       />
       <div>
         <span className="mt-4 block text-lg">
-          Welcome <strong>{capitalizeFirstLetter(userState.name!)}</strong>,
-          good morning
+          Welcome <strong>{capitalizeFirstLetter(name!)}</strong>, good morning
         </span>
         <div className="flex flex-col md:flex-row">
           <div className="flex mt-10">
