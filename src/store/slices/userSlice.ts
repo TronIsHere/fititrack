@@ -9,6 +9,8 @@ export interface UserState {
   darkMode: boolean;
   dob: string | null;
   email: string | null;
+  trial: string;
+  paid: boolean;
   sleep: Array<{
     date: string;
     from: string;
@@ -57,6 +59,8 @@ const initialState: UserState = {
   maxXp: 100, // Initial max XP value
   xp: 0, // Start with 0 XP
   initialized: false,
+  trial: "2024-08-20",
+  paid: false,
 };
 export const userSlice = createSlice({
   name: "User",

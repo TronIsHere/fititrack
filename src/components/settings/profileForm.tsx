@@ -6,6 +6,7 @@ import ThemeSelector from "@/components/ui/settings/themeSelector";
 import { TSettingsGeneralValidator } from "@/lib/validators/AuthValidator";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { Theme } from "../types/dashboardTypes";
+import Image from "next/image";
 
 interface ProfileFormProps {
   register: UseFormRegister<TSettingsGeneralValidator>;
@@ -36,7 +37,15 @@ const ProfileForm: FC<ProfileFormProps> = ({
         <div className="flex">
           <div>
             {/* Avatar Component */}
-            <div className="w-16 h-16 bg-gray-200 rounded-full" />
+            <div className="w-16 h-16 bg-primary-foreground rounded-full flex justify-center">
+              <Image
+                src="/images/dumbbell.png"
+                alt=""
+                width={40}
+                height={40}
+                className="object-contain"
+              />
+            </div>
           </div>
           <div className="flex flex-col justify-center pl-4">
             <span className="font-semibold text-palletPurple-900 dark:text-white">
@@ -45,7 +54,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
             <span className="text-palletGray-200 text-sm mt-1">{email}</span>
           </div>
         </div>
-        <div>
+        {/* <div>
           <input type="file" id="fileInput" className="hidden" />
           <label
             htmlFor="fileInput"
@@ -53,7 +62,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
           >
             Change avatar
           </label>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-col w-full md:w-1/2">

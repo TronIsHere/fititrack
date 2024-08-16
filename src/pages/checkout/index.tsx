@@ -24,7 +24,7 @@ const CheckoutPage = ({ sessionId }: { sessionId: string }) => {
       setIsLoading(true);
       const checkoutValidated = await validateCheckoutSessionId(
         sessionId,
-        userEmail
+        userEmail!
       );
       if (checkoutValidated) {
         setIsSuccess(true);

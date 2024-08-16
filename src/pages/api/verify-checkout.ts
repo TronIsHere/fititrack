@@ -12,7 +12,6 @@ export default async function handler(
     // const { sessionId } = req.query;
     const sessionId = req.query.sessionId;
 
-    console.log(sessionId, 1);
     if (!sessionId) {
       res.status(400).json({ error: "Missing sessionId in query parameters" });
       return;
