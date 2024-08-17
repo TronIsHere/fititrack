@@ -25,12 +25,14 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { differenceInDays, parseISO } from "date-fns";
 import Link from "next/link";
+import UnskippablePopup from "@/components/ui/dialogs/payDialog";
 
 const DashboardPage: MyPage = () => {
   const [open, setOpen] = useState(false);
   //TODO: handle default value for weight
   const [weightData, setWeightData] = useState<string>("");
   const [fromTime, setFromTime] = useState<string>("22:00");
+  const [showUnskippablePopup, setShowUnskippablePopup] = useState(false);
   const [toTime, setToTime] = useState<string>("7:00");
   const [showBanner, setShowBanner] = useState(false);
   const {
@@ -52,7 +54,9 @@ const DashboardPage: MyPage = () => {
       return;
     }
     if (isNewDay) {
-      setOpen(true);
+      if (!showUnskippablePopup) {
+        setOpen(true);
+      }
     }
   }, [session.data, isNewDay]);
   useEffect(() => {
@@ -70,23 +74,13 @@ const DashboardPage: MyPage = () => {
           if (userData) {
             dispatch(
               initData({
-                darkMode: userData.darkMode,
-                weight: userData.weight,
-                dob: userData.dob,
-                email: userData.email,
-                sleep: userData.sleep,
-                level: userData.level,
-                maxXp: userData.maxXp,
-                xp: userData.xp,
-                name: userData.name,
+                ...userData,
                 initialized: true,
-                trial: userData.trial,
-                paid: userData.paid,
               })
             );
 
             dispatch(initWorkouts(userData.workouts));
-            console.log(userData.trial, 1);
+
             const trialEndDate = parseISO(userData.trial); // Parse the date string
             const currentDate = new Date();
             const daysLeft = differenceInDays(trialEndDate, currentDate);
@@ -95,13 +89,13 @@ const DashboardPage: MyPage = () => {
             }
           } else {
             console.log("userEmail", 1);
-            // Handle case where userData is null
           }
         }
       }
     };
     initializeUserData();
   }, []);
+
   useEffect(() => {
     if (trial && !paid) {
       const trialEndDate = parseISO(trial);
@@ -113,8 +107,16 @@ const DashboardPage: MyPage = () => {
       } else {
         setShowBanner(false);
       }
+
+      // Check if trial has ended and user hasn't paid
+      if (daysLeft <= 0) {
+        setShowUnskippablePopup(true);
+      } else {
+        setShowUnskippablePopup(false);
+      }
     } else {
       setShowBanner(false);
+      setShowUnskippablePopup(false);
     }
   }, [trial, paid]);
   const handleLogClick = async () => {
@@ -155,6 +157,7 @@ const DashboardPage: MyPage = () => {
 
   return (
     <>
+      {showUnskippablePopup && <UnskippablePopup darkMode={darkModeState} />}
       {showBanner && (
         <div className="fixed top-0 left-0 w-full bg-[#FB773C] text-white py-2 z-50">
           <div className="container mx-auto px-4 flex justify-between items-center">
