@@ -7,6 +7,7 @@ export const validateCheckoutSessionId = async (
   const response = await axios.get(
     `/api/verify-checkout?sessionId=${sessionId}`
   );
+
   if (response.data.email !== email) {
     return false;
   }

@@ -6,8 +6,17 @@ import { Resend } from "resend";
 export const fetchUserData = async (userEmail: string) => {
   try {
     const response = await axios.post("/api/user", { email: userEmail });
-    const { character, email, name, dob, weights, sleeps, workouts } =
-      response.data.data;
+    const {
+      character,
+      email,
+      name,
+      dob,
+      weights,
+      sleeps,
+      workouts,
+      trial,
+      paid,
+    } = response.data.data;
 
     return {
       dob,
@@ -20,6 +29,8 @@ export const fetchUserData = async (userEmail: string) => {
       sleep: sleeps,
       darkMode: true,
       workouts,
+      trial,
+      paid,
     };
   } catch (error) {
     console.error("Failed to fetch user data:", error);

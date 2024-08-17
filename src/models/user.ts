@@ -11,6 +11,8 @@ export interface IUser extends Document {
   sleeps: TSleep[];
   weights: TWeight[];
   isVerified: boolean;
+  trial: string;
+  paid: boolean;
 }
 
 const UserSchema: Schema = new Schema<IUser>(
@@ -126,6 +128,15 @@ const UserSchema: Schema = new Schema<IUser>(
       },
     },
     isVerified: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    trial: {
+      type: String,
+      required: false,
+    },
+    paid: {
       type: Boolean,
       required: false,
       default: false,

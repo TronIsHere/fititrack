@@ -1,3 +1,4 @@
+import UserModel from "@/models/user";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
@@ -12,7 +13,6 @@ export default async function handler(
     // const { sessionId } = req.query;
     const sessionId = req.query.sessionId;
 
-    console.log(sessionId, 1);
     if (!sessionId) {
       res.status(400).json({ error: "Missing sessionId in query parameters" });
       return;
@@ -21,12 +21,42 @@ export default async function handler(
     let stripeVerify = await stripe.checkout.sessions.retrieve(
       sessionId as string
     );
-    res.status(200).json({
-      paid: stripeVerify.payment_status === "paid",
-      status: stripeVerify.payment_status,
-      email: stripeVerify.customer_details!.email, // Added null check
-    });
+    if (stripeVerify.payment_status === "paid") {
+      const userEmail = stripeVerify.customer_details?.email;
+
+      if (!userEmail) {
+        res.status(400).json({ error: "No email found in the Stripe session" });
+        return;
+      }
+
+      // Find the user and update their paid status
+      const updatedUser = await UserModel.findOneAndUpdate(
+        { email: userEmail },
+        { paid: true },
+        { new: true } // This option returns the updated document
+      );
+
+      if (!updatedUser) {
+        res.status(404).json({ error: "User not found" });
+        return;
+      }
+
+      res.status(200).json({
+        paid: true,
+        status: stripeVerify.payment_status,
+        email: userEmail,
+        message: "User payment status updated successfully",
+      });
+    } else {
+      res.status(200).json({
+        paid: false,
+        status: stripeVerify.payment_status,
+        email: stripeVerify.customer_details?.email,
+        message: "Payment not completed",
+      });
+    }
   } catch (error) {
-    res.status(500).json({ error: error });
+    console.error("Error in payment verification:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 }

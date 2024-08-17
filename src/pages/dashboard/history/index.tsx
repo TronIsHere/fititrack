@@ -29,6 +29,7 @@ const HistoryPage: MyPage = () => {
   const mostFrequentWorkout = calculateMostFrequentWorkout(userWorkouts);
   const averageWeeklyWeightChange =
     calculateAverageWeeklyWeightChange(userWeight);
+
   const mostFrequentMuscleGroups =
     calculateMostFrequentMuscleGroups(userWorkouts);
   const totalWorkoutDuration = calculateTotalWorkoutDuration(userWorkouts);

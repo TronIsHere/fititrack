@@ -1,7 +1,7 @@
 "use client";
 
 import { useToast } from "@/components/ui/toasts/use-toast";
-import { useAppSelector } from "@/hooks/storeHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { validateCheckoutSessionId } from "@/services/checkoutServices";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -11,6 +11,7 @@ import { BsExclamationDiamond } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
 import Confetti from "@/components/confetti";
 import { Button } from "@/components/ui/button";
+import { changePaid } from "@/store/slices/userSlice";
 const CheckoutPage = ({ sessionId }: { sessionId: string }) => {
   const userEmail = useAppSelector((state) => state.user.email);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -18,19 +19,22 @@ const CheckoutPage = ({ sessionId }: { sessionId: string }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { toast } = useToast();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const verifyCheckout = async () => {
       setIsLoading(true);
       const checkoutValidated = await validateCheckoutSessionId(
         sessionId,
-        userEmail
+        userEmail!
       );
       if (checkoutValidated) {
+        console.log(checkoutValidated, 20);
         setIsSuccess(true);
-        // setTimeout(() => {
-        //   router.push("/dashboard");
-        // }, 3000);
+        dispatch(changePaid(true));
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 3000);
       } else {
         setIsSuccess(false);
       }

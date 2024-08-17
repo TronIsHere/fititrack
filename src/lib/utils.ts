@@ -8,6 +8,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 export function capitalizeFirstLetter(string: string) {
+  if (!string) return "Baby";
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 export const calculateConsistency = (days: TDay[]) => {
@@ -118,6 +119,9 @@ export const calculateMostFrequentWorkout = (workouts: TWorkout[]) => {
   return mostFrequentWorkout;
 };
 export const calculateAverageWeeklyWeightChange = (weightData: TWeight[]) => {
+  if (weightData.length <= 1 || weightData == undefined || weightData == null) {
+    return { averageChange: 0, gained: false };
+  }
   // Sort the weight data by date in ascending order
   const weightDataCopy = [...weightData];
   weightDataCopy.sort(
