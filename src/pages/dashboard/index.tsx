@@ -12,7 +12,6 @@ import useLastVisited from "@/hooks/lastVisited";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHooks";
 import { isTimesValid } from "@/lib/timeUtils";
 import { capitalizeFirstLetter } from "@/lib/utils";
-import { FaTimes } from "react-icons/fa";
 import {
   addSleepToServer,
   addWeightToServer,
@@ -20,12 +19,12 @@ import {
 } from "@/services/userServices";
 import { initData, newSleep, newWeight } from "@/store/slices/userSlice";
 import { initWorkouts } from "@/store/slices/workoutSlice";
+import { differenceInDays, parseISO } from "date-fns";
 import { getSession, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { differenceInDays, parseISO } from "date-fns";
-import Link from "next/link";
-import UnskippablePopup from "@/components/ui/dialogs/payDialog";
+import { FaTimes } from "react-icons/fa";
 
 const DashboardPage: MyPage = () => {
   const [open, setOpen] = useState(false);
@@ -39,8 +38,6 @@ const DashboardPage: MyPage = () => {
     darkMode: darkModeState,
     name,
     initialized,
-    trial,
-    paid,
   } = useAppSelector((state) => state.user);
   const workoutsState = useAppSelector((state) => state.workout.workouts);
 
@@ -95,30 +92,6 @@ const DashboardPage: MyPage = () => {
     };
     initializeUserData();
   }, []);
-
-  useEffect(() => {
-    if (trial && !paid) {
-      const trialEndDate = parseISO(trial);
-      const currentDate = new Date();
-      const daysLeft = differenceInDays(trialEndDate, currentDate);
-
-      if (daysLeft <= 3) {
-        setShowBanner(true);
-      } else {
-        setShowBanner(false);
-      }
-
-      // Check if trial has ended and user hasn't paid
-      if (daysLeft <= 0) {
-        setShowUnskippablePopup(true);
-      } else {
-        setShowUnskippablePopup(false);
-      }
-    } else {
-      setShowBanner(false);
-      setShowUnskippablePopup(false);
-    }
-  }, [trial, paid]);
   const handleLogClick = async () => {
     const email = session.data!.user?.email;
     // Dispatch newWeight and newSleep actions with the data
@@ -157,7 +130,6 @@ const DashboardPage: MyPage = () => {
 
   return (
     <>
-      {showUnskippablePopup && <UnskippablePopup darkMode={darkModeState} />}
       {showBanner && (
         <div className="fixed top-0 left-0 w-full bg-[#FB773C] text-white py-2 z-50">
           <div className="container mx-auto px-4 flex justify-between items-center">

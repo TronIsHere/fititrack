@@ -103,6 +103,6 @@ const SettingsPage: MyPage = () => {
   );
 };
 SettingsPage.getLayout = (page: any) => {
-  return <DashboardLayout>{page}</DashboardLayout>;
+  return <DashboardLayout excludePopup={true}>{page}</DashboardLayout>;
 };
 export default SettingsPage;
