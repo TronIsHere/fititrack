@@ -33,7 +33,7 @@ export const EmailTemplate = ({
     <Body style={main}>
       <Container style={container}>
         <Img
-          src={`https://firebasestorage.googleapis.com/v0/b/img-caption-36c4c.appspot.com/o/images%2Flogo.svg?alt=media&token=7a9c78c6-0902-42e4-85d8-23e378e33f8f`}
+          src={`https://www.fitittrack.com/images/logo.svg`}
           width="170"
           height="50"
           alt="Fitittrack"

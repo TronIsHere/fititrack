@@ -6,6 +6,7 @@ import { Resend } from "resend";
 import EmailTemplate from "@/components/email/emailTemplate";
 import { generateVerificationToken } from "@/lib/tokenUtils";
 import TokenModel from "@/models/token";
+import { addDays, format } from "date-fns";
 
 const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
@@ -62,11 +63,15 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
         .json({ message: "Failed to send verification email" });
     }
     const hashedPassword = await hashPassword(password);
+    const trialEndDate = addDays(new Date(), 7);
+    const formattedTrialEndDate = format(trialEndDate, "yyyy-MM-dd");
     await UserModel.create({
       email,
       dob,
       password: hashedPassword,
       name,
+      trial: formattedTrialEndDate, // Store as ISO string
+      paid: false,
     });
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {
