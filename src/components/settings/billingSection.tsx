@@ -1,40 +1,33 @@
 import { FC } from "react";
-import BillHistoryComponent from "@/components/settings/billHistory";
-
+import PriceCards from "../ui/priceCards";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { GiCrown } from "react-icons/gi";
 const BillingSection: FC = () => {
+  const { paid } = useSelector((state: RootState) => state.user);
+
   return (
     <div className="mb-5">
       <div className="flex flex-col items-center justify-center">
         <p className="font-semibold text-palletGray-200 text-sm mt-8">
           Current plan
         </p>
-        <p className="text-3xl mt-5 font-bold">Free Trial</p>
-        <a
-          href="https://buy.stripe.com/test_00g8zY6hBgsk8IU000"
-          className="bg-palletPurple-300 text-white px-3 py-2 text-sm rounded-lg font-light mt-5 mb-8"
-        >
-          Upgrade plan
-        </a>
+        <div className="flex flex-col items-center mt-5">
+          {paid && <GiCrown color="#FFD700" size={50} />}
+          <p className="text-3xl  font-bold">{paid ? "Pro" : "Free Trial"}</p>
+          {paid && <p className="text-muted-foreground pt-3">forever ;)</p>}
+        </div>
       </div>
       <hr />
-      <p className="font-semibold mt-8 pl-2">Billing History</p>
-
-      <div className="divide-palletPurple-200 divide-dashed divide-y">
-        {/* Replace the placeholder below with your dynamic billing history components */}
-        <BillHistoryComponent
-          date="2019.8.10 11:06 UTC"
-          type="Pro subscription (1 year)"
-          transactionID="LASH_FLI124SD8CNZ2"
-          price="72.82"
-        />
-        <BillHistoryComponent
-          date="2020.8.10 11:06 UTC"
-          type="Pro subscription (1 year)"
-          transactionID="LASH_FLI124SD8CNZ3"
-          price="72.82"
-        />
-        {/* Add more BillHistoryComponent instances as needed */}
-      </div>
+      {!paid && (
+        <div className="mt-10 px-4">
+          <PriceCards
+            paymentLink="https://buy.stripe.com/test_00g8zY6hBgsk8IU000"
+            options={false}
+            compact={true}
+          />
+        </div>
+      )}
     </div>
   );
 };

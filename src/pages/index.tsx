@@ -132,7 +132,7 @@ export default function Home({ logged, session }: HomeProps) {
             </div>
           </section>
           <section className="mt-40 px-5">
-            <PriceCards />
+            <PriceCards paymentLink="" />
           </section>
           <section className="mt-40 px-5">
             <div className="bg-palletPurple-400 flex justify-center flex-col items-center px-5 md:px-0 py-8 rounded-md">
