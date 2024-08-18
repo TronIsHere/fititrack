@@ -110,17 +110,18 @@ export const calculateSleepHoursDeep = (userSleep: TSleep[]) => {
   const days = userSleep.length;
   const averageSleepTimePerDay = totalSleepTime / days;
 
-  // Calculate deep sleep and light sleep times
-  const deepSleepTime =
-    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 105 / 60 : 0; // Convert minutes to hours
-  const lightSleepTime =
-    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 240 / 60 : 0; // Convert minutes to hours
+  // Estimate deep sleep and light sleep based on total sleep duration
+  const deepSleepTime = parseFloat((averageSleepTimePerDay * 0.2).toFixed(2)); // Round to 2 decimal places
+  const lightSleepTime = parseFloat((averageSleepTimePerDay * 0.5).toFixed(2)); // Round to 2 decimal places
 
   // Calculate average sleep duration as a percentage of 8 hours
-  const sleepDurationPercentage = (averageSleepTimePerDay / 8) * 100;
+  const sleepDurationPercentage = parseFloat(
+    ((averageSleepTimePerDay / 8) * 100).toFixed(2)
+  ); // Round to 2 decimal places
 
   return { deepSleepTime, lightSleepTime, sleepDurationPercentage };
 };
+
 export const calculateMostFrequentWorkout = (workouts: TWorkout[]) => {
   const workoutCounts = workouts.reduce((counts, workout) => {
     counts[workout.type] = (counts[workout.type] || 0) + 1;
