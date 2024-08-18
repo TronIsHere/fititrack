@@ -137,36 +137,42 @@ export const calculateMostFrequentWorkout = (workouts: TWorkout[]) => {
 
   return mostFrequentWorkout;
 };
-export const calculateAverageWeeklyWeightChange = (weightData: TWeight[]) => {
-  if (weightData.length <= 1 || weightData == undefined || weightData == null) {
+export const calculateAverageWeeklyWeightChange = (
+  weightData: TWeight[]
+): { averageChange: number; gained: boolean } => {
+  if (!weightData || weightData.length <= 1) {
     return { averageChange: 0, gained: false };
   }
+
   // Sort the weight data by date in ascending order
-  const weightDataCopy = [...weightData];
-  weightDataCopy.sort(
+  const sortedWeightData = [...weightData].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  let totalWeeks = 0;
   let totalWeightChange = 0;
+  let totalDays = 0;
 
-  for (
-    let i = Math.min(7, weightDataCopy.length - 1);
-    i < weightDataCopy.length;
-    i += 7
-  ) {
+  for (let i = 1; i < sortedWeightData.length; i++) {
+    const startDate = new Date(sortedWeightData[i - 1].date);
+    const endDate = new Date(sortedWeightData[i].date);
+    const daysDifference =
+      (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+
     const weightChange =
-      weightDataCopy[i].weight - weightDataCopy[i - Math.min(7, i)].weight;
+      sortedWeightData[i].weight - sortedWeightData[i - 1].weight;
+
     totalWeightChange += weightChange;
-    totalWeeks++;
+    totalDays += daysDifference;
   }
 
-  const averageWeeklyWeightChange = totalWeeks
-    ? totalWeightChange / totalWeeks
-    : 0;
+  const averageWeeklyWeightChange =
+    totalDays > 0
+      ? (totalWeightChange / totalDays) * 7 // Scale to weekly change
+      : 0;
 
   return {
-    averageChange: Math.abs(averageWeeklyWeightChange),
+    averageChange: parseFloat(Math.abs(averageWeeklyWeightChange).toFixed(1)),
+
     gained: averageWeeklyWeightChange > 0,
   };
 };
