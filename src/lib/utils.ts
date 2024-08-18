@@ -66,24 +66,42 @@ export const isLastDoneDateToday = (days: TDay[]) => {
   return Boolean(lastDoneDay);
 };
 export const calculateSleepPercentages = (userSleep: TSleep[]) => {
-  const totalSleepTime = userSleep.reduce((total, sleepEntry) => {
-    return total + calculateTotalSleepPerDay([sleepEntry]);
-  }, 0);
+  let totalSleepTime = 0;
+  let totalDeepSleepTime = 0;
+  let totalLightSleepTime = 0;
 
-  const days = userSleep.length;
-  const averageSleepTimePerDay = totalSleepTime / days;
+  userSleep.forEach((sleepEntry) => {
+    const sleepDuration = calculateSleepDuration(sleepEntry);
+    totalSleepTime += sleepDuration;
 
-  // Calculate deep sleep and light sleep percentages
-  const deepSleepTime =
-    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 105 / 60 : 0; // Convert minutes to hours
-  const lightSleepTime =
-    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 240 / 60 : 0; // Convert minutes to hours
+    // Calculate deep sleep (first 3 hours of sleep)
+    const deepSleepTime = Math.min(sleepDuration, 3);
+    totalDeepSleepTime += deepSleepTime;
 
-  const deepSleepPercentage = (deepSleepTime / averageSleepTimePerDay) * 100;
-  const lightSleepPercentage = (lightSleepTime / averageSleepTimePerDay) * 100;
+    // Remaining time is considered light sleep
+    const lightSleepTime = sleepDuration - deepSleepTime;
+    totalLightSleepTime += lightSleepTime;
+  });
+
+  const deepSleepPercentage = (totalDeepSleepTime / totalSleepTime) * 100;
+  const lightSleepPercentage = (totalLightSleepTime / totalSleepTime) * 100;
 
   return { deepSleepPercentage, lightSleepPercentage };
 };
+
+function calculateSleepDuration(sleepEntry: TSleep): number {
+  const fromTime = new Date(`1970-01-01T${sleepEntry.from}:00Z`);
+  let toTime = new Date(`1970-01-01T${sleepEntry.to}:00Z`);
+
+  // If toTime is earlier than fromTime, it means sleep went past midnight
+  if (toTime < fromTime) {
+    toTime.setDate(toTime.getDate() + 1);
+  }
+
+  const durationHours =
+    (toTime.getTime() - fromTime.getTime()) / (1000 * 60 * 60);
+  return durationHours;
+}
 export const calculateSleepHoursDeep = (userSleep: TSleep[]) => {
   const totalSleepTime = userSleep.reduce((total, sleepEntry) => {
     return total + calculateTotalSleepPerDay([sleepEntry]);
