@@ -27,7 +27,6 @@ const HistoryDataBox: FC<SleepBoxProps> = ({
   staticProgress,
   children,
 }) => {
-  console.log(title, circularProgressValue);
   return (
     <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary relative">
       <h3 className="font-bold text-lg">{title}</h3>

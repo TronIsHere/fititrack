@@ -197,7 +197,8 @@ export const calculateTotalWorkoutDuration = (workouts: TWorkout[]) => {
 
   workouts.forEach((workout) => {
     if (workout.duration && workout.checkIns) {
-      totalDuration += workout.duration * workout.checkIns;
+      let workoutHour = workout.duration / 60;
+      totalDuration += workoutHour * workout.checkIns;
     }
   });
 
