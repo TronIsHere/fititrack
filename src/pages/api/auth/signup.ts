@@ -47,7 +47,7 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
       token,
     });
     const resend = new Resend(process.env.RESEND_API_TOKEN);
-    const confirmLink = `http://localhost:3000/verification?token=${token}`;
+    const confirmLink = `${process.env.URL}/verification?token=${token}`;
     try {
       await resend.emails.send({
         from: "noreply@fitittrack.com",
