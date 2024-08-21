@@ -42,7 +42,7 @@ const TermsAndConditionsPage = () => {
           </p>
           <p>
             Opting for the FitiTrack Software License enables users to enjoy the
-            benefits of the software while recognizing the licensor's
+            benefits of the software while recognizing the licensor&apos;s
             unrestricted termination rights, which provide adaptability and
             address potential unforeseen circumstances.
           </p>
@@ -67,7 +67,7 @@ const TermsAndConditionsPage = () => {
             (unless fraudulent), or any implied warranty, condition or other
             term, or any duty at common law, for any loss of profit or any
             indirect, special or consequential loss, damage, costs, expenses or
-            other claims (whether caused by FitiTrack's negligence or the
+            other claims (whether caused by FitiTrack&apos;s negligence or the
             negligence of its servants or agents or otherwise) which arise out
             of or in connection with the provision of any goods or services by
             FitiTrack. FitiTrack shall not be liable or deemed to be in breach
@@ -76,10 +76,11 @@ const TermsAndConditionsPage = () => {
             any cause beyond its reasonable control. Notwithstanding contrary
             clauses in this Agreement, in the event that FitiTrack are deemed
             liable to you for breach of this Agreement, you agree that
-            FitiTrack's liability is limited to the amount actually paid by you
-            for your services or software, which amount calculated in reliance
-            upon this clause. You hereby release FitiTrack from any and all
-            obligations, liabilities and claims in excess of this limitation.
+            FitiTrack&apos;s liability is limited to the amount actually paid by
+            you for your services or software, which amount calculated in
+            reliance upon this clause. You hereby release FitiTrack from any and
+            all obligations, liabilities and claims in excess of this
+            limitation.
           </p>
           <h2 className="text-2xl font-bold">7. Responsibilities</h2>
           <p>
