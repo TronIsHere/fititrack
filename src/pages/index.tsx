@@ -148,31 +148,29 @@ export default function Home({ logged, session }: HomeProps) {
             </div>
           </section>
           <footer className="mt-40">
-            {/* <div className="border-y-2 border-palletPurple-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-10 py-8 dark:text-white">
+            <div className="border-y-2 border-palletPurple-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-10 py-8 dark:text-white">
               <div className="flex flex-col items-center text-center">
-                <span className="text-palletPurple-300 font-bold">Social</span>
+                <span className="text-palletPurple-300 font-bold">Links</span>
                 <a href="#" className="mt-5">
-                  X (Twitter)
+                  Login
                 </a>
-                <a href="#" className="mt-2">
-                  Enough social media links
+                <a href="#" className="mt-5">
+                  Signup
+                </a>
+                <a href="#" className="mt-5">
+                  Support
                 </a>
               </div>
               <div className="flex flex-col items-center text-center">
-                <span className="text-palletPurple-300 font-bold">
-                  Resources
-                </span>
+                <span className="text-palletPurple-300 font-bold">Boring</span>
                 <a href="#" className="mt-5">
-                  IOS app
+                  Privacy Policy
                 </a>
                 <a href="#" className="mt-2">
-                  Android app
-                </a>
-                <a href="#" className="mt-2">
-                  Web app
+                  Terms of service
                 </a>
               </div>
-              <div className="flex flex-col items-center text-center">
+              {/* <div className="flex flex-col items-center text-center">
                 <span className="text-palletPurple-300 font-bold">Legal</span>
                 <a href="#" className="mt-5">
                   IOS app
@@ -183,8 +181,8 @@ export default function Home({ logged, session }: HomeProps) {
                 <a href="#" className="mt-2">
                   Web app
                 </a>
-              </div>
-            </div> */}
+              </div> */}
+            </div>
 
             <div className="flex justify-center dark:text-white">
               <span className="py-5">
