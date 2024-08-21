@@ -163,12 +163,12 @@ export default function Home({ logged, session }: HomeProps) {
               </div>
               <div className="flex flex-col items-center text-center">
                 <span className="text-palletPurple-300 font-bold">Boring</span>
-                <a href="#" className="mt-5">
+                <Link href="/privacy-policy" className="mt-5">
                   Privacy Policy
-                </a>
-                <a href="#" className="mt-2">
+                </Link>
+                <Link href="/terms" className="mt-2">
                   Terms of service
-                </a>
+                </Link>
               </div>
               {/* <div className="flex flex-col items-center text-center">
                 <span className="text-palletPurple-300 font-bold">Legal</span>
