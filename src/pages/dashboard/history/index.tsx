@@ -90,7 +90,7 @@ const HistoryPage: MyPage = () => {
         <div className="bg-white rounded-xl p-5 w-full dark:bg-darkPrimary mt-6 ">
           <WeightHistoryChart weightData={userWeight} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <HistoryDataBox
             title="Cardio or Strength"
             description="What did you train the most"
@@ -102,7 +102,7 @@ const HistoryPage: MyPage = () => {
               text: mostFrequentWorkout,
             }}
           />
-          <HistoryDataBox
+          {/* <HistoryDataBox
             title="Body Mass Index (BMI)"
             description="Categorizing your body weight relative to height."
             circularProgressColor="#7B78EB"
@@ -117,7 +117,7 @@ const HistoryPage: MyPage = () => {
               <span className="text-muted-foreground text-sm ">Healthy</span>
               <span className="text-2xl tracking-wide">20.2</span>
             </div>
-          </HistoryDataBox>
+          </HistoryDataBox> */}
           <HistoryDataBox
             title="Average Weekly Loss/Gain"
             description="average weight you lost or gained each week"

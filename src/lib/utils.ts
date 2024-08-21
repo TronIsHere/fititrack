@@ -66,24 +66,42 @@ export const isLastDoneDateToday = (days: TDay[]) => {
   return Boolean(lastDoneDay);
 };
 export const calculateSleepPercentages = (userSleep: TSleep[]) => {
-  const totalSleepTime = userSleep.reduce((total, sleepEntry) => {
-    return total + calculateTotalSleepPerDay([sleepEntry]);
-  }, 0);
+  let totalSleepTime = 0;
+  let totalDeepSleepTime = 0;
+  let totalLightSleepTime = 0;
 
-  const days = userSleep.length;
-  const averageSleepTimePerDay = totalSleepTime / days;
+  userSleep.forEach((sleepEntry) => {
+    const sleepDuration = calculateSleepDuration(sleepEntry);
+    totalSleepTime += sleepDuration;
 
-  // Calculate deep sleep and light sleep percentages
-  const deepSleepTime =
-    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 105 / 60 : 0; // Convert minutes to hours
-  const lightSleepTime =
-    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 240 / 60 : 0; // Convert minutes to hours
+    // Calculate deep sleep (first 3 hours of sleep)
+    const deepSleepTime = Math.min(sleepDuration, 3);
+    totalDeepSleepTime += deepSleepTime;
 
-  const deepSleepPercentage = (deepSleepTime / averageSleepTimePerDay) * 100;
-  const lightSleepPercentage = (lightSleepTime / averageSleepTimePerDay) * 100;
+    // Remaining time is considered light sleep
+    const lightSleepTime = sleepDuration - deepSleepTime;
+    totalLightSleepTime += lightSleepTime;
+  });
+
+  const deepSleepPercentage = (totalDeepSleepTime / totalSleepTime) * 100;
+  const lightSleepPercentage = (totalLightSleepTime / totalSleepTime) * 100;
 
   return { deepSleepPercentage, lightSleepPercentage };
 };
+
+function calculateSleepDuration(sleepEntry: TSleep): number {
+  const fromTime = new Date(`1970-01-01T${sleepEntry.from}:00Z`);
+  let toTime = new Date(`1970-01-01T${sleepEntry.to}:00Z`);
+
+  // If toTime is earlier than fromTime, it means sleep went past midnight
+  if (toTime < fromTime) {
+    toTime.setDate(toTime.getDate() + 1);
+  }
+
+  const durationHours =
+    (toTime.getTime() - fromTime.getTime()) / (1000 * 60 * 60);
+  return durationHours;
+}
 export const calculateSleepHoursDeep = (userSleep: TSleep[]) => {
   const totalSleepTime = userSleep.reduce((total, sleepEntry) => {
     return total + calculateTotalSleepPerDay([sleepEntry]);
@@ -92,17 +110,18 @@ export const calculateSleepHoursDeep = (userSleep: TSleep[]) => {
   const days = userSleep.length;
   const averageSleepTimePerDay = totalSleepTime / days;
 
-  // Calculate deep sleep and light sleep times
-  const deepSleepTime =
-    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 105 / 60 : 0; // Convert minutes to hours
-  const lightSleepTime =
-    averageSleepTimePerDay >= 7 && averageSleepTimePerDay <= 8 ? 240 / 60 : 0; // Convert minutes to hours
+  // Estimate deep sleep and light sleep based on total sleep duration
+  const deepSleepTime = parseFloat((averageSleepTimePerDay * 0.2).toFixed(2)); // Round to 2 decimal places
+  const lightSleepTime = parseFloat((averageSleepTimePerDay * 0.5).toFixed(2)); // Round to 2 decimal places
 
   // Calculate average sleep duration as a percentage of 8 hours
-  const sleepDurationPercentage = (averageSleepTimePerDay / 8) * 100;
+  const sleepDurationPercentage = parseFloat(
+    ((averageSleepTimePerDay / 8) * 100).toFixed(2)
+  ); // Round to 2 decimal places
 
   return { deepSleepTime, lightSleepTime, sleepDurationPercentage };
 };
+
 export const calculateMostFrequentWorkout = (workouts: TWorkout[]) => {
   const workoutCounts = workouts.reduce((counts, workout) => {
     counts[workout.type] = (counts[workout.type] || 0) + 1;
@@ -118,36 +137,42 @@ export const calculateMostFrequentWorkout = (workouts: TWorkout[]) => {
 
   return mostFrequentWorkout;
 };
-export const calculateAverageWeeklyWeightChange = (weightData: TWeight[]) => {
-  if (weightData.length <= 1 || weightData == undefined || weightData == null) {
+export const calculateAverageWeeklyWeightChange = (
+  weightData: TWeight[]
+): { averageChange: number; gained: boolean } => {
+  if (!weightData || weightData.length <= 1) {
     return { averageChange: 0, gained: false };
   }
+
   // Sort the weight data by date in ascending order
-  const weightDataCopy = [...weightData];
-  weightDataCopy.sort(
+  const sortedWeightData = [...weightData].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  let totalWeeks = 0;
   let totalWeightChange = 0;
+  let totalDays = 0;
 
-  for (
-    let i = Math.min(7, weightDataCopy.length - 1);
-    i < weightDataCopy.length;
-    i += 7
-  ) {
+  for (let i = 1; i < sortedWeightData.length; i++) {
+    const startDate = new Date(sortedWeightData[i - 1].date);
+    const endDate = new Date(sortedWeightData[i].date);
+    const daysDifference =
+      (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+
     const weightChange =
-      weightDataCopy[i].weight - weightDataCopy[i - Math.min(7, i)].weight;
+      sortedWeightData[i].weight - sortedWeightData[i - 1].weight;
+
     totalWeightChange += weightChange;
-    totalWeeks++;
+    totalDays += daysDifference;
   }
 
-  const averageWeeklyWeightChange = totalWeeks
-    ? totalWeightChange / totalWeeks
-    : 0;
+  const averageWeeklyWeightChange =
+    totalDays > 0
+      ? (totalWeightChange / totalDays) * 7 // Scale to weekly change
+      : 0;
 
   return {
-    averageChange: Math.abs(averageWeeklyWeightChange),
+    averageChange: parseFloat(Math.abs(averageWeeklyWeightChange).toFixed(1)),
+
     gained: averageWeeklyWeightChange > 0,
   };
 };
@@ -172,7 +197,8 @@ export const calculateTotalWorkoutDuration = (workouts: TWorkout[]) => {
 
   workouts.forEach((workout) => {
     if (workout.duration && workout.checkIns) {
-      totalDuration += workout.duration * workout.checkIns;
+      let workoutHour = workout.duration / 60;
+      totalDuration += workoutHour * workout.checkIns;
     }
   });
 

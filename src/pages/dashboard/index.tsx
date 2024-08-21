@@ -85,7 +85,7 @@ const DashboardPage: MyPage = () => {
               setShowBanner(true);
             }
           } else {
-            console.log("userEmail", 1);
+            // console.log("userEmail", 1);
           }
         }
       }

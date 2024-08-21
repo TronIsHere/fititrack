@@ -139,54 +139,38 @@ export default function Home({ logged, session }: HomeProps) {
               <h3 className="text-xl md:text-3xl font-bold text-white dark:text-white">
                 Want to track your fitness?
               </h3>
-              <button className=" mt-10 bg-palletGreen-200 py-2 px-5 rounded-md text-palletGreen-600 ">
+              <Link
+                href={"/login"}
+                className=" mt-10 bg-palletGreen-200 py-2 px-5 rounded-md text-palletGreen-600 "
+              >
                 Lets go 🔥
-              </button>
+              </Link>
             </div>
           </section>
           <footer className="mt-40">
-            <div className="border-y-2 border-palletPurple-500 grid grid-cols-2 md:grid-cols-4 px-10 py-8 gap-10 md:gap-0 justify-items-center dark:text-white">
-              <div className="flex flex-col ">
-                <span className="text-palletPurple-300 font-bold">
-                  Products
-                </span>
-                <a href="#" className="mt-5">
-                  IOS app
-                </a>
-                <a href="#" className="mt-2">
-                  Android app
-                </a>
-                <a href="#" className="mt-2">
-                  Web app
+            <div className="border-y-2 border-palletPurple-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-10 py-8 dark:text-white">
+              <div className="flex flex-col items-center text-center">
+                <span className="text-palletPurple-300 font-bold">Links</span>
+                <Link href="/login" className="mt-5">
+                  Login
+                </Link>
+                <Link href="/register" className="mt-5">
+                  Signup
+                </Link>
+                <a href="mailto:contact@fitittrack.com" className="mt-5">
+                  Support
                 </a>
               </div>
-              <div className="flex flex-col">
-                <span className="text-palletPurple-300 font-bold">Social</span>
-                <a href="#" className="mt-5">
-                  IOS app
-                </a>
-                <a href="#" className="mt-2">
-                  Android app
-                </a>
-                <a href="#" className="mt-2">
-                  Web app
-                </a>
+              <div className="flex flex-col items-center text-center">
+                <span className="text-palletPurple-300 font-bold">Boring</span>
+                <Link href="/privacy-policy" className="mt-5">
+                  Privacy Policy
+                </Link>
+                <Link href="/terms" className="mt-2">
+                  Terms of service
+                </Link>
               </div>
-              <div className="flex flex-col">
-                <span className="text-palletPurple-300 font-bold">
-                  Resources
-                </span>
-                <a href="#" className="mt-5">
-                  IOS app
-                </a>
-                <a href="#" className="mt-2">
-                  Android app
-                </a>
-                <a href="#" className="mt-2">
-                  Web app
-                </a>
-              </div>
-              <div className="flex flex-col">
+              {/* <div className="flex flex-col items-center text-center">
                 <span className="text-palletPurple-300 font-bold">Legal</span>
                 <a href="#" className="mt-5">
                   IOS app
@@ -197,7 +181,7 @@ export default function Home({ logged, session }: HomeProps) {
                 <a href="#" className="mt-2">
                   Web app
                 </a>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex justify-center dark:text-white">
@@ -205,7 +189,7 @@ export default function Home({ logged, session }: HomeProps) {
                 Made by{" "}
                 <a
                   href="https://whitediv.com"
-                  className="text-palletPurple-500"
+                  className="text-palletPurple-500 pl-2"
                 >
                   {" "}
                   WhiteDiv
