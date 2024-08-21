@@ -151,13 +151,13 @@ export default function Home({ logged, session }: HomeProps) {
             <div className="border-y-2 border-palletPurple-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-10 py-8 dark:text-white">
               <div className="flex flex-col items-center text-center">
                 <span className="text-palletPurple-300 font-bold">Links</span>
-                <a href="#" className="mt-5">
+                <Link href="/login" className="mt-5">
                   Login
-                </a>
-                <a href="#" className="mt-5">
+                </Link>
+                <Link href="/register" className="mt-5">
                   Signup
-                </a>
-                <a href="#" className="mt-5">
+                </Link>
+                <a href="mailto:contact@fitittrack.com" className="mt-5">
                   Support
                 </a>
               </div>
