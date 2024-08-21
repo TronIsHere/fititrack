@@ -22,7 +22,7 @@ const BillingSection: FC = () => {
       {!paid && (
         <div className="mt-10 px-4">
           <PriceCards
-            paymentLink="https://buy.stripe.com/test_00g8zY6hBgsk8IU000"
+            paymentLink="https://buy.stripe.com/5kA7ty4Fz57e9moaEE"
             options={false}
             compact={true}
           />

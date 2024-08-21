@@ -12,7 +12,6 @@ const PriceCards: FC<priceCardsProps> = ({
   options = true,
   paymentLink,
 }) => {
-  // const paymentLink = "https://buy.stripe.com/test_00g8zY6hBgsk8IU000";
   return (
     <div className="">
       <div className="relative max-w-7xl mx-auto">
