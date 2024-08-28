@@ -45,7 +45,7 @@ const SettingsPage: MyPage = () => {
   useEffect(() => {
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
     let isDarkMode =
-      theme === "Dark" || (theme === "Auto" && darkThemeMq.matches);
+      theme === "Dark" || (theme === "auto" && darkThemeMq.matches);
 
     if (isDarkMode !== darkModeState) {
       dispatch(changeDarkMode(isDarkMode));
