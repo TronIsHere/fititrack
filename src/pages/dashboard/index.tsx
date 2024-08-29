@@ -208,22 +208,7 @@ const DashboardPage: MyPage = () => {
     </>
   );
 };
-export async function getServerSideProps(context: any) {
-  const session = await getSession({ req: context.req });
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: { session },
-  };
-}
 DashboardPage.getLayout = (page: any) => {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
