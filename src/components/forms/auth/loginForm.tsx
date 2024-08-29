@@ -65,7 +65,7 @@ const LoginForm: FC<LoginFormProps> = ({
           <LoadingButton loadingState={isLoading} label="login" />
 
           <p className="text-sm block mt-4">
-            Don&apos;t you have an account with us?{" "}
+            Create an account and get 7 days free trial!!{" "}
             <Link href="/register" className="text-palletPurple-400">
               {" "}
               create an account
