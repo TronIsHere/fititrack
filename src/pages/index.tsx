@@ -82,7 +82,13 @@ export default function Home({ logged, session }: HomeProps) {
                 </button>
               </div>
               <div className="">
-                <img src="./images/headerImg.svg" alt="" />
+                <Image
+                  src="./images/headerImg.svg"
+                  alt=""
+                  width={600}
+                  height={200}
+                  priority
+                />
               </div>
             </div>
           </header>
