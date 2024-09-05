@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
+import { Analytics } from "@vercel/analytics/react";
 const inter = Plus_Jakarta_Sans({ subsets: ["latin"] });
 type Page<P = {}> = NextPage<P> & {
   getLayout?: (page: ReactNode) => ReactNode;
@@ -68,6 +69,7 @@ export default function App({ Component, pageProps }: Props) {
             </PersistGate>
           </Provider>
         </SessionProvider>
+        <Analytics />
       </div>
     </>
   );
