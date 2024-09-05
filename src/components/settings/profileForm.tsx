@@ -33,7 +33,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
 }) => {
   return (
     <form onSubmit={handleSubmit(handleSave)}>
-      <div className="pl-2 pt-4 flex flex-col md:flex-row justify-between items-center pr-2">
+      <div className="px-2 pt-4 flex flex-col md:flex-row justify-between items-center pr-2">
         <div className="flex">
           <div>
             {/* Avatar Component */}
@@ -66,7 +66,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
       </div>
 
       <div className="flex flex-col w-full md:w-1/2">
-        <div className="flex flex-col pl-2 pt-10 w-full">
+        <div className="flex flex-col px-2 pt-10 w-full">
           <span className="pl-0.5">Name</span>
           <Input
             {...register("name")}
@@ -75,7 +75,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
           />
         </div>
 
-        <div className="flex flex-col pl-2 pt-8 w-full">
+        <div className="flex flex-col px-2 pt-8 w-full">
           <span className="pl-0.5">Email</span>
           <Input
             defaultValue={email}
@@ -85,7 +85,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
           />
         </div>
 
-        <div className="flex flex-col pl-2 pt-8">
+        <div className="flex flex-col px-2 pt-8">
           <span className="pl-0.5">Date of Birth</span>
           <Input
             defaultValue={dob}
@@ -95,7 +95,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
           />
         </div>
 
-        <div className="flex flex-col pl-2 pt-8">
+        <div className="flex flex-col px-2 pt-8">
           <span className="pl-0.5">Password</span>
           <Input
             defaultValue="••••••••"
@@ -112,7 +112,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
           </Button>
         </div>
 
-        <div className="pl-2 pt-8">
+        <div className="px-2 pt-8">
           <span className="pl-0.5">Theme</span>
           <ThemeSelector currentTheme={theme} onSelectTheme={setTheme} />
         </div>

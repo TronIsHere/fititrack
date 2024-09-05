@@ -82,7 +82,7 @@ const SleepComponent: FC<sleepProps> = ({ darkModeDialog, email }) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger className="w-full">
         <div className="group bg-white rounded-xl p-5 w-full dark:bg-darkPrimary">
           <div className="flex justify-between">
             <div className="flex">

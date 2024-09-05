@@ -174,7 +174,7 @@ const DashboardPage: MyPage = () => {
               email={session.data?.user?.email! || ""}
             ></WeightComponent>
           </div>
-          <div className="flex mt-10 ml-0 md:ml-6">
+          <div className=" flex mt-10 ml-0 md:ml-6">
             <SleepComponent
               darkModeDialog={darkModeState}
               email={session.data?.user?.email! || ""}
@@ -208,22 +208,7 @@ const DashboardPage: MyPage = () => {
     </>
   );
 };
-export async function getServerSideProps(context: any) {
-  const session = await getSession({ req: context.req });
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: { session },
-  };
-}
 DashboardPage.getLayout = (page: any) => {
   return <DashboardLayout>{page}</DashboardLayout>;
 };

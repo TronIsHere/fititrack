@@ -1,7 +1,5 @@
 import { TSleep, TWeight } from "@/components/types/DataTypes";
-import { generateVerificationToken } from "@/lib/tokenUtils";
 import axios from "axios";
-import { Resend } from "resend";
 
 export const fetchUserData = async (userEmail: string) => {
   try {
