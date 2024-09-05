@@ -69,8 +69,8 @@ export default function App({ Component, pageProps }: Props) {
             </PersistGate>
           </Provider>
         </SessionProvider>
-        <Analytics />
       </div>
+      <Analytics />
     </>
   );
 }
