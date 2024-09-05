@@ -1,15 +1,12 @@
-import { cn } from "@/lib/utils";
 import { RootState } from "@/store/store";
-import { NextPage } from "next";
 import { ReactNode } from "react";
 import { useSelector } from "react-redux";
-import SidebarComponent from "../sidebar/sidebar";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
-const AuthLayout: NextPage<LayoutProps> = ({ children }) => {
+const AuthLayout = ({ children }: LayoutProps) => {
   const darkModeState = useSelector((state: RootState) => state.user.darkMode);
 
   return (
