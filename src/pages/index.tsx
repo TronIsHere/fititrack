@@ -79,7 +79,7 @@ export default function Home({ logged, session }: HomeProps) {
                 </p>
                 <Link
                   href={"/register"}
-                  className="bg-palletPurple-500 text-white w-full mt-10 py-2 rounded-lg font-light"
+                  className="bg-palletPurple-500 text-white w-full mt-10 py-2 justify-center flex uppercase rounded-lg font-light"
                 >
                   Get 7 days free trial!
                 </Link>
