@@ -77,9 +77,12 @@ export default function Home({ logged, session }: HomeProps) {
                   Gamify your fitness journey to make them fun and easy. Join
                   1,000+ users!{" "}
                 </p>
-                <button className="bg-palletPurple-500 text-white w-full mt-10 py-2 rounded-lg font-light">
-                  GAMIFY MY FITNESS
-                </button>
+                <Link
+                  href={"/register"}
+                  className="bg-palletPurple-500 text-white w-full mt-10 py-2 rounded-lg font-light"
+                >
+                  Get 7 days free trial!
+                </Link>
               </div>
               <div className="">
                 <Image
